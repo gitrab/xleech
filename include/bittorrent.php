@@ -278,7 +278,7 @@ function stdhead($title = "", $msgalert = true) {
     <!-- *************************************************************************************** -->
     <html xmlns='http://www.w3.org/1999/xhtml'>
     <head>
-    <meta name='generator' content='TBDev.net' />
+    <meta name='generator' content='xList.ro' />
     <meta http-equiv='Content-Language' content='en-us' />
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
     <meta name='MSSmartTagsPreventParsing' content='TRUE' />
