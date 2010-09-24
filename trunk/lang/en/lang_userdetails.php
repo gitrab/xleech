@@ -82,6 +82,26 @@ $lang = array(
 'userdetails_show' => "Show",
 'userdetails_staff_only' => "staff only!!!",
 'userdetails_highspeed' => 'High Speed',
+// language fixes by cybernet2u
+'userdetails_unlimited_duration' => '(Unlimited Duration)',
+'userdetails_pm_comment' => 'PM comment:',
+'userdetails_unlimited' => 'Unlimited',
+'userdetails_disable_for' => 'Disable for ',
+'userdetails_week' => 'week',
+'userdetails_weeks' => 'weeks',
+'userdetails_leech_warn_for' => 'LeechWarn for ',
+'userdetails_immunity_for' => 'Immunity for ',
+'userdetails_disablement_ss' => 'No disablement Status Set',
+'userdetails_immunity_ss' => 'No immunity Status Set',
+'userdetails_r_dload_disbl' => 'Remove download disablement',
+'userdetails_r_uload_disbl' => 'Remove upload disablement',
+'userdetails_r_posting_disbl' => 'Remove posting disablement',
+'userdetails_r_shout_disbl' =>'Remove Shout disablement',
+'userdetails_r_immune_s' => 'Remove immune Status',
+'userdetails_r_lw_s' => 'Remove Leechwarn Status',
+'userdetails_n_l_w_ss' => 'No leech warning Status Set',
+'userdetails_r_pm_disbl' => 'Remove pm disablement',
+'userdetails_until_' => 'Until ',
 
 
 );

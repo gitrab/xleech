@@ -14,7 +14,7 @@ $lang = array(
 'login_captcha' => "Captcha image",
 'login_pin' => "PIN:",
 'login_login' => "Log in!",
-'login_signup' => "<p>Don't have an account? <a href='signup.php'>Sign up</a> right now!</p>",
+'login_signup' => "<font size=\"3\"><a href='signup.php'>Don't have an account? Sign up right now!</a></font>",
 'login_login_btn' => "Login",
 
 

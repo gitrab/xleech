@@ -46,8 +46,8 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
     if ((isset($_POST['modcomment'])) && ($modcomment = $_POST['modcomment'])) ;
     else $modcomment = "";
 	
-	if (($user['immunity'] >= 1) && ($CURUSER['class'] < UC_SYSOP))
-    stderr("Error", "This user is immune to your commands !");
+    if (($user['immunity'] >= 1) && ($CURUSER['class'] < UC_SYSOP))
+     stderr("Error", "This user is immune to your commands !");
 
     // Set class
 

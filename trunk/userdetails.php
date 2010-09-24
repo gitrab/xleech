@@ -382,186 +382,6 @@ function maketable($res)
         $HTMLOUT .= "</select></td></tr>\n";
       }
 
-//==Download disable
-     if ($CURUSER['class'] >= UC_MODERATOR) {
-	   $downloadpos = $user['downloadpos'] != 1;
-     $HTMLOUT .= "<tr><td class='rowhead'".(!$downloadpos ? ' rowspan="2"' : '').">{$lang['userdetails_dpos']}</td>
- 	   <td align='left' width='20%'>".($downloadpos ? "<input name='downloadpos' value='42' type='radio' />Remove download disablement" : "No disablement Status Set")."</td>\n";
-
-     if ($downloadpos)
-     {
-     if ($user['downloadpos'] == 0)
-     $HTMLOUT .= '<td align="center">(Unlimited Duration)</td></tr>';
-     else
-     $HTMLOUT .= "<td align='center'>Until ".get_date($user['downloadpos'], 'DATE'). " (".mkprettytime($user['downloadpos'] - time()). " to go)</td></tr>";
-     } else
-     {
-     $HTMLOUT .= '<td>Disable for <select name="downloadpos">
-     <option value="0">------</option>
-     <option value="1">1 week</option>
-     <option value="2">2 weeks</option>
-     <option value="4">4 weeks</option>
-     <option value="8">8 weeks</option>
-     <option value="255">Unlimited</option>
-     </select></td></tr>
-     <tr><td colspan="2" align="left">PM comment:<input type="text" size="60" name="disable_pm" /></td></tr>';
-     }
-     }
-     //==Upload disable
-     if ($CURUSER['class'] >= UC_MODERATOR) {
-	   $uploadpos = $user['uploadpos'] != 1;
-     $HTMLOUT .= "<tr><td class='rowhead'".(!$uploadpos ? ' rowspan="2"' : '').">{$lang['userdetails_upos']}</td>
- 	   <td align='left' width='20%'>".($uploadpos ? "<input name='uploadpos' value='42' type='radio' />Remove upload disablement" : "No disablement Status Set")."</td>\n";
-
-     if ($uploadpos)
-     {
-     if ($user['uploadpos'] == 0)
-     $HTMLOUT .= '<td align="center">(Unlimited Duration)</td></tr>';
-     else
-     $HTMLOUT .= "<td align='center'>Until ".get_date($user['uploadpos'], 'DATE'). " (".mkprettytime($user['uploadpos'] - time()). " to go)</td></tr>";
-     } else
-     {
-     $HTMLOUT .= '<td>Disable for <select name="uploadpos">
-     <option value="0">------</option>
-     <option value="1">1 week</option>
-     <option value="2">2 weeks</option>
-     <option value="4">4 weeks</option>
-     <option value="8">8 weeks</option>
-     <option value="255">Unlimited</option>
-     </select></td></tr>
-     <tr><td colspan="2" align="left">PM comment:<input type="text" size="60" name="updisable_pm" /></td></tr>';
-     }
-     }
-     //==Posting disable
-     if ($CURUSER['class'] >= UC_MODERATOR) {
-	   $forumpost = $user['forumpost'] != 1;
-     $HTMLOUT .= "<tr><td class='rowhead'".(!$forumpost ? ' rowspan="2"' : '').">{$lang['userdetails_fpost']}</td>
- 	   <td align='left' width='20%'>".($forumpost ? "<input name='forumpost' value='42' type='radio' />Remove posting disablement" : "No disablement Status Set")."</td>\n";
-
-     if ($forumpost)
-     {
-     if ($user['forumpost'] == 0)
-     $HTMLOUT .= '<td align="center">(Unlimited Duration)</td></tr>';
-     else
-     $HTMLOUT .= "<td align='center'>Until ".get_date($user['forumpost'], 'DATE'). " (".mkprettytime($user['forumpost'] - time()). " to go)</td></tr>";
-     } else
-     {
-     $HTMLOUT .= '<td>Disable for <select name="forumpost">
-     <option value="0">------</option>
-     <option value="1">1 week</option>
-     <option value="2">2 weeks</option>
-     <option value="4">4 weeks</option>
-     <option value="8">8 weeks</option>
-     <option value="255">Unlimited</option>
-     </select></td></tr>
-     <tr><td colspan="2" align="left">PM comment:<input type="text" size="60" name="forumdisable_pm" /></td></tr>';
-     }
-     }
-     //==Shoutbox disable
-     if ($CURUSER['class'] >= UC_MODERATOR) {
-	   $chatpost = $user['chatpost'] != 1;
-     $HTMLOUT .= "<tr><td class='rowhead'".(!$chatpost ? ' rowspan="2"' : '').">{$lang['userdetails_chatpos']}</td>
- 	   <td align='left' width='20%'>".($chatpost ? "<input name='chatpost' value='42' type='radio' />Remove Shout disablement" : "No disablement Status Set")."</td>\n";
-
-     if ($chatpost)
-     {
-     if ($user['chatpost'] == 0)
-     $HTMLOUT .= '<td align="center">(Unlimited Duration)</td></tr>';
-     else
-     $HTMLOUT .= "<td align='center'>Until ".get_date($user['chatpost'], 'DATE'). " (".mkprettytime($user['chatpost'] - time()). " to go)</td></tr>";
-     } else
-     {
-     $HTMLOUT .= '<td>Disable for <select name="chatpost">
-     <option value="0">------</option>
-     <option value="1">1 week</option>
-     <option value="2">2 weeks</option>
-     <option value="4">4 weeks</option>
-     <option value="8">8 weeks</option>
-     <option value="255">Unlimited</option>
-     </select></td></tr>
-     <tr><td colspan="2" align="left">PM comment:<input type="text" size="60" name="chatdisable_pm" /></td></tr>';
-     }
-     }
-     //==Immunity
-     if ($CURUSER['class'] >= UC_MODERATOR) {
-	   $immunity = $user['immunity'] != 0;
-     $HTMLOUT .= "<tr><td class='rowhead'".(!$immunity ? ' rowspan="2"' : '').">{$lang['userdetails_immunity']}</td>
- 	   <td align='left' width='20%'>".($immunity ? "<input name='immunity' value='42' type='radio' />Remove immune Status" : "No immunity Status Set")."</td>\n";
-
-      if ($immunity)
-      {
-      if ($user['immunity'] == 1)
-      $HTMLOUT .= '<td align="center">(Unlimited Duration)</td></tr>';
-      else
-      $HTMLOUT .= "<td align='center'>Until ".get_date($user['immunity'], 'DATE'). " (".
-            mkprettytime($user['immunity'] - time()). " to go)</td></tr>";
-     } else
-     {
-     $HTMLOUT .= '<td>Immunity for <select name="immunity">
-     <option value="0">------</option>
-     <option value="1">1 week</option>
-     <option value="2">2 weeks</option>
-     <option value="4">4 weeks</option>
-     <option value="8">8 weeks</option>
-     <option value="255">Unlimited</option>
-     </select></td></tr>
-     <tr><td colspan="2" align="left">PM comment:<input type="text" size="60" name="immunity_pm" /></td></tr>';
-     }
-     }
-     //==End
-     //==Leech Warnings
-     if ($CURUSER['class'] >= UC_MODERATOR) {
-	   $leechwarn = $user['leechwarn'] != 0;
-     $HTMLOUT .= "<tr><td class='rowhead'".(!$leechwarn ? ' rowspan="2"' : '').">{$lang['userdetails_leechwarn']}</td>
- 	   <td align='left' width='20%'>".($leechwarn ? "<input name='leechwarn' value='42' type='radio' />Remove Leechwarn Status" : "No leech warning Status Set")."</td>\n";
-
-      if ($leechwarn)
-      {
-      if ($user['leechwarn'] == 1)
-      $HTMLOUT .= '<td align="center">(Unlimited Duration)</td></tr>';
-      else
-      $HTMLOUT .= "<td align='center'>Until ".get_date($user['leechwarn'], 'DATE'). " (".
-            mkprettytime($user['leechwarn'] - time()). " to go)</td></tr>";
-     } else
-     {
-     $HTMLOUT .= '<td>leechwarn for <select name="leechwarn">
-     <option value="0">------</option>
-     <option value="1">1 week</option>
-     <option value="2">2 weeks</option>
-     <option value="4">4 weeks</option>
-     <option value="8">8 weeks</option>
-     <option value="255">Unlimited</option>
-     </select></td></tr>
-     <tr><td colspan="2" align="left">PM comment:<input type="text" size="60" name="leechwarn_pm" /></td></tr>';
-     }
-     }
-     //==End
-     //==Pm disable
-     if ($CURUSER['class'] >= UC_MODERATOR) {
-	   $sendpmpos = $user['sendpmpos'] != 1;
-     $HTMLOUT .= "<tr><td class='rowhead'".(!$sendpmpos ? ' rowspan="2"' : '').">{$lang['userdetails_pmpos']}</td>
- 	   <td align='left' width='20%'>".($sendpmpos ? "<input name='sendpmpos' value='42' type='radio' />Remove pm disablement" : "No disablement Status Set")."</td>\n";
-
-     if ($sendpmpos)
-     {
-     if ($user['sendpmpos'] == 0)
-     $HTMLOUT .= '<td align="center">(Unlimited Duration)</td></tr>';
-     else
-     $HTMLOUT .= "<td align='center'>Until ".get_date($user['sendpmpos'], 'DATE'). " (".mkprettytime($user['sendpmpos'] - time()). " to go)</td></tr>";
-     } else
-     {
-     $HTMLOUT .= '<td>Disable for <select name="sendpmpos">
-     <option value="0">------</option>
-     <option value="1">1 week</option>
-     <option value="2">2 weeks</option>
-     <option value="4">4 weeks</option>
-     <option value="8">8 weeks</option>
-     <option value="255">Unlimited</option>
-     </select></td></tr>
-     <tr><td colspan="2" align="left">PM comment:<input type="text" size="60" name="pmdisable_pm" /></td></tr>';
-     }
-     }
-
       $modcomment = htmlspecialchars($user["modcomment"]);
       $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_comment']}</td><td colspan='2' align='left'><textarea cols='60' rows='6' name='modcomment'>$modcomment</textarea></td></tr>\n";
       $warned = $user["warned"] == "yes";
@@ -595,7 +415,185 @@ function maketable($res)
         $HTMLOUT .= "</select>{$lang['userdetails_pm_comm']}</td></tr>\n";
         $HTMLOUT .= "<tr><td colspan='2' align='left'><input type='text' size='60' name='warnpm' /></td></tr>";
       }
+//==Download disable
+     if ($CURUSER['class'] >= UC_MODERATOR) {
+	   $downloadpos = $user['downloadpos'] != 1;
+     $HTMLOUT .= "<tr><td class='rowhead'".(!$downloadpos ? ' rowspan="2"' : '').">{$lang['userdetails_dpos']}</td>
+ 	   <td align='left' width='20%'>".($downloadpos ? "<input name='downloadpos' value='42' type='radio' />{$lang['userdetails_r_dload_disbl']}" : "{$lang['userdetails_disablement_ss']}")."</td>\n";
 
+     if ($downloadpos)
+     {
+     if ($user['downloadpos'] == 0)
+     $HTMLOUT .= "<td align='center'>{$lang['userdetails_unlimited_duration']}</td></tr>";
+     else
+     $HTMLOUT .= "<td align='center'>{$lang['userdetails_until_']}".get_date($user['downloadpos'], 'DATE'). " (".mkprettytime($user['downloadpos'] - time()). " to go)</td></tr>";
+     } else
+     {
+     $HTMLOUT .= "<td>{$lang['userdetails_disable_for']}<select name='downloadpos'>
+     <option value='0'>------</option>
+     <option value='1'>1 {$lang['userdetails_week']}</option>
+     <option value='2'>2 {$lang['userdetails_weeks']}</option>
+     <option value='4'>4 {$lang['userdetails_weeks']}</option>
+     <option value='8'>8 {$lang['userdetails_weeks']}</option>
+     <option value='255'>{$lang['userdetails_unlimited']}</option>
+     </select></td></tr>
+     <tr><td colspan='2' align='left'>{$lang['userdetails_pm_comment']}<input type='text' size='60' name='disable_pm' /></td></tr>";
+     }
+     }
+     //==Upload disable
+     if ($CURUSER['class'] >= UC_MODERATOR) {
+	   $uploadpos = $user['uploadpos'] != 1;
+     $HTMLOUT .= "<tr><td class='rowhead'".(!$uploadpos ? ' rowspan="2"' : '').">{$lang['userdetails_upos']}</td>
+ 	   <td align='left' width='20%'>".($uploadpos ? "<input name='uploadpos' value='42' type='radio' />{$lang['userdetails_r_uload_disbl']}" : "{$lang['userdetails_disablement_ss']}")."</td>\n";
+
+     if ($uploadpos)
+     {
+     if ($user['uploadpos'] == 0)
+     $HTMLOUT .= "<td align='center'>{$lang['userdetails_unlimited_duration']}</td></tr>";
+     else
+     $HTMLOUT .= "<td align='center'>{$lang['userdetails_until_']}".get_date($user['uploadpos'], 'DATE'). " (".mkprettytime($user['uploadpos'] - time()). " to go)</td></tr>";
+     } else
+     {
+     $HTMLOUT .= "<td>{$lang['userdetails_disable_for']}<select name='uploadpos'>
+     <option value='0'>------</option>
+     <option value='1'>1 {$lang['userdetails_week']}</option>
+     <option value='2'>2 {$lang['userdetails_weeks']}</option>
+     <option value='4'>4 {$lang['userdetails_weeks']}</option>
+     <option value='8'>8 {$lang['userdetails_weeks']}</option>
+     <option value='255'>{$lang['userdetails_unlimited']}</option>
+     </select></td></tr>
+     <tr><td colspan='2' align='left'>{$lang['userdetails_pm_comment']}<input type='text' size='60' name='updisable_pm' /></td></tr>";
+     }
+     }
+     //==Posting disable
+     if ($CURUSER['class'] >= UC_MODERATOR) {
+	   $forumpost = $user['forumpost'] != 1;
+     $HTMLOUT .= "<tr><td class='rowhead'".(!$forumpost ? ' rowspan="2"' : '').">{$lang['userdetails_fpost']}</td>
+ 	   <td align='left' width='20%'>".($forumpost ? "<input name='forumpost' value='42' type='radio' />{$lang['userdetails_r_posting_disbl']}" : "{$lang['userdetails_disablement_ss']}")."</td>\n";
+
+     if ($forumpost)
+     {
+     if ($user['forumpost'] == 0)
+     $HTMLOUT .= "<td align='center'>{$lang['userdetails_unlimited_duration']}</td></tr>";
+     else
+     $HTMLOUT .= "<td align='center'>{$lang['userdetails_until_']}".get_date($user['forumpost'], 'DATE'). " (".mkprettytime($user['forumpost'] - time()). " to go)</td></tr>";
+     } else
+     {
+     $HTMLOUT .= "<td>{$lang['userdetails_disable_for']}<select name='forumpost'>
+     <option value='0'>------</option>
+     <option value='1'>1 {$lang['userdetails_week']}</option>
+     <option value='2'>2 {$lang['userdetails_weeks']}</option>
+     <option value='4'>4 {$lang['userdetails_weeks']}</option>
+     <option value='8'>8 {$lang['userdetails_weeks']}</option>
+     <option value='255'>{$lang['userdetails_unlimited']}</option>
+     </select></td></tr>
+     <tr><td colspan='2' align='left'>{$lang['userdetails_pm_comment']}<input type='text' size='60' name='forumdisable_pm' /></td></tr>";
+     }
+     }
+     //==Shoutbox disable
+     if ($CURUSER['class'] >= UC_MODERATOR) {
+	   $chatpost = $user['chatpost'] != 1;
+     $HTMLOUT .= "<tr><td class='rowhead'".(!$chatpost ? ' rowspan="2"' : '').">{$lang['userdetails_chatpos']}</td>
+ 	   <td align='left' width='20%'>".($chatpost ? "<input name='chatpost' value='42' type='radio' />{$lang['userdetails_r_shout_disbl']}" : "{$lang['userdetails_disablement_ss']}")."</td>\n";
+
+     if ($chatpost)
+     {
+     if ($user['chatpost'] == 0)
+     $HTMLOUT .= "<td align='center'>{$lang['userdetails_unlimited_duration']}</td></tr>";
+     else
+     $HTMLOUT .= "<td align='center'>{$lang['userdetails_until_']}".get_date($user['chatpost'], 'DATE'). " (".mkprettytime($user['chatpost'] - time()). " to go)</td></tr>";
+     } else
+     {
+     $HTMLOUT .= "<td>{$lang['userdetails_disable_for']}<select name='chatpost'>
+     <option value='0'>------</option>
+     <option value='1'>1 {$lang['userdetails_week']}</option>
+     <option value='2'>2 {$lang['userdetails_weeks']}</option>
+     <option value='4'>4 {$lang['userdetails_weeks']}</option>
+     <option value='8'>8 {$lang['userdetails_weeks']}</option>
+     <option value='255'>{$lang['userdetails_unlimited']}</option>
+     </select></td></tr>
+     <tr><td colspan='2' align='left'>{$lang['userdetails_pm_comment']}<input type='text' size='60' name='chatdisable_pm' /></td></tr>";
+     }
+     }
+     //==Immunity
+     if ($CURUSER['class'] >= UC_MODERATOR) {
+	   $immunity = $user['immunity'] != 0;
+     $HTMLOUT .= "<tr><td class='rowhead'".(!$immunity ? ' rowspan="2"' : '').">{$lang['userdetails_immunity']}</td>
+ 	   <td align='left' width='20%'>".($immunity ? "<input name='immunity' value='42' type='radio' />{$lang['userdetails_r_immune_s']}" : "{$lang['userdetails_immunity_ss']}")."</td>\n";
+
+      if ($immunity)
+      {
+      if ($user['immunity'] == 1)
+      $HTMLOUT .= "<td align='center'>{$lang['userdetails_unlimited_duration']}</td></tr>";
+      else
+      $HTMLOUT .= "<td align='center'>{$lang['userdetails_until_']}".get_date($user['immunity'], 'DATE'). " (".
+            mkprettytime($user['immunity'] - time()). " to go)</td></tr>";
+     } else
+     {
+     $HTMLOUT .= "<td>{$lang['userdetails_immunity_for']}<select name='immunity'>
+     <option value='0'>------</option>
+     <option value='1'>1 {$lang['userdetails_week']}</option>
+     <option value='2'>2 {$lang['userdetails_weeks']}</option>
+     <option value='4'>4 {$lang['userdetails_weeks']}</option>
+     <option value='8'>8 {$lang['userdetails_weeks']}</option>
+     <option value='255'>{$lang['userdetails_unlimited']}</option>
+     </select></td></tr>
+     <tr><td colspan='2' align='left'>{$lang['userdetails_pm_comment']}<input type='text' size='60' name='immunity_pm' /></td></tr>";
+     }
+     }
+     //==End
+     //==Leech Warnings
+     if ($CURUSER['class'] >= UC_MODERATOR) {
+	   $leechwarn = $user['leechwarn'] != 0;
+     $HTMLOUT .= "<tr><td class='rowhead'".(!$leechwarn ? ' rowspan="2"' : '').">{$lang['userdetails_leechwarn']}</td>
+ 	   <td align='left' width='20%'>".($leechwarn ? "<input name='leechwarn' value='42' type='radio' />{$lang['userdetails_r_lw_s']}" : "{$lang['userdetails_n_l_w_ss']}")."</td>\n";
+
+      if ($leechwarn)
+      {
+      if ($user['leechwarn'] == 1)
+      $HTMLOUT .= "<td align='center'>{$lang['userdetails_unlimited_duration']}</td></tr>";
+      else
+      $HTMLOUT .= "<td align='center'>{$lang['userdetails_until_']}".get_date($user['leechwarn'], 'DATE'). " (".
+            mkprettytime($user['leechwarn'] - time()). " to go)</td></tr>";
+     } else
+     {
+     $HTMLOUT .= "<td>{$lang['userdetails_leech_warn_for']}<select name='leechwarn'>
+     <option value='0'>------</option>
+     <option value='1'>1 {$lang['userdetails_week']}</option>
+     <option value='2'>2 {$lang['userdetails_weeks']}</option>
+     <option value='4'>4 {$lang['userdetails_weeks']}</option>
+     <option value='8'>8 {$lang['userdetails_weeks']}</option>
+     <option value='255'>{$lang['userdetails_unlimited']}</option>
+     </select></td></tr>
+     <tr><td colspan='2' align='left'>{$lang['userdetails_pm_comment']}<input type='text' size='60' name='leechwarn_pm' /></td></tr>";
+     }
+     }
+     //==End
+//==Pm disable
+     if ($CURUSER['class'] >= UC_MODERATOR) {
+	   $sendpmpos = $user['sendpmpos'] != 1;
+     $HTMLOUT .= "<tr><td class='rowhead'".(!$sendpmpos ? ' rowspan="2"' : '').">{$lang['userdetails_pmpos']}</td>
+ 	   <td align='left' width='20%'>".($sendpmpos ? "<input name='sendpmpos' value='42' type='radio' />{$lang['userdetails_r_pm_disbl']}" : "{$lang['userdetails_disablement_ss']}")."</td>\n";
+
+     if ($sendpmpos)
+     {
+     if ($user['sendpmpos'] == 0)
+     $HTMLOUT .= "<td align='center'>{$lang['userdetails_unlimited_duration']}</td></tr>";
+     else
+     $HTMLOUT .= "<td align='center'>{$lang['userdetails_until_']}".get_date($user['sendpmpos'], 'DATE'). " (".mkprettytime($user['sendpmpos'] - time()). " to go)</td></tr>";
+     } else
+     {
+     $HTMLOUT .= "<td>{$lang['userdetails_disable_for']}<select name='sendpmpos'>
+     <option value='0'>------</option>
+     <option value='1'>1 {$lang['userdetails_week']}</option>
+     <option value='2'>2 {$lang['userdetails_weeks']}</option>
+     <option value='4'>4 {$lang['userdetails_weeks']}</option>
+     <option value='8'>8 {$lang['userdetails_weeks']}</option>
+     <option value='255'>{$lang['userdetails_unlimited']}</option>
+     </select></td></tr>
+     <tr><td colspan='2' align='left'>{$lang['userdetails_pm_comment']}<input type='text' size='60' name='pmdisable_pm' /></td></tr>";
+     }
+     }
       $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_chatpos']}</td><td colspan='2' align='left'><input type='radio' name='chatpost' value='yes'" .($user["chatpost"] == "yes" ? " checked='checked'" : "")." />{$lang['userdetails_yes']} <input type='radio' name='chatpost' value='no'" .($user["chatpost"] == "no" ? " checked='checked'" : "")." />{$lang['userdetails_no']}</td></tr>\n";
       if ($CURUSER["class"] < UC_SYSOP)
       $HTMLOUT .="<input type=\"hidden\" name=\"highspeed\" value=\"$user[highspeed]\" />\n";
