@@ -3,14 +3,14 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 22, 2010 at 04:49 PM
+-- Generation Time: Mar 22, 2010 at 10:25 PM
 -- Server version: 5.1.37
 -- PHP Version: 5.2.10-2ubuntu6.4
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
--- Database: `xl_2_204b`
+-- Database: `cancer`
 --
 
 -- --------------------------------------------------------
@@ -342,6 +342,28 @@ CREATE TABLE IF NOT EXISTS `messages` (
 
 --
 -- Dumping data for table `messages`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `modscredits`
+--
+
+CREATE TABLE IF NOT EXISTS `modscredits` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category` enum('Addon','Forum','Message/Email','Display/Style','Staff/Tools','Browse/Torrent/Details','Misc') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Misc',
+  `status` enum('Complete','In-Progress') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Complete',
+  `tbdevlnk` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `credit` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(120) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `modscredits`
 --
 
 

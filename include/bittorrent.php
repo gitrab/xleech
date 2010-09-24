@@ -284,7 +284,6 @@ function stdhead($title = "", $msgalert = true) {
     <meta name='MSSmartTagsPreventParsing' content='TRUE' />
     <title>{$title}</title>
     <link rel='stylesheet' href='templates/1/1.css' type='text/css' />
-    <script type='text/javascript' src='scripts/java_klappe.js'></script>
     </head>
     <body>
     <table width='950' cellspacing='0' cellpadding='0' style='background: transparent' align='center'>
@@ -301,7 +300,7 @@ function stdhead($title = "", $msgalert = true) {
     <li><a href='{$TBDEV['baseurl']}/upload.php'>{$lang['gl_upload']}</a></li>
     <li><a href='{$TBDEV['baseurl']}/forums.php'>{$lang['gl_forums']}</a></li>
     <li><a href='{$TBDEV['baseurl']}/rules.php'>{$lang['gl_rules']}</a></li>
-    <li><a href='{$TBDEV['baseurl']}/credits.php'>CREDITS</a></li>
+    <li><a href='{$TBDEV['baseurl']}/credits.php'>{$lang['gl_credits']}</a></li>
     <li><a href='{$TBDEV['baseurl']}/my.php'>{$lang['gl_profile']}</a></li>
     ";
         if (get_user_class() >= UC_POWER_USER)
