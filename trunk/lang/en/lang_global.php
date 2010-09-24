@@ -45,8 +45,7 @@ $lang = array (
 'gl_act_torrents'			=>	"Active Torrents",
 'gl_seed_torrents'		=>	"Seeding",
 'gl_leech_torrents'		=>	"Leeching",
-'gl_user_error'		    =>	"User Error",
-'gl_perm_denied'		  =>	"Permission Denied",
+
 'gl_time_date' => ""
 );
 ?>
