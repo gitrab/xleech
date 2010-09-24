@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2010 at 12:09 AM
+-- Generation Time: Mar 23, 2010 at 06:50 PM
 -- Server version: 5.1.37
 -- PHP Version: 5.2.10-2ubuntu6.4
 
@@ -90,26 +90,24 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `cat_desc` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No Description',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `image`, `cat_desc`) VALUES
-(1, 'Appz/PC ISO', 'cat_apps.gif', 'No Description'),
-(2, 'Games/PC ISO', 'cat_games.gif', 'No Description'),
-(3, 'Movies/SVCD', 'cat_movies.gif', 'No Description'),
-(4, 'Music', 'cat_music.gif', 'No Description'),
-(5, 'Episodes', 'cat_episodes.gif', 'No Description'),
-(6, 'XXX', 'cat_xxx.gif', 'No Description'),
-(7, 'Games/GBA', 'cat_games.gif', 'No Description'),
-(8, 'Games/PS2', 'cat_games.gif', 'No Description'),
-(9, 'Anime', 'cat_anime.gif', 'No Description'),
-(10, 'Movies/XviD', 'cat_movies.gif', 'No Description'),
-(11, 'Movies/DVD-R', 'cat_movies.gif', 'No Description'),
-(12, 'Games/PC Rips', 'cat_games.gif', 'No Description'),
-(13, 'Appz/misc', 'cat_apps.gif', 'No Description');
+(1, 'Appz/PC ISO', 'cat_appz_0day.png', 'No Description'),
+(2, 'Games/PC ISO', 'cat_games_pciso.png', 'No Description'),
+(4, 'Music', 'cat_music_mp3.png', 'No Description'),
+(5, 'Episodes', 'cat_tv_xvid.png', 'No Description'),
+(6, 'XXX', 'cat_xxx_xvid.png', 'No Description'),
+(8, 'Games/PS2', 'cat_games_ps2.png', 'No Description'),
+(9, 'Anime', 'cat_anime.png', 'No Description'),
+(10, 'Movies/XviD', 'cat_movies_xvid.png', 'No Description'),
+(11, 'Movies/DVD-R', 'cat_movies_dvdr.png', 'No Description'),
+(13, 'Appz/misc', 'cat_appz_0day.png', 'No Description'),
+(14, 'Misc', 'cat_dox.png', 'Misc');
 
 -- --------------------------------------------------------
 
@@ -316,6 +314,28 @@ CREATE TABLE IF NOT EXISTS `friends` (
 
 --
 -- Dumping data for table `friends`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invite_codes`
+--
+
+CREATE TABLE IF NOT EXISTS `invite_codes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sender` int(10) unsigned NOT NULL DEFAULT '0',
+  `receiver` varchar(32) NOT NULL DEFAULT '0',
+  `code` varchar(32) NOT NULL DEFAULT '',
+  `invite_added` int(10) NOT NULL,
+  `status` enum('Pending','Confirmed') NOT NULL DEFAULT 'Pending',
+  PRIMARY KEY (`id`),
+  KEY `sender` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `invite_codes`
 --
 
 
@@ -737,6 +757,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `time_offset` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `dst_in_use` tinyint(1) NOT NULL DEFAULT '0',
   `auto_correct_dst` tinyint(1) NOT NULL DEFAULT '1',
+  `invites` int(10) unsigned NOT NULL DEFAULT '1',
+  `invitedby` int(10) unsigned NOT NULL DEFAULT '0',
+  `invite_rights` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `ip` (`ip`),
