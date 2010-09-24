@@ -243,7 +243,84 @@ function maketable($res)
       
     if (isset($leeching))
        $HTMLOUT .= "<tr valign=top><td class=rowhead>{$lang['userdetails_cur_leech']}</td><td align=left>".maketable($leeching)."</td></tr>\n";
-       
+       //=== start snatched
+    $count_snatched='';
+    if ($CURUSER['class'] >= UC_MODERATOR){
+    if (isset($_GET["snatched_table"])){
+    $HTMLOUT .="<tr><td class='clearalt6' align='right' valign='top'><b>Snatched stuff:</b><br />[ <a href=\"userdetails.php?id=$id\" class=\"sublink\">Hide list</a> ]</td><td class='clearalt6'>";
+    
+    $res = mysql_query(
+    "SELECT sn.start_date AS s, sn.complete_date AS c, sn.last_action AS l_a, sn.seedtime AS s_t, sn.seedtime, sn.leechtime AS l_t, sn.leechtime, sn.downspeed, sn.upspeed, sn.uploaded, sn.downloaded, sn.torrentid, sn.start_date, sn.complete_date, sn.seeder, sn.last_action, sn.connectable, sn.agent, sn.seedtime, sn.port, cat.name, cat.image, t.size, t.seeders, t.leechers, t.owner, t.name AS torrent_name ".
+    "FROM snatched AS sn ".
+    "LEFT JOIN torrents AS t ON t.id = sn.torrentid ".
+    "LEFT JOIN categories AS cat ON cat.id = t.category ".
+    "WHERE sn.userid=$id ORDER BY sn.start_date DESC") or die(mysql_error());
+
+    $HTMLOUT .= "<table border='1' cellspacing='0' cellpadding='5' align='center'><tr><td class='colhead' align='center'>Category</td><td class='colhead' align='left'>Torrent</td>".
+    "<td class='colhead' align='center'>S / L</td><td class='colhead' align='center'>Up / Down</td><td class='colhead' align='center'>Torrent Size</td>".
+    "<td class='colhead' align='center'>Ratio</td><td class='colhead' align='center'>Client</td></tr>";
+    while ($arr = mysql_fetch_assoc($res)){
+    //=======change colors
+    $count2='';
+    $count2= (++$count2)%2;
+    $class = 'clearalt'.($count2==0?'6':'7');
+    //=== speed color red fast green slow ;)
+    if ($arr["upspeed"] > 0)
+    $ul_speed = ($arr["upspeed"] > 0 ? mksize($arr["upspeed"]) : ($arr["seedtime"] > 0 ? mksize($arr["uploaded"] / ($arr["seedtime"] + $arr["leechtime"])) : mksize(0)));
+    else
+    $ul_speed = mksize(($arr["uploaded"] / ( $arr['l_a'] - $arr['s'] + 1 )));
+    if ($arr["downspeed"] > 0)
+    $dl_speed = ($arr["downspeed"] > 0 ? mksize($arr["downspeed"]) : ($arr["leechtime"] > 0 ? mksize($arr["downloaded"] / $arr["leechtime"]) : mksize(0)));
+    else
+    $dl_speed = mksize(($arr["downloaded"] / ( $arr['c'] - $arr['s'] + 1 )));
+    
+    $dlc="";
+    switch (true){
+    case ($dl_speed > 600):
+    $dlc = 'red';
+    break;
+    case ($dl_speed > 300 ):
+    $dlc = 'orange';
+    break;
+    case ($dl_speed > 200 ):
+    $dlc = 'yellow';
+    break;
+    case ($dl_speed < 100 ):
+    $dlc = 'Chartreuse';
+    break;
+    }
+
+    if ($arr["downloaded"] > 0){
+    $ratio = number_format($arr["uploaded"] / $arr["downloaded"], 3);
+    $ratio = "<font color='" . get_ratio_color($ratio) . "'><b>Ratio:</b><br />$ratio</font>";
+    }
+    else
+    if ($arr["uploaded"] > 0)
+    $ratio = "Inf.";
+    else
+    $ratio = "N/A"; 
+ 
+    $HTMLOUT .= "<tr><td class='$class' align='center'>".($arr['owner'] == $id ? "<b><font color='orange'>Torrent owner</font></b><br />" : "".($arr['complete_date'] != '0'  ? "<b><font color='lightgreen'>Finished</font></b><br />" : "<b><font color='red'>Not Finished</font></b><br />")."")."<img src='{$TBDEV['pic_base_url']}caticons/$arr[image]' alt='$arr[name]' title='$arr[name]' /></td>"."
+    <td class='$class'><a class='altlink' href='{$TBDEV['baseurl']}/details.php?id=$arr[torrentid]'><b>$arr[torrent_name]</b></a>".($arr['complete_date'] != '0'  ?"<br />"."
+    <font color='yellow'>started: ".get_date($arr['start_date'], 0,1) ."</font><br />
+    " : " "."<font color='yellow'>started:".get_date($arr['start_date'], 0,1) ."</font><br /><font color='orange'>Last Action:".get_date($arr['last_action'], 0,1) ."</font>"." 
+    ".get_date($arr['complete_date'], 0,1) ." ".($arr['complete_date'] == '0'  ? "".($arr['owner'] == $id ? "" : "[ ".mksize($arr["size"] - $arr["downloaded"])." still to go ]")."" : "")."")." ".get_date($arr['complete_date'], 0,1) ." ".($arr['complete_date'] != '0'  ? "<br />"."
+    <font color='silver'>Time to download: ".($arr['leechtime'] != '0' ? mkprettytime($arr['leechtime']) : mkprettytime($arr['c'] - $arr['s'])."")."</font> <font color='$dlc'>[ DLed at: $dl_speed ]</font>"."
+    <br />" : "<br />")."<font color='lightblue'>".($arr['seedtime'] != '0' ? "Total seeding time: ".mkprettytime($arr['seedtime'])." </font><font color='$dlc'> " : "Total seeding time: N/A").""."
+    </font><font color='lightgreen'> [ up speed: ".$ul_speed." ] </font>".get_date($arr['complete_date'], 0,1) ."".($arr['complete_date'] == '0'  ? "<br /><font color='$dlc'>Download speed: $dl_speed</font>" : "")."</td>"."
+    <td align='center' class='$class'>Seeds: ".$arr['seeders']."<br />Leech: ".$arr['leechers']."</td><td align='center' class='$class'><font color='lightgreen'>Uploaded:<br />"."
+    <b>".$uploaded = mksize($arr["uploaded"])."</b></font><br /><font color='orange'>Downloaded:<br /><b>".$downloaded = mksize($arr["downloaded"])."</b></font></td>"."
+    <td align='center' class='$class'>".mksize($arr["size"])."<br />Difference of:<br /><font color='orange'><b>".mksize($arr['size'] - $arr["downloaded"])."</b></font></td>"."
+    <td align='center' class='$class'>'".$ratio."'<br />".($arr['seeder'] == 'yes' ? "<font color='lightgreen'><b>seeding</b></font>" : "<font color='red'><b>Not seeding</b></font>").""."
+    </td><td align='center' class='$class'>".$arr["agent"]."<br />port: ".$arr["port"]."<br />".($arr["connectable"] == 'yes' ? "<b>Connectable:</b> <font color='lightgreen'>Yes</font>"."
+    " : "<b>Connectable:</b> <font color='red'><b>no</b></font>")."</td></tr>\n";
+    }
+    $HTMLOUT .= "</table></td></tr>\n";
+    }
+    else
+    $HTMLOUT .= tr("{$lang['userdetails_snatched_stuff']}<br />","[ <a href=\"userdetails.php?id=$id&amp;snatched_table=1\" class=\"sublink\">{$lang['userdetails_show']}</a> ]  - $count_snatched <font color='red'><b>{$lang['userdetails_staff_only']}</b></font>", 1);
+    }
+    //=== end snatched
     if ($user["info"])
      $HTMLOUT .= "<tr valign='top'><td align='left' colspan='2' class='text' bgcolor='#F4F4F0'>" . format_comment($user["info"]) . "</td></tr>\n";
 
@@ -517,6 +594,11 @@ function maketable($res)
         $HTMLOUT .= "</select>{$lang['userdetails_pm_comm']}</td></tr>\n";
         $HTMLOUT .= "<tr><td colspan='2' align='left'><input type='text' size='60' name='warnpm' /></td></tr>";
       }
+      if ($CURUSER["class"] < UC_SYSOP)
+      $HTMLOUT .="<input type=\"hidden\" name=\"highspeed\" value=\"$user[highspeed]\" />\n";
+      else {
+      $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_highspeed']}</td><td class='row' colspan='2' align='left'><input type='radio' name='highspeed' value='yes' " .($user["highspeed"] == "yes" ? " checked='checked'" : "") ." />Yes <input type='radio' name='highspeed' value='no' " . ($user["highspeed"] == "no" ? " checked='checked'" : "") . " />No</td></tr>\n";
+           }
       $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_enabled']}</td><td colspan='2' align='left'><input name='enabled' value='yes' type='radio'" . ($enabled ? " checked='checked'" : "") . " />{$lang['userdetails_yes']} <input name='enabled' value='no' type='radio'" . (!$enabled ? " checked='checked'" : "") . " />{$lang['userdetails_no']}</td></tr>\n";
       $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_invright']}</td><td class='row' colspan='2' align='left'><input type='radio' name='invite_rights' value='yes'" .($user["invite_rights"]=="yes" ? " checked='checked'" : "") . " />{$lang['userdetails_yes']}<input type='radio' name='invite_rights' value='no'" .($user["invite_rights"]=="no" ? " checked='checked'" : "") . " />{$lang['userdetails_no']}</td></tr>\n";
       $HTMLOUT .= "<tr><td class='rowhead' align='left'><b>{$lang['userdetails_invites']}</b></td><td colspan='2' align='left' class='rowhead'><input type='text' size='3' name='invites' value='" . htmlspecialchars($user['invites']) . "' /></td></tr>\n";

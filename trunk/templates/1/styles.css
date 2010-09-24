@@ -91,14 +91,14 @@ form {display: inline; margin-top: 0; margin-bottom: 0; padding: 0;}
 .cimage { border: 1px solid #eee; }
 .btn{
    font-size:12px; font-family:Verdana,sans-serif;  color:#FFF;
-   background-color:#890537;  border: 1px solid #000;  border-width:1px;
+   background-color:#303130;  border: 1px solid #000;  border-width:1px;
    padding: 1px 3px 1px 3px;}
 input, select, textarea {
-	background: #FFF; border: 1px solid #00326A;
-	color: #000; font-family: verdana, helvetica, sans-serif;	font-size: 11px;
+	background: #303130; border: 1px solid #d3dada;
+	color: #e0e0e0; font-family: verdana, helvetica, sans-serif;	font-size: 11px;
 	margin: 5px; padding: 2px; vertical-align: middle;}
-input:focus {   background-color: #FFFF99; }
-textarea:focus {  background-color: #FFFF99; }
+input:focus {   background-color: #303130; }
+textarea:focus {  background-color: #303130; }
 select{	margin: 0px;}
 
 /* ------------------------------------    FORUM SETTING  -------------------------------------- */

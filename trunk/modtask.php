@@ -505,7 +505,25 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
 
       $updateset[] = "avatar = ".sqlesc($avatar);
     }
-
+// Set higspeed Upload Enable / Disable
+    if ((isset($_POST['highspeed'])) && (($highspeed = $_POST['highspeed']) != $user['highspeed'])) {
+        if ($highspeed == 'yes') {
+            $modcomment = get_date( time(), 'DATE', 1 ) . " - Highspeed Upload enabled by " . $CURUSER['username'] .".\n" . $modcomment;
+            $subject = sqlesc("Highspeed uploader status.");
+            $msg = sqlesc("You  have been set as a high speed uploader by  " . $CURUSER['username'] .". You can now upload torrents using highspeeds without being flagged as a cheater  .");
+            $added = sqlesc(time());
+            mysql_query("INSERT INTO messages (sender, receiver, msg, subject, added) VALUES (0, $userid, $msg, $subject, $added)") or sqlerr(__file__, __line__);
+        } elseif ($highspeed == 'no') {
+            $modcomment = get_date( time(), 'DATE', 1 ) . " - Highspeed Upload disabled by " . $CURUSER['username'] .".\n" . $modcomment;
+            $subject = sqlesc("Highspeed uploader status.");
+            $msg = sqlesc("Your highspeed upload setting has been disabled by " . $CURUSER['username'] .". Please PM " . $CURUSER['username'] . " for the reason why.");
+            $added = sqlesc(time());
+            mysql_query("INSERT INTO messages (sender, receiver, msg, subject, added) VALUES (0, $userid, $msg, $subject, $added)") or sqlerr(__file__, __line__);
+        } 
+        else
+        die(); // Error
+        $updateset[] = "highspeed = " . sqlesc($highspeed);
+        }
     /* Uncomment if you have the First Line Support mod installed...
 
     // Support
