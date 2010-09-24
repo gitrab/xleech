@@ -31,6 +31,11 @@
   
   $lang = array_merge( load_language('global'), load_language('forums') );
   
+if ($CURUSER["forumpost"] == 0|| $CURUSER["forumpost"] > 1)
+{
+stderr($lang['forums_sorry'], $lang['forums_no_auth']);
+}
+
   $action = isset($_GET["action"]) ? $_GET["action"] : '';
   $forum_pic_url = $TBDEV['pic_base_url'] . 'forumicons/';
     //-------- Global variables

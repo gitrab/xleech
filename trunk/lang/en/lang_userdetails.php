@@ -69,6 +69,13 @@ $lang = array(
 'userdetails_invright' => "Invite rights",
 'userdetails_invites' => "Invites",
 'userdetails_invby' => "Invited by",
+'userdetails_fpost' => "Forum post possible",
+'userdetails_upos' => "Upload possible",
+'userdetails_dpos' => "Download possible",
+'userdetails_chatpos' => "Chat possible",
+'userdetails_immunity' => "Immunity",
+'userdetails_leechwarn' => "Leech warn",
+'userdetails_pmpos' => "Pm possible",
 
 
 );

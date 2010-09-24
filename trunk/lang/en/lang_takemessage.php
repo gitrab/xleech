@@ -34,6 +34,8 @@ $lang = array(
 'takemessage_s_were' => "s were",
 'takemessage_was' => "was",
 'takemessage_updated' => "updated!",
+'takemessage_sorry' => "Sorry...",
+'takemessage_no_auth' => "You are not authorized to send messages presently.  (Contact staff for the reason why.)",
 'takemessage_sent' => " successfully sent!"
 );
 

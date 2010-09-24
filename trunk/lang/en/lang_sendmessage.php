@@ -59,6 +59,8 @@ Read the forums for details.",
 'sendmessage_delete' => "Delete message you are replying to",
 'sendmessage_save_sent' => "Save message to Sentbox",
 'sendmessage_pm_templates' => "PM Templates:",
+'sendmessage_sorry' => "Sorry...",
+'sendmessage_no_auth' => "You are not authorized to send messages presently.  (Contact staff for the reason why.)",
 'sendmessage_send_msg' => "Send Message"
 );
 
