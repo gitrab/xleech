@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.1
+-- version 3.3.5
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 11, 2010 at 02:19 AM
--- Server version: 5.1.37
--- PHP Version: 5.2.10-2ubuntu6.4
+-- Generation Time: Sep 03, 2010 at 07:08 PM
+-- Server version: 5.1.41
+-- PHP Version: 5.3.2-1ubuntu4.2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -356,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `invite_codes` (
   `invite_added` int(10) NOT NULL,
   `status` enum('Pending','Confirmed') NOT NULL DEFAULT 'Pending',
   PRIMARY KEY (`id`),
-  KEY `sender` (`id`)
+  KEY `code` (`code`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
@@ -801,57 +801,57 @@ CREATE TABLE IF NOT EXISTS `torrents` (
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `passhash` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `secret` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `passkey` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `email` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
-  `status` enum('pending','confirmed') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending',
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `passhash` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `secret` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `passkey` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `email` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `status` enum('pending','confirmed') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending',
   `added` int(11) NOT NULL,
   `last_login` int(11) NOT NULL,
   `last_access` int(11) NOT NULL,
-  `editsecret` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `privacy` enum('strong','normal','low') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'normal',
+  `editsecret` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `privacy` enum('strong','normal','low') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'normal',
   `stylesheet` int(10) DEFAULT '1',
-  `info` text COLLATE utf8_unicode_ci,
-  `acceptpms` enum('yes','friends','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
-  `ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `info` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `acceptpms` enum('yes','friends','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `ip` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `class` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `language` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'en',
-  `avatar` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `language` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'en',
+  `avatar` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `av_w` smallint(3) unsigned NOT NULL DEFAULT '0',
   `av_h` smallint(3) unsigned NOT NULL DEFAULT '0',
   `uploaded` bigint(20) unsigned NOT NULL DEFAULT '0',
   `downloaded` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `title` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(30) NOT NULL,
   `country` int(10) unsigned NOT NULL DEFAULT '0',
-  `notifs` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `modcomment` text COLLATE utf8_unicode_ci NOT NULL,
-  `enabled` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
-  `avatars` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
-  `donor` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
-  `warned` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `notifs` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `modcomment` text NOT NULL,
+  `enabled` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `avatars` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `donor` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `warned` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
   `warneduntil` int(11) NOT NULL DEFAULT '0',
   `torrentsperpage` int(3) unsigned NOT NULL DEFAULT '0',
   `topicsperpage` int(3) unsigned NOT NULL DEFAULT '0',
   `postsperpage` int(3) unsigned NOT NULL DEFAULT '0',
-  `deletepms` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
-  `savepms` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `deletepms` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `savepms` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
   `reputation` int(10) NOT NULL DEFAULT '10',
-  `time_offset` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `time_offset` varchar(5) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `dst_in_use` tinyint(1) NOT NULL DEFAULT '0',
   `auto_correct_dst` tinyint(1) NOT NULL DEFAULT '1',
-  `invites` int(10) unsigned NOT NULL DEFAULT '1',
+  `invites` int(10) unsigned NOT NULL DEFAULT '3',
   `invitedby` int(10) unsigned NOT NULL DEFAULT '0',
-  `invite_rights` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `invite_rights` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
   `uploadpos` int(11) NOT NULL DEFAULT '1',
   `forumpost` int(11) NOT NULL DEFAULT '1',
   `downloadpos` int(11) NOT NULL DEFAULT '1',
-  `chatpost` int(11) NOT NULL DEFAULT '1',
+  `chatpost` enum('yes','no') NOT NULL DEFAULT 'yes',
   `immunity` int(11) NOT NULL DEFAULT '0',
   `leechwarn` int(11) NOT NULL DEFAULT '0',
   `sendpmpos` int(11) NOT NULL DEFAULT '1',
-  `highspeed` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `highspeed` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
   `show_shout` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'yes',
   `shoutboxbg` enum('1','2','3','4') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '4',
   `smile_until` int(10) NOT NULL DEFAULT '0',
@@ -865,7 +865,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `enabled` (`enabled`),
   KEY `warned` (`warned`),
   KEY `pkey` (`passkey`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `users`

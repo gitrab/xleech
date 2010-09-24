@@ -1,10 +1,14 @@
 <?php
 require_once('include/bittorrent.php');
+require_once ("include/page_verify.php");
 require_once ROOT_PATH.'/include/user_functions.php';
 require_once ROOT_PATH.'/include/password_functions.php';
 dbconn();
 
 $lang = load_language('global');
+
+$newpage = new page_verify(); 
+$newpage->check('invite_signup');
 
 $res = mysql_query("SELECT COUNT(*) FROM users") or sqlerr(__FILE__, __LINE__);
 $arr = mysql_fetch_row($res);

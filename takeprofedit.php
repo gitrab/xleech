@@ -16,15 +16,19 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once "include/bittorrent.php";
-require_once "include/user_functions.php";
-require_once "include/password_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
+require_once ("include/page_verify.php");
+require_once ("include/password_functions.php");
 
 dbconn();
 
 loggedinorreturn();
 
     $lang = array_merge( load_language('global'), load_language('takeprofedit') );
+
+$newpage = new page_verify(); 
+$newpage->check('takeprofileedit');
     
     if (!mkglobal("email:chpassword:passagain:chmailpass"))
       stderr("Update failed!", $lang['takeprofedit_no_data']);

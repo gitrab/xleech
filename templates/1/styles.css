@@ -173,6 +173,7 @@ a.info:hover span{ display:block; position:absolute; top:2em; left:2em; width:15
 	border: 1px solid #000;	-moz-border-radius: 6px; -webkit-border-radius: 6px;
 	background: url('pic/headindex.png'); width:925px; height:30px; padding-left:15px; line-height:28px;
 	color: #cdcdcd; font-size:12px; font-weight:bold; font-family:Tahoma, "Trebuchet MS";text-align:left;}
+
 #headindex2 {
 	border: 1px solid #000;	-moz-border-radius: 6px; -webkit-border-radius: 6px;
 	background-color:#890537; width:985px; height:30px; padding-left:15px; line-height:28px;
@@ -276,7 +277,7 @@ border-style:solid;
 
 #headindex {
 	border: 1px solid #002c4d;	-moz-border-radius: 5px; -webkit-border-radius: 5px;
-	background: url('pic/menu_bg.png') no-repeat; width:935px; height:30px; padding-left:15px; line-height:25px;
+	background: url('pic/menu_bg.png') no-repeat; width:925px; height:30px; padding-left:15px; line-height:25px;
 	color: #fff; font-size:12px; font-weight:bold; font-family:Tahoma, "Trebuchet MS";
 	text-align:left;}
 #headindex a {color:#fff; text-decoration:none}	#headindex a:visited {color:#fff; text-decoration:none} #headindex a:active {color:#fff; text-decoration:none} #headindex a:hover {color:#fff; text-decoration:none}
@@ -333,5 +334,3 @@ text-align:left;
 border-width:2px;
 border-style:solid;
 }
-
-

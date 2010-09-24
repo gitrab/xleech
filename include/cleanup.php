@@ -32,7 +32,7 @@ function docleanup() {
 	do {
 		$res = mysql_query("SELECT id FROM torrents");
 		$ar = array();
-		while ($row = mysql_fetch_array($res,MYSQL_NUM)) {
+		while ($row = mysql_fetch_array($res, MYSQL_NUM)) {
 			$id = $row[0];
 			$ar[$id] = 1;
 		}
@@ -143,12 +143,12 @@ mysql_query("UPDATE `users` SET `chatpost` = 1 WHERE `chatpost` > 1 AND `chatpos
 mysql_query("UPDATE `users` SET `immunity` = 0 WHERE `immunity` > 1 AND `immunity` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
 mysql_query("UPDATE `users` SET `leechwarn` = 0 WHERE `leechwarn` > 1 AND `leechwarn` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
 mysql_query("UPDATE `users` SET `sendpmpos` = 1 WHERE `sendpmpos` > 1 AND `sendpmpos` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
-	//delete inactive user accounts
-	$secs = 42*86400;
+// delete inactive user accounts / starts
+	$secs = 42 * 86400;
 	$dt = (time() - $secs);
 	$maxclass = UC_POWER_USER;
 	@mysql_query("DELETE FROM users WHERE status='confirmed' AND class <= $maxclass AND last_access < $dt");
-
+// delete inactive user accounts / ends
 	// lock topics where last post was made more than x days ago
 /*	$secs = 7*86400;
 	$res = mysql_query("SELECT topics.id FROM topics LEFT JOIN posts ON topics.lastpost = posts.id WHERE topics.locked = 'no' AND topics.sticky = 'no' AND " . gmtime() . " - UNIX_TIMESTAMP(posts.added) > $secs") or sqlerr(__FILE__, __LINE__);
@@ -163,7 +163,7 @@ mysql_query("UPDATE `users` SET `sendpmpos` = 1 WHERE `sendpmpos` > 1 AND `sendp
   $dt = sqlesc(time() - $secs);
   mysql_query("DELETE FROM shoutbox WHERE " . time() . " - date > $secs") or sqlerr(__FILE__, __LINE__);
 // remove shouts older then 2 days / ends
-  //remove expired warnings
+// remove expired warnings / starts
   $res = @mysql_query("SELECT id FROM users WHERE warned='yes' AND warneduntil < ".time()." AND warneduntil <> 0") or sqlerr(__FILE__, __LINE__);
   if (mysql_num_rows($res) > 0)
   {
@@ -175,11 +175,11 @@ mysql_query("UPDATE `users` SET `sendpmpos` = 1 WHERE `sendpmpos` > 1 AND `sendp
       @mysql_query("INSERT INTO messages (sender, receiver, added, msg, poster) VALUES(0, {$arr['id']}, $dt, $msg, 0)") or sqlerr(__FILE__, __LINE__);
     }
   }
-
+// remove expired warnings / ends
 	// promote power users
-	$limit = 25*1024*1024*1024;
+	$limit = 25 * 1024 * 1024 * 1024;
 	$minratio = 1.05;
-	$maxdt = (time() - 86400*28);
+	$maxdt = (time() - 86400 * 28);
 	$res = @mysql_query("SELECT id FROM users WHERE class = 0 AND uploaded >= $limit AND uploaded / downloaded >= $minratio AND added < $maxdt") or sqlerr(__FILE__, __LINE__);
 	if (mysql_num_rows($res) > 0)
 	{
@@ -213,7 +213,7 @@ mysql_query("UPDATE `users` SET `sendpmpos` = 1 WHERE `sendpmpos` > 1 AND `sendp
 	@mysql_query("UPDATE avps SET value_u=$leechers WHERE arg='leechers'") or sqlerr(__FILE__, __LINE__);
 
 	// update forum post/topic count
-	//$forums = @mysql_query("SELECT t.forumid, count( DISTINCT p.topicid ) AS topics, count( * ) AS posts FROM posts p LEFT JOIN topics t ON t.id = p.topicid LEFT JOIN forums f ON f.id = t.forumid GROUP BY t.forumid");
+	// $forums = @mysql_query("SELECT t.forumid, count( DISTINCT p.topicid ) AS topics, count( * ) AS posts FROM posts p LEFT JOIN topics t ON t.id = p.topicid LEFT JOIN forums f ON f.id = t.forumid GROUP BY t.forumid");
 	$forums = @mysql_query("SELECT f.id, count( DISTINCT t.id ) AS topics, count( * ) AS posts
                           FROM forums f
                           LEFT JOIN topics t ON f.id = t.forumid
@@ -236,7 +236,7 @@ mysql_query("UPDATE `users` SET `sendpmpos` = 1 WHERE `sendpmpos` > 1 AND `sendp
 	}
 
 	// delete old torrents
-	$days = 28;
+	$days = 90;
 	$dt = (time() - ($days * 86400));
 	$res = mysql_query("SELECT id, name FROM torrents WHERE added < $dt");
 	while ($arr = mysql_fetch_assoc($res))
@@ -246,6 +246,7 @@ mysql_query("UPDATE `users` SET `sendpmpos` = 1 WHERE `sendpmpos` > 1 AND `sendp
 		@mysql_query("DELETE FROM peers WHERE torrent={$arr['id']}");
 		@mysql_query("DELETE FROM comments WHERE torrent={$arr['id']}");
 		@mysql_query("DELETE FROM files WHERE torrent={$arr['id']}");
+		@mysql_query("DELETE FROM snatched WHERE torrentid={$arr['id']}");
 		write_log("Torrent {$arr['id']} ({$arr['name']}) was deleted by system (older than $days days)");
 	}
 

@@ -319,6 +319,8 @@ loggedinorreturn();
 
 /////////////////////// HTML OUTPUT //////////////////////////////
 
+$HTMLOUT .= "<div id='statusbar'>$title</div>";
+
     print stdhead($title) . $HTMLOUT . stdfoot();
 
 ?>

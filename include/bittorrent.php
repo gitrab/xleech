@@ -16,8 +16,8 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once("include/config.php");
-require_once("cleanup.php");
+require_once ("include/config.php");
+require_once ("cleanup.php");
 
 
 /**** validip/getip courtesy of manolete <manolete@myway.com> ****/
@@ -287,6 +287,31 @@ function stdhead($title = "", $msgalert = true) {
     <link rel='stylesheet' href='templates/1/1.css' type='text/css' />
     </head>
     <body>
+<!-- Piwik -->
+<script type=\"text/javascript\">
+var pkBaseURL = ((\"https:\" == document.location.protocol) ? \"https://stats.xdns.ro/\" : \"http://stats.xdns.ro/\");
+document.write(unescape(\"%3Cscript src='\" + pkBaseURL + \"piwik.js' type='text/javascript'%3E%3C/script%3E\"));
+</script><script type=\"text/javascript\">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + \"piwik.php\", 15);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src=\"http://stats.xdns.ro/piwik.php?idsite=15\" style=\"border:0\" alt=\"\" /></p></noscript>
+<!-- End Piwik Tag -->
+<script type=\"text/javascript\">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18179445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
     <table width='950' cellspacing='0' cellpadding='0' style='background: transparent' align='center'>
     <tr>
     <td class='clear'>
@@ -331,29 +356,9 @@ function stdhead($title = "", $msgalert = true) {
 function stdfoot() {
   global $TBDEV;
 
-    return "\n<script type=\"text/javascript\">
-var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");
-document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));
-</script>
-<script type=\"text/javascript\">
-try {
-var pageTracker = _gat._getTracker(\"UA-15405564-1\");
-pageTracker._trackPageview();
-} catch(err) {}</script>\n
+    return "\n
 <br /><br /><br /><br /><br />
 <p align='center'><a href='http://validator.w3.org'><img src='pic/login/xhtml_valid.png' alt='Xhtml valid'/></a>&nbsp;&nbsp;<a href='http://jigsaw.w3.org/css-validator/check/'><img src='pic/login/css_valid.png' alt='Xhtml valid' /></a>&nbsp;&nbsp;<a href='http://tbdev.net'><img src='pic/login/tbdev_power.png' alt='TBDEV'/></a>&nbsp;&nbsp;<a href='http://kidvision.me'><img src='pic/login/kidvision_design.png' alt='Design'/></a></p>\n
-<!-- Piwik -->
-<script type=\"text/javascript\">
-var pkBaseURL = ((\"https:\" == document.location.protocol) ? \"https://stats.xdns.ro/\" : \"http://stats.xdns.ro/\");
-document.write(unescape(\"%3Cscript src='\" + pkBaseURL + \"piwik.js' type='text/javascript'%3E%3C/script%3E\"));
-</script><script type=\"text/javascript\">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + \"piwik.php\", 1);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
-</script><noscript><p><img src=\"http://stats.xdns.ro/piwik.php?idsite=1\" style=\"border:0\" alt=\"\" /></p></noscript>
-<!-- End Piwik Tag -->\n
     </td></tr></table>\n
     </body></html>\n";
 }
@@ -424,7 +429,7 @@ function set_mycookie( $name, $value="", $expires_in=0, $sticky=1 )
 			$expires = FALSE;
 		}
 		
-		$TBDEV['cookie_domain'] = $TBDEV['cookie_domain'] == "" ? ""  : $TBDEV['cookie_domain'];
+    $TBDEV['cookie_domain'] = $TBDEV['cookie_domain'] == "" ? ""  : $TBDEV['cookie_domain'];
     $TBDEV['cookie_path']   = $TBDEV['cookie_path']   == "" ? "/" : $TBDEV['cookie_path'];
       	
 		if ( PHP_VERSION < 5.2 )
