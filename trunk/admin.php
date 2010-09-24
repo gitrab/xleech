@@ -51,6 +51,9 @@
                         'docleanup'       => 'docleanup',
                         'log'             => 'log',
                         'news'            => 'news',
+			'freeleech'       => 'freeleech',
+			'freeslots'       => 'freeslots',
+			'freeusers'       => 'freeusers',
                         'forummanage'     => 'forummanage',
                         'cheaters'        => 'cheaters'
                         );

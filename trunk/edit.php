@@ -90,7 +90,28 @@ loggedinorreturn();
     {
       $HTMLOUT  .= tr($lang['edit_banned'], "<input type='checkbox' name='banned'" . (($row["banned"] == "yes") ? " checked='checked'" : "" ) . " value='1' /> {$lang['edit_banned']}", 1);
     }
+if ($CURUSER['class'] >= UC_MODERATOR)
+    {
+      $HTMLOUT  .= tr("free Leech", ($row['FREE'] != 0 ? 
+	  "<input type='checkbox' name='fl' value='1' /> Remove freeleech" : "
+    <select name='free_length'>
+    <option value='0'>------</option>
+    <option value='42'>free for 1 day</option>
+    <option value='1'>free for 1 week</option>
+    <option value='2'>free for 2 weeks</option>
+    <option value='4'>free for 4 weeks</option>
+    <option value='8'>free for 8 weeks</option>
+    <option value='255'>Unlimited</option>
+    </select>"), 1);
+    }
+    
+    if ($row['FREE'] != 0) {
+    	 $HTMLOUT  .= tr("free Leech Duration", 
+		 ($row['FREE'] != 1 ? "Until ".get_date($row['FREE'],'DATE')." 
+		 (".mkprettytime($row['FREE'] - time())." to go)" : 'Unlimited'), 1);
+		 
 
+    }
     $HTMLOUT  .= "<tr><td colspan='2' align='center'><input type='submit' value='{$lang['edit_submit']}' class='btn' /> <input type='reset' value='{$lang['edit_revert']}' class='btn' /></td></tr>
     </table>
     </form>

@@ -75,14 +75,39 @@ $updateset[] = "poster = " . sqlesc($poster);
     $updateset[] = "ori_descr = " . sqlesc($descr);
     $updateset[] = "category = " . (0 + $type);
     //if ($CURUSER["admin"] == "yes") {
-    if ($CURUSER['class'] > UC_MODERATOR) {
-      if ( isset($_POST['banned']) ) {
-        $updateset[] = 'banned = "yes"';
-        $_POST['visible'] = 0;
-      }
-      else
-        $updateset[] = 'banned = "no"';
+    if ($CURUSER['class'] > UC_MODERATOR)
+{
+    if (isset($_POST["banned"]))
+    {
+        $updateset[] = "banned = 'yes'";
+        $_POST["visible"] = 0;
+    } else
+        $updateset[] = "banned = 'no'";
+
+
+        /// Set freeleech on Torrent Time Based
+    if (isset($_POST['free_length']) && ($free_length = 0 + $_POST['free_length'])) {
+        if ($free_length == 255)
+            $free = 1;
+
+        elseif ($free_length == 42)
+            $free = (86400 + time());
+
+        else
+            $free = (time() + $free_length * 604800);
+
+        $updateset[] = "free = ".sqlesc($free );
+        write_log("Torrent $id ($name) set free for ".($free != 1 ? "
+	 Until ".get_date($Free, 'DATE') : 'Unlimited')." by $CURUSER[username]");
     }
+    
+     if (isset($_POST['fl']) && ($_POST['fl'] == 1))
+    {
+        $updateset[] = "free = '0'";
+        write_log("Torrent $id ($name) No Longer Free. Removed by $CURUSER[username]");
+    }
+    /// end freeleech mod
+}
     $updateset[] = "visible = '" . ( isset($_POST['visible']) ? 'yes' : 'no') . "'";
 
     mysql_query("UPDATE torrents SET " . join(",", $updateset) . " WHERE id = $id");

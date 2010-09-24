@@ -111,7 +111,30 @@ function torrenttable($res, $variant = "index") {
         $htmlout .= "id=$id";
         if ($variant == "index")
             $htmlout .= "&amp;hit=1";
-        $htmlout .= "'><b>$dispname</b></a>\n";
+        /** free Torrent **/
+$free_tag = ($row['FREE'] != 0 ? ' <a class="info" href="#">
+            <b>[FREE]</b> 
+            <span>'. ($row['FREE'] > 1 ? '
+            Expires: '.get_date($row['FREE'], 'DATE').'<br />
+('.mkprettytime($row['FREE'] - TIME_NOW).' to go)<br />' : 'Unlimited<br />').'</span></a>' : '');
+
+/** freeslot Slot in Use **/
+$isdlfree = ($row['tid'] == $id && $row['uid'] == $CURUSER['id'] && 
+            $row['freeslot'] != 0 ? '<a class="info" href="#">
+            <img src="'.$TBDEV['pic_base_url'].'freedownload.gif" alt="" />
+            <span>Freeleech slot in use<br />'.($row['freeslot'] != 0 ? ($row['freeslot'] > 1 ? '
+            Expires: '.get_date($row['freeslot'], 'DATE').'<br />
+('.mkprettytime($row['freeslot'] - TIME_NOW).' to go)<br />' : 'Unlimited<br />') : '').'</span></a>' : '');
+
+/** Double Upload Slot in Use **/
+$isdouble = ($row['tid'] == $id && $row['uid'] == $CURUSER['id'] && 
+            $row['doubleup'] != 0 ? ' <a class="info" href="#">
+            <img src="'.$TBDEV['pic_base_url'].'doubleseed.gif" alt="" />
+            <span>Double Upload slot in use<br />'.($row['doubleup'] != 0 ? ($row['doubleup'] > 1 ? '
+            Expires: '.get_date($row['doubleup'], 'DATE').'<br />
+('.mkprettytime($row['doubleup'] - TIME_NOW).' to go)<br />' : 'Unlimited<br />') : '').'</span></a>' : '');
+
+$htmlout .= "'><b>$dispname</b></a>".$free_tag."<br />".$isdlfree.$isdouble;
 
 				if ($wait && $TBDEV['user_ratios'])
 				{

@@ -563,7 +563,52 @@ if (!is_valid_user_class($class) || $CURUSER["class"] <= $_POST['class']) stderr
     $updateset[] = "support = " . sqlesc($support);
     $updateset[] = "supportfor = ".sqlesc($supportfor);
     } */
+// change freeslots
+if ((isset($_POST['freeslots'])) && (($freeslots = $_POST['freeslots']) != ($curfreeslots = $user['freeslots'])))
+{
+    $modcomment = get_date(time(), 'DATE', 1)." - freeslots amount changed to '".$freeslots."' from '".
+	$curfreeslots."' by " . $CURUSER['username'] . ".\n" . $modcomment;
+}
+$updateset[] = 'freeslots = '.sqlesc($freeslots);
 
+/// Set Freeleech Status Time based
+ if (isset($_POST['free_switch']) && ($free_switch =
+    0 + $_POST['free_switch']))
+{
+    unset($free_pm);
+    if (isset($_POST['free_pm']))
+        $free_pm = $_POST['free_pm'];
+    $subject = sqlesc('Notification!');
+    $added = time();
+
+    if ($free_switch == 255)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Freeleech Status enabled by ".
+		$CURUSER['username'].".\nReason: $free_pm\n".$modcomment;
+        $msg = sqlesc("You have received Freeleech Status from ".$CURUSER['username'].($free_pm ?
+            "\n\nReason: $free_pm" : ''));
+        $updateset[] = 'free_switch = 1';
+    } elseif ($free_switch == 42)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Freeleech Status removed by ".
+		$CURUSER['username'].".\n".$modcomment;
+        $msg = sqlesc("Your Freeleech Status has been removed by ".
+		$CURUSER['username'].".");
+		$updateset[] = 'free_switch = 0';
+    } else
+    {
+        $free_until = ($added + $free_switch * 604800);
+        $dur = $free_switch.' week'.($free_switch > 1 ? 's' : '');
+        $msg = sqlesc("You have received $dur Freeleech Status from ".
+		$CURUSER['username'].($free_pm ? "\n\nReason: $free_pm" : ''));
+        $modcomment = get_date($added, 'DATE', 1)." - Freeleech Status for $dur by ".
+		$CURUSER['username'].".\nReason: $free_pm\n".$modcomment;
+        $updateset[] = "free_switch = ".$free_until;
+    }
+
+    mysql_query("INSERT INTO messages (sender, receiver, subject, msg, added) 
+	             VALUES (0, $userid, $subject, $msg, $added)") or sqlerr(__file__, __line__);
+}
     // Add ModComment... (if we changed something we update otherwise we dont include this..)
 	if (($CURUSER['class'] == UC_SYSOP && ($user['modcomment'] != $_POST['modcomment'] || $modcomment != $_POST['modcomment'])) || ($CURUSER['class'] < UC_SYSOP && $modcomment != $user['modcomment']))
 	 $updateset[] = "modcomment = " . sqlesc($modcomment);

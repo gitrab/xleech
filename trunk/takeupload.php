@@ -69,6 +69,19 @@ loggedinorreturn();
     $nfo = sqlesc(str_replace("\x0d\x0d\x0a", "\x0d\x0a", @file_get_contents($nfofilename)));
     }
     /////////////////////// NFO FILE END /////////////////////
+/// Set freeleech on Torrent Time Based
+    $free = 0;
+if (isset($_POST['free_length']) && ($free_length = 0 + $_POST['free_length'])) {
+    if ($free_length == 255)
+        $free = 1;
+
+    elseif ($free_length == 42)
+        $free = (86400 + time());
+
+    else
+        $free = (time() + $free_length * 604800);
+}
+/// end
 
     $descr = unesc($_POST["descr"]);
     if (!$descr)
@@ -189,8 +202,8 @@ loggedinorreturn();
     $torrent = str_replace("_", " ", $torrent);
 
 
-    $ret = mysql_query("INSERT INTO torrents (search_text, filename, poster, owner, visible, info_hash, name, size, numfiles, type, descr, ori_descr, category, save_as, added, last_action, nfo, client_created_by) VALUES (" .
-        implode(",", array_map("sqlesc", array(searchfield("$shortfname $dname $torrent"), $fname, $poster, $CURUSER["id"], "no", $infohash, $torrent, $totallen, count($filelist), $type, $descr, $descr, 0 + $_POST["type"], $dname))) .
+    $ret = mysql_query("INSERT INTO torrents (search_text, filename, poster, owner, visible, info_hash, name, size, numfiles, type, descr, ori_descr, category, free, save_as, added, last_action, nfo, client_created_by) VALUES (" .
+        implode(",", array_map("sqlesc", array(searchfield("$shortfname $dname $torrent"), $fname, $poster, $CURUSER["id"], "no", $infohash, $torrent, $totallen, count($filelist), $type, $descr, $descr, 0 + $_POST["type"], $free, $dname))) .
         ", " . time() . ", " . time() . ", $nfo, $tmaker)");
     if (!$ret) {
       if (mysql_errno() == 1062)

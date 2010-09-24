@@ -25,7 +25,7 @@ loggedinorreturn();
 
     $lang = array_merge( load_language('global'), load_language('delete') );
 
-    if( !$CURUSER['group']['g_delete_torrents'] )
+    if ( !$CURUSER['class'] >= UC_MODERATOR )
         stderr($lang['gl_user_error'], $lang['gl_perm_denied']);
     
     if (!mkglobal("id"))
@@ -36,12 +36,12 @@ loggedinorreturn();
       stderr($lang['delete_failed'], $lang['delete_missing_data']);
       
 
-    $res = mysql_query("SELECT name,owner,seeders FROM torrents WHERE id = $id");
+    $res = mysql_query("SELECT name, owner, seeders FROM torrents WHERE id = $id");
     $row = mysql_fetch_assoc($res);
     if (!$row)
       stderr("{$lang['delete_failed']}", "{$lang['delete_not_exist']}");
 
-    if ( $CURUSER["id"] != $row["owner"] && !$CURUSER['ismod'] )
+    if ( $CURUSER["id"] != $row["owner"] && !$CURUSER['class'] >= UC_MODERATOR )
       stderr("{$lang['delete_failed']}", "{$lang['delete_not_owner']}\n");
 
     $rt = 0 + $_POST["reasontype"];
@@ -89,14 +89,13 @@ loggedinorreturn();
 
     print stdhead("{$lang['delete_deleted']}") . $HTMLOUT . stdfoot();
 
-
-
-
 function deletetorrent($id) {
     global $TBDEV;
     mysql_query("DELETE FROM torrents WHERE id = $id");
     foreach(explode(".","peers.files.comments.ratings") as $x)
         @mysql_query("DELETE FROM $x WHERE torrent = $id");
+	@mysql_query("DELETE FROM snatched WHERE torrentid = $id");
+	@mysql_query("DELETE FROM freeslots WHERE tid = $id");
     unlink("{$TBDEV['torrent_dir']}/$id.torrent");
 }
 
