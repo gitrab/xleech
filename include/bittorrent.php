@@ -287,7 +287,7 @@ function stdhead($title = "", $msgalert = true) {
 		<html xmlns='http://www.w3.org/1999/xhtml'>
 		<head>
 
-			<meta name='generator' content='TBDev.net' />
+			<meta name='generator' content='xList.ro' />
 			<meta http-equiv='Content-Language' content='en-us' />
 			<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 			<meta name='MSSmartTagsPreventParsing' content='TRUE' />
@@ -377,8 +377,7 @@ function stdhead($title = "", $msgalert = true) {
 function stdfoot() {
   global $TBDEV;
   
-    return "<p align='center'>Remember, if you see any specific instance of this software running publicly, it's within your rights under gpl to garner a copy of that derivative from the person responsible for that webserver.
-    <a href='http://www.tbdev.net'><img src='{$TBDEV['pic_base_url']}tbdev_btn_red.png' border='0' alt='Powered By TBDev &copy;2010' title='Powered By TBDev &copy;2010' /></a></p>
+    return "
     </td></tr></table>\n
     </body></html>\n";
 }
