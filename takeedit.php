@@ -25,10 +25,13 @@ dbconn();
 loggedinorreturn();
 
     $lang = array_merge( load_language('global'), load_language('takeedit') );
-
+    
+function bark($msg) {
+	genbark($msg, $lang['takedit_failed']);
+}
 
     if (!mkglobal('name:descr:type'))
-      stderr($lang['takedit_failed'], $lang['takedit_no_data']);
+      bark($lang['takedit_no_data']);
 
     $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
     if ( !is_valid_id($id) )
@@ -43,7 +46,7 @@ loggedinorreturn();
     $row = mysql_fetch_assoc($res);
 
     if ($CURUSER['id'] != $row['owner'] && $CURUSER['class'] < UC_MODERATOR)
-      stderr($lang['takedit_failed'], $lang['takedit_not_owner']);
+      bark($lang['takedit_not_owner']);
 
     $updateset = array();
 
@@ -58,7 +61,7 @@ loggedinorreturn();
       $nfofile = $_FILES['nfo'];
       if (!$nfofile) die("No data " . var_dump($_FILES));
       if ($nfofile['size'] > 65535)
-        stderr($lang['takedit_failed'], $lang['takedit_nfo_error']);
+        bark($lang['takedit_nfo_error']);
       $nfofilename = $nfofile['tmp_name'];
       if (@is_uploaded_file($nfofilename) && @filesize($nfofilename) > 0)
         $updateset[] = "nfo = " . sqlesc(str_replace("\x0d\x0d\x0a", "\x0d\x0a", file_get_contents($nfofilename)));

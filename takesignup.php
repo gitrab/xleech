@@ -98,7 +98,10 @@ function isproxy()
 */
     if (empty($wantusername) || empty($wantpassword) || empty($email))
       stderr($lang['takesignup_user_error'], $lang['takesignup_blank']);
-    
+    /*
+    if (strlen($wantusername) > 12)
+      bark("Sorry, username is too long (max is 12 chars)");
+    */
     if ($wantpassword != $passagain)
       stderr($lang['takesignup_user_error'], $lang['takesignup_nomatch']);
 
