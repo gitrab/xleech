@@ -316,11 +316,22 @@ CREATE TABLE IF NOT EXISTS `forums` (
   `topiccount` int(10) unsigned NOT NULL DEFAULT '0',
   `minclasscreate` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `forums`
+-- Table structure for table `freeslots`
 --
+
+CREATE TABLE IF NOT EXISTS `freeslots` (
+  `tid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `double` int(10) unsigned NOT NULL DEFAULT '0',
+  `free` int(10) unsigned NOT NULL DEFAULT '0',
+  UNIQUE KEY `tid_uid` (`tid`,`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
 -- --------------------------------------------------------
@@ -780,13 +791,14 @@ CREATE TABLE IF NOT EXISTS `torrents` (
   `nfo` blob NOT NULL,
   `client_created_by` char(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'unknown',
   `poster` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'pic/noposter.jpg',
+  `free` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `info_hash` (`info_hash`),
   KEY `owner` (`owner`),
   KEY `visible` (`visible`),
   KEY `category_visible` (`category`,`visible`),
   FULLTEXT KEY `ft_search` (`search_text`,`ori_descr`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `torrents`
@@ -855,6 +867,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `show_shout` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'yes',
   `shoutboxbg` enum('1','2','3','4') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '4',
   `smile_until` int(10) NOT NULL DEFAULT '0',
+  `freeslots` int(11) unsigned NOT NULL DEFAULT '5',
+  `free_switch` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `ip` (`ip`),
@@ -864,7 +878,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `last_access` (`last_access`),
   KEY `enabled` (`enabled`),
   KEY `warned` (`warned`),
-  KEY `pkey` (`passkey`)
+  KEY `pkey` (`passkey`),
+  KEY `free_switch` (`free_switch`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
