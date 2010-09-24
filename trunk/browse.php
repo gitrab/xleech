@@ -215,6 +215,8 @@ loggedinorreturn();
     require_once "include/searchcloud_functions.php";
     $HTMLOUT .= /* cloud() . */"</div><br /><br />";
 
+	$HTMLOUT .= "<a href='{$TBDEV['baseurl']}/invite.php'><b>{$lang['browse_invite_your_shit']}</b></a><br /><br />";
+
     $HTMLOUT .= "<form method='get' action='browse.php'>
     <table class='bottom'>
     <tr>

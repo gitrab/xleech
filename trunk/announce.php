@@ -404,7 +404,8 @@ if ($valid[0] >= 1 && $seeder == 'no') err("Connection limit exceeded! You may o
 
 if ($valid[0] >= 3 && $seeder == 'yes') err("Connection limit exceeded!");
 
-
+// disable wait time 
+/*  
 	if ($left > 0 && $user['class'] < UC_VIP && $TBDEV['user_ratios'])
 	{
 		$gigs = $user["uploaded"] / (1024*1024*1024);
@@ -418,6 +419,7 @@ if ($valid[0] >= 3 && $seeder == 'yes') err("Connection limit exceeded!");
 		if ($elapsed < $wait)
 				err("Not authorized (" . ($wait - $elapsed) . "h) - READ THE FAQ!");
 	}
+*/
 }
 else
 {

@@ -45,6 +45,9 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
 
     if ((isset($_POST['modcomment'])) && ($modcomment = $_POST['modcomment'])) ;
     else $modcomment = "";
+	
+	if (($user['immunity'] >= 1) && ($CURUSER['class'] < UC_SYSOP))
+    stderr("Error", "This user is immune to your commands !");
 
     // Set class
 
@@ -127,7 +130,104 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
 	   $updateset[] = "invites = " . sqlesc($invites);
 	   }
 
-/// Set download posssible Time based
+    // Clear donor - Code not called for setting donor
+    if (isset($_POST['donor']) && (($donor = $_POST['donor']) != $user['donor']))
+    {
+    $updateset[] = "donor = " . sqlesc($donor);
+    $updateset[] = "warneduntil = 0";
+    if ($donor == 'no')
+    {
+    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_donor_removed']}".$CURUSER['username'].".\n". $modcomment;
+    $msg = sqlesc("{$lang['modtask_donor_expired']}");
+    $added = time();
+    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
+    }
+    }
+
+    // Set donor - Time based
+    if ((isset($_POST['donorlength'])) && ($donorlength = 0 + $_POST['donorlength']))
+    {
+    if ($donorlength == 255)
+    {
+    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_donor_set']}" . $CURUSER['username'] . ".\n" . $modcomment;
+    $msg = sqlesc("{$lang['modtask_received_donor']}".$CURUSER['username']);
+    $updateset[] = "donoruntil = 0";
+    }
+    else
+    {
+    $donoruntil = (time() + $donorlength * 604800);
+    $dur = $donorlength . "{$lang['modtask_week']}" . ($donorlength > 1 ? "s" : "");
+    $msg = sqlesc(sprintf($lang['modtask_donor_duration'], $dur) . $CURUSER['username']);
+    $modcomment = get_date( time(), 'DATE', 1 ) . sprintf($lang['modtask_donor_for'], $dur) . $CURUSER['username']."\n".$modcomment;
+    $updateset[] = "donoruntil = ".$donoruntil;
+    }
+    $added = time();
+    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
+    $updateset[] = "donor = 'yes'";
+    }
+
+    // Enable / Disable
+    if ((isset($_POST['enabled'])) && (($enabled = $_POST['enabled']) != $user['enabled']))
+    {
+    if ($enabled == 'yes')
+    $modcomment = get_date( time(), 'DATE', 1 ) . " {$lang['modtask_enabled']}" . $CURUSER['username'] . ".\n" . $modcomment;
+    else
+    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_disabled']}" . $CURUSER['username'] . ".\n" . $modcomment;
+
+    $updateset[] = "enabled = " . sqlesc($enabled);
+    }
+    /* If your running the forum post enable/disable, uncomment this section
+    // Forum Post Enable / Disable
+    if ((isset($_POST['forumpost'])) && (($forumpost = $_POST['forumpost']) != $user['forumpost']))
+    {
+    if ($forumpost == 'yes')
+    {
+    $modcomment = gmdate("Y-m-d")." - Posting enabled by ".$CURUSER['username'].".\n" . $modcomment;
+    $msg = sqlesc("Your Posting rights have been given back by ".$CURUSER['username'].". You can post to forum again.");
+    $added = time();
+    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
+    }
+    else
+    {
+    $modcomment = gmdate("Y-m-d")." - Posting disabled by ".$CURUSER['username'].".\n" . $modcomment;
+    $msg = sqlesc("Your Posting rights have been removed by ".$CURUSER['username'].", Please PM ".$CURUSER['username']." for the reason why.");
+    $added = time();
+    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
+    }
+    $updateset[] = "forumpost = " . sqlesc($forumpost);
+    } */
+
+    // Change Custom Title
+    if ((isset($_POST['title'])) && (($title = $_POST['title']) != ($curtitle = $user['title'])))
+    {
+    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_custom_title']}'".$title."' from '".$curtitle."'{$lang['modtask_by']}" . $CURUSER['username'] . ".\n" . $modcomment;
+
+    $updateset[] = "title = " . sqlesc($title);
+    }
+
+    // The following code will place the old passkey in the mod comment and create
+    // a new passkey. This is good practice as it allows usersearch to find old
+    // passkeys by searching the mod comments of members.
+
+    // Reset Passkey
+    if ((isset($_POST['resetpasskey'])) && ($_POST['resetpasskey']))
+    {
+    $newpasskey = md5($user['username'].time().$user['passhash']);
+    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_passkey']}".sqlesc($user['passkey'])."{$lang['modtask_reset']}".sqlesc($newpasskey)."{$lang['modtask_by']}" . $CURUSER['username'] . ".\n" . $modcomment;
+
+    $updateset[] = "passkey=".sqlesc($newpasskey);
+    }
+
+    /* This code is for use with the safe mod comment modification. If you have installed
+    the safe mod comment mod, then uncomment this section...
+
+    // Add Comment to ModComment
+    if ((isset($_POST['addcomment'])) && ($addcomment = trim($_POST['addcomment'])))
+    {
+    $modcomment = gmdate("Y-m-d") . " - ".$addcomment." - " . $CURUSER['username'] . ".\n" . $modcomment;
+    } */
+
+    /// Set download posssible Time based
     if (isset($_POST['downloadpos']) && ($downloadpos =
     0 + $_POST['downloadpos']))
     {
@@ -355,256 +455,6 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
     mysql_query("INSERT INTO messages (sender, receiver, subject, msg, added) 
 	             VALUES (0, $userid, $subject, $msg, $added)") or sqlerr(__file__, __line__);
    }
-//09 Auto leech warn
-    // /==Updated/modified autoleech warning script////
-    $minratio = 0.3; // ratio < 0.4
-    $downloaded = 10 * 1024 * 1024 * 1024; // + 10 GB
-    $length = 3 * 7; // Give 3 weeks to let them sort there shit
-    $res = mysql_query("SELECT id FROM users WHERE enabled='yes' AND class = ".UC_USER." AND leechwarn = '0' AND uploaded / downloaded < $minratio AND downloaded >= $downloaded AND immunity = '0'") or sqlerr(__FILE__, __LINE__);
-    $msgs_buffer = $users_buffer = array();
-    if (mysql_num_rows($res) > 0) {
-        $dt = sqlesc(time());
-        $subject = "Auto leech warned";
-        $msg = "You have been warned and your download rights have been removed due to your low ratio. You need to get a ratio of 0.5 within the next 3 weeks or your Account will be disabled.";
-        $leechwarn = sqlesc(time() + ($length * 86400));
-        while ($arr = mysql_fetch_assoc($res)) {
-            $modcomment = sqlesc(get_date( time(), 'DATE', 1 ) . " - Automatically Leech warned and downloads disabled By System\n");
-            $msgs_buffer[] = '(0,' . $arr['id'] . ', '.time().', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
-            $users_buffer[] = '(' . $arr['id'] . ',' . $leechwarn . ',\'0\', ' . $modcomment . ')';
-        }
-        if (sizeof($msgs_buffer) > 0) {
-            mysql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $msgs_buffer)) or sqlerr(__FILE__, __LINE__);
-            mysql_query("INSERT INTO users (id, leechwarn, downloadpos, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE leechwarn=values(leechwarn),
-            downloadpos=values(downloadpos),modcomment=concat(values(modcomment),modcomment)") or sqlerr(__FILE__, __LINE__);
-            $count = mysql_affected_rows();
-            write_log("Cleanup: System applied auto leech Warning(s) to  " . $count / 2 . " Member(s)");
-        }
-        unset ($users_buffer);
-        unset ($msgs_buffer);
-    }
-    //End
-    //09 Auto leech warn
-    // ==Updated/Modified autoleech warn system - Remove warning and enable downloads
-    $minratio = 0.5; // ratio > 0.5
-    $res = mysql_query("SELECT id FROM users WHERE downloadpos = '0' AND leechwarn > '1' AND uploaded / downloaded >= $minratio") or sqlerr(__FILE__, __LINE__);
-    $msgs_buffer = $users_buffer = array();
-    if (mysql_num_rows($res) > 0) {
-       $subject = "Auto leech warning removed";
-        $msg = "Your warning for a low ratio has been removed and your downloads enabled. We highly recommend you to keep your ratio positive to avoid being automatically warned again.\n";
-        while ($arr = mysql_fetch_assoc($res)) {
-            $modcomment = sqlesc(get_date( time(), 'DATE', 1 ) . " - Leech warn removed and download enabled By System\n");
-            $msgs_buffer[] = '(0,' . $arr['id'] . ','.time().', ' . sqlesc($msg) . ',  ' . sqlesc($subject) . ')';
-            $users_buffer[] = '(' . $arr['id'] . ', \'0\', \'1\', ' . $modcomment . ')';
-        }
-        if (sizeof($msgs_buffer) > 0) {
-            mysql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $msgs_buffer)) or sqlerr(__FILE__, __LINE__);
-            mysql_query("INSERT INTO users (id, leechwarn, downloadpos, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE leechwarn=values(leechwarn),
-            downloadpos=values(downloadpos),modcomment=concat(values(modcomment),modcomment)") or sqlerr(__FILE__, __LINE__);
-            $count = mysql_affected_rows();
-            write_log("Cleanup: System removed auto leech Warning(s) and renabled download(s) - " . $count / 2 . " Member(s)");
-        }
-        unset ($users_buffer);
-        unset ($msgs_buffer);
-    }
-    //==End
-    //09 Auto leech warn
-    //==Disabled expired leechwarns
-    $res = mysql_query("SELECT id FROM users WHERE leechwarn > '1' AND leechwarn < ".TIME_NOW." AND leechwarn <> '0' ") or sqlerr(__FILE__, __LINE__);
-    $users_buffer = array();
-    if (mysql_num_rows($res) > 0) {
-        while ($arr = mysql_fetch_assoc($res)) {
-            $modcomment = sqlesc(get_date( time(), 'DATE', 1 ) . " - User disabled - Low ratio\n");
-            $users_buffer[] = '(' . $arr['id'] . ' , \'0\', \'no\', ' . $modcomment . ')';
-        }
-        if (sizeof($users_buffer) > 0) {
-            mysql_query("INSERT INTO users (id, leechwarn, enabled, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE class=values(class),
-            leechwarn=values(leechwarn),enabled=values(enabled),modcomment=concat(values(modcomment),modcomment)") or sqlerr(__FILE__, __LINE__);
-            $count = mysql_affected_rows();
-            write_log("Cleanup: Disabled " . $count / 2 . " Member(s) - Leechwarns expired");
-        }
-        unset ($users_buffer);
-    }
-    //==End
-    // Set Pm posssible Time based
-    if (isset($_POST['sendpmpos']) && ($sendpmpos =
-    0 + $_POST['sendpmpos']))
-    {
-    unset($pmdisable_pm);
-    if (isset($_POST['pmdisable_pm']))
-        $pmdisable_pm = $_POST['pmdisable_pm'];
-    $subject = sqlesc('Notification!');
-    $added = time();
-    
-    if ($sendpmpos == 255)
-    {
-        $modcomment = get_date($added, 'DATE', 1)." - Pm disablement by ".
-		$CURUSER['username'].".\nReason: $pmdisable_pm\n".$modcomment;
-        $msg = sqlesc("Your Pm rights have been disabled by ".$CURUSER['username'].($pmdisable_pm ?
-            "\n\nReason: $pmdisable_pm" : ''));
-        $updateset[] = 'sendpmpos = 0';
-    } elseif ($sendpmpos == 42)
-    {
-        $modcomment = get_date($added, 'DATE', 1)." - Pm disablement status removed by ".
-		$CURUSER['username'].".\n".$modcomment;
-        $msg = sqlesc("Your Pm rights have been restored by ".
-		$CURUSER['username'].".");
-		$updateset[] = 'sendpmpos = 1';
-    } else
-    {
-        $sendpmpos_until = ($added + $sendpmpos * 604800);
-        $dur = $sendpmpos.' week'.($sendpmpos > 1 ? 's' : '');
-        $msg = sqlesc("You have received $dur Pm disablement from ".
-		$CURUSER['username'].($pmdisable_pm ? "\n\nReason: $pmdisable_pm" : ''));
-        $modcomment = get_date($added, 'DATE', 1)." - Pm disablement for $dur by ".
-		$CURUSER['username'].".\nReason: $pmdisable_pm\n".$modcomment;
-        $updateset[] = "sendpmpos = ".$sendpmpos_until;
-    }// End
-    // Clear donor - Code not called for setting donor
-    if (isset($_POST['donor']) && (($donor = $_POST['donor']) != $user['donor']))
-    {
-    $updateset[] = "donor = " . sqlesc($donor);
-    $updateset[] = "warneduntil = 0";
-    if ($donor == 'no')
-    {
-    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_donor_removed']}".$CURUSER['username'].".\n". $modcomment;
-    $msg = sqlesc("{$lang['modtask_donor_expired']}");
-    $added = time();
-    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
-    }
-    }
-
-    // Set donor - Time based
-    if ((isset($_POST['donorlength'])) && ($donorlength = 0 + $_POST['donorlength']))
-    {
-    if ($donorlength == 255)
-    {
-    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_donor_set']}" . $CURUSER['username'] . ".\n" . $modcomment;
-    $msg = sqlesc("{$lang['modtask_received_donor']}".$CURUSER['username']);
-    $updateset[] = "donoruntil = 0";
-    }
-    else
-    {
-    $donoruntil = (time() + $donorlength * 604800);
-    $dur = $donorlength . "{$lang['modtask_week']}" . ($donorlength > 1 ? "s" : "");
-    $msg = sqlesc(sprintf($lang['modtask_donor_duration'], $dur) . $CURUSER['username']);
-    $modcomment = get_date( time(), 'DATE', 1 ) . sprintf($lang['modtask_donor_for'], $dur) . $CURUSER['username']."\n".$modcomment;
-    $updateset[] = "donoruntil = ".$donoruntil;
-    }
-    $added = time();
-    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
-    $updateset[] = "donor = 'yes'";
-    }
-
-    // Enable / Disable
-    if ((isset($_POST['enabled'])) && (($enabled = $_POST['enabled']) != $user['enabled']))
-    {
-    if ($enabled == 'yes')
-    $modcomment = get_date( time(), 'DATE', 1 ) . " {$lang['modtask_enabled']}" . $CURUSER['username'] . ".\n" . $modcomment;
-    else
-    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_disabled']}" . $CURUSER['username'] . ".\n" . $modcomment;
-
-    $updateset[] = "enabled = " . sqlesc($enabled);
-    }
-    /* If your running the forum post enable/disable, uncomment this section
-    // Forum Post Enable / Disable
-    if ((isset($_POST['forumpost'])) && (($forumpost = $_POST['forumpost']) != $user['forumpost']))
-    {
-    if ($forumpost == 'yes')
-    {
-    $modcomment = gmdate("Y-m-d")." - Posting enabled by ".$CURUSER['username'].".\n" . $modcomment;
-    $msg = sqlesc("Your Posting rights have been given back by ".$CURUSER['username'].". You can post to forum again.");
-    $added = time();
-    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
-    }
-    else
-    {
-    $modcomment = gmdate("Y-m-d")." - Posting disabled by ".$CURUSER['username'].".\n" . $modcomment;
-    $msg = sqlesc("Your Posting rights have been removed by ".$CURUSER['username'].", Please PM ".$CURUSER['username']." for the reason why.");
-    $added = time();
-    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
-    }
-    $updateset[] = "forumpost = " . sqlesc($forumpost);
-    } */
-
-    // Change Custom Title
-    if ((isset($_POST['title'])) && (($title = $_POST['title']) != ($curtitle = $user['title'])))
-    {
-    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_custom_title']}'".$title."' from '".$curtitle."'{$lang['modtask_by']}" . $CURUSER['username'] . ".\n" . $modcomment;
-
-    $updateset[] = "title = " . sqlesc($title);
-    }
-
-    // The following code will place the old passkey in the mod comment and create
-    // a new passkey. This is good practice as it allows usersearch to find old
-    // passkeys by searching the mod comments of members.
-
-    // Reset Passkey
-    if ((isset($_POST['resetpasskey'])) && ($_POST['resetpasskey']))
-    {
-    $newpasskey = md5($user['username'].time().$user['passhash']);
-    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_passkey']}".sqlesc($user['passkey'])."{$lang['modtask_reset']}".sqlesc($newpasskey)."{$lang['modtask_by']}" . $CURUSER['username'] . ".\n" . $modcomment;
-
-    $updateset[] = "passkey=".sqlesc($newpasskey);
-    }
-
-    /* This code is for use with the safe mod comment modification. If you have installed
-    the safe mod comment mod, then uncomment this section...
-
-    // Add Comment to ModComment
-    if ((isset($_POST['addcomment'])) && ($addcomment = trim($_POST['addcomment'])))
-    {
-    $modcomment = gmdate("Y-m-d") . " - ".$addcomment." - " . $CURUSER['username'] . ".\n" . $modcomment;
-    } */
-
-    /* Uncomment the following code if you have the upload mod installed...
-
-    // Set Upload Enable / Disable
-    if ((isset($_POST['uploadpos'])) && (($uploadpos = $_POST['uploadpos']) != $user['uploadpos']))
-    {
-    if ($uploadpos == 'yes')
-    {
-    $modcomment = gmdate("Y-m-d") . " - Upload enabled by " . $CURUSER['username'] . ".\n" . $modcomment;
-    $msg = sqlesc("You have been given upload rights by " . $CURUSER['username'] . ". You can now upload torrents.");
-    $added = time();
-    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
-    }
-    elseif ($uploadpos == 'no')
-    {
-    $modcomment = gmdate("Y-m-d") . " - Upload disabled by " . $CURUSER['username'] . ".\n" . $modcomment;
-    $msg = sqlesc("Your upload rights have been removed by " . $CURUSER['username'] . ". Please PM ".$CURUSER['username']." for the reason why.");
-    $added = time();
-    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
-    }
-    else
-    stderr("{$lang['modtask_user_error']}", "{$lang['modtask_try_again']}"); // Error
-
-    $updateset[] = "uploadpos = " . sqlesc($uploadpos);
-    } */
-
-    /* Uncomment the following code if you have the download mod installed...
-
-    // Set Download Enable / Disable
-    if ((isset($_POST['downloadpos'])) && (($downloadpos = $_POST['downloadpos']) != $user['downloadpos']))
-    {
-    if ($downloadpos == 'yes')
-    {
-    $modcomment = gmdate("Y-m-d") . " - Download enabled by " . $CURUSER['username'] . ".\n" . $modcomment;
-    $msg = sqlesc("Your download rights have been given back by " . $CURUSER['username'] . ". You can download torrents again.");
-    $added = time();
-    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
-    }
-    elseif ($downloadpos == 'no')
-    {
-    $modcomment = gmdate("Y-m-d") . " - Download disabled by " . $CURUSER['username'] . ".\n" . $modcomment;
-    $msg = sqlesc("Your download rights have been removed by " . $CURUSER['username'] . ", Please PM ".$CURUSER['username']." for the reason why.");
-    $added = time();
-    mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
-    }
-    else
-    stderr("{$lang['modtask_user_error']}", "{$lang['modtask_try_again']}"); // Error
-
-    $updateset[] = "downloadpos = " . sqlesc($downloadpos);
-    } */
 
     // Avatar Changed
     if ((isset($_POST['avatar'])) && (($avatar = $_POST['avatar']) != ($curavatar = $user['avatar'])))
@@ -690,5 +540,5 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
     }
 
 stderr("{$lang['modtask_user_error']}", "{$lang['modtask_no_idea']}");
-}
+
 ?>

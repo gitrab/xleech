@@ -16,6 +16,7 @@ $lang = array(
 'browse_tryagain' => "Try again with a refined search string.",
 'browse_nothing' => "Nothing here!",
 'browse_sorry' => "Sorry pal :",
+'browse_invite_your_shit' => "Invite a friend and get 5GB upload",
 
 
 );
