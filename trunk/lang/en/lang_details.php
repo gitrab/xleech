@@ -27,13 +27,13 @@ $lang = array(
 'details_last_seeder' => "Last&nbsp;seeder",
 'details_last_activity' => "Last Activity ",
 'details_size' => "Size",
-'details_bytes' => "bytes ",
+'details_bytes' => " bytes ",
 'details_added' => "Added",
 'details_long' => "LONG",
 'details_views' => "Views",
 'details_hits' => "Hits",
 'details_snatched' => "Snatched",
-'details_times' => "time(s)",
+'details_times' => " time(s)",
 'details_unknown' => "unknown",
 'details_edit' => "[Edit this torrent]",
 'details_num_files' => "Num Files",
@@ -47,6 +47,7 @@ $lang = array(
 'details_details' => "Details for torrent ",
 'details_poster' => "Poster",
 'details_no_poster' => "No Poster",
+'details_no_poster_available' => "No poster available",
 
 );
 
