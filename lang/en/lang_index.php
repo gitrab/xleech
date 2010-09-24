@@ -20,6 +20,8 @@ $lang = array(
 // new INDEx
 'index_dis' 	=> "Disclaime",
 'foot_disclaimer' => "None of the files shown here are actually hosted on this server. The links are provided solely by this site's users. The administrator of this site (%s) cannot be held responsible for what its users post, or any other actions of its users. You may not use this site to distribute or download any material when you do not have the legal rights to do so. It is your own responsibility to adhere to these terms.",
+#index
+'index_latest'	=> "Latest Torrents",
 
 #disclaimer
 'foot_disclaimer' 			=> "Disclaimer: None of the files shown here are actually hosted on this server. The links are provided solely by this site's users.

@@ -56,6 +56,7 @@ loggedinorreturn();
     $HTMLOUT  .=  "<table border='1' cellspacing='0' cellpadding='10'>\n";
     
     $HTMLOUT  .= tr($lang['edit_torrent_name'], "<input type='text' name='name' value='" . htmlspecialchars($row["name"]) . "' size='80' />", 1);
+    $HTMLOUT .= tr($lang['edit_poster'], "<input type='text' name='poster' size='80' value='" . htmlspecialchars($row["poster"]) . "' alt='' /><br />{$lang['edit_poster1']}\n", 1);
     $HTMLOUT  .= tr($lang['edit_nfo'], "<input type='radio' name='nfoaction' value='keep' checked='checked' />{$lang['edit_keep_current']}<br />".
 	"<input type='radio' name='nfoaction' value='update' />{$lang['edit_update']}<br /><input type='file' name='nfo' size='80' />", 1);
     if ((strpos($row["ori_descr"], "<") === false) || (strpos($row["ori_descr"], "&lt;") !== false))

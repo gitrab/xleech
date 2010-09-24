@@ -31,6 +31,9 @@ $lang = array(
 'edit_req' => "req",
 'edit_other' => "Other:",
 'edit_delete' => "Delete it!",
+// Poster
+'edit_poster' => "Poster",
+'edit_poster1' => "Direct link for a poster image to be shown on the details page",
 
 #edit stdhead
 'edit_stdhead' => "Edit torrent"

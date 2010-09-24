@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2010 at 12:01 AM
+-- Generation Time: Mar 23, 2010 at 12:09 AM
 -- Server version: 5.1.37
 -- PHP Version: 5.2.10-2ubuntu6.4
 
@@ -675,6 +675,7 @@ CREATE TABLE IF NOT EXISTS `torrents` (
   `ratingsum` int(10) unsigned NOT NULL DEFAULT '0',
   `nfo` blob NOT NULL,
   `client_created_by` char(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'unknown',
+  `poster` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'pic/noposter.jpg',
   PRIMARY KEY (`id`),
   UNIQUE KEY `info_hash` (`info_hash`),
   KEY `owner` (`owner`),

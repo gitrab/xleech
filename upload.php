@@ -46,6 +46,10 @@ loggedinorreturn();
       <td valign='top' align='left'><input type='file' name='file' size='80' /></td>
     </tr>
     <tr>
+      <td class='heading' valign='top' align='right'>{$lang['upload_poster']}</td>
+      <td valign='top' align='left'><input type='text' name='poster' size='80' /><br />{$lang['upload_poster1']}</td>
+      </tr>
+    <tr>
       <td class='heading' valign='top' align='right'>{$lang['upload_name']}</td>
       <td valign='top' align='left'><input type='text' name='name' size='80' /><br />({$lang['upload_filename']})</td>
     </tr>
