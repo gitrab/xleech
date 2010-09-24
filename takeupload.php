@@ -20,7 +20,7 @@ require_once("include/benc.php");
 require_once("include/bittorrent.php");
 require_once "include/user_functions.php";
 
-@ini_set("upload_max_filesize",$TBDEV['max_torrent_size']);
+@ini_set("upload_max_filesize", $TBDEV['max_torrent_size']);
 
 
 dbconn(); 
@@ -29,10 +29,8 @@ loggedinorreturn();
     
     $lang = array_merge( load_language('global'), load_language('takeupload') );
     
-/*
-    if ($CURUSER['class'] < UC_UPLOADER OR $CURUSER["uploadpos"] == 0|| $CURUSER["uploadpos"] > 1 )
+    if ($CURUSER['class'] < UC_USER OR $CURUSER["uploadpos"] == 0 || $CURUSER["uploadpos"] > 1 )
        header( "Location: {$TBDEV['baseurl']}/upload.php" );
-*/
 
     foreach(explode(":","descr:type:name") as $v) {
       if (!isset($_POST[$v]))

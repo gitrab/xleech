@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.xleech\.in$ [NC]
+RewriteRule ^(.*)$ http://xleech.in/$1 [R=301,L]

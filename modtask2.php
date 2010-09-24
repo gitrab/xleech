@@ -16,18 +16,14 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once ("include/bittorrent.php");
-require_once ("include/user_functions.php");
-require_once ("include/page_verify.php");
+require_once "include/bittorrent.php";
+require_once "include/user_functions.php";
 
 dbconn(false);
 
 loggedinorreturn();
 
 $lang = load_language('modtask');
-
-$newpage = new page_verify(); 
-$newpage->check('modtask');
 
 if ($CURUSER['class'] < UC_MODERATOR) stderr("{$lang['modtask_user_error']}", "{$lang['modtask_try_again']}");
 
@@ -40,16 +36,10 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
 
     // and verify...
     if (!is_valid_id($userid)) stderr("{$lang['modtask_error']}", "{$lang['modtask_bad_id']}");
-	require_once ("include/validator.php");
-	if (!validate($_POST['validator'], "ModTask_$userid" )) die ("Invalid" );
 
     // Fetch current user data...
     $res = mysql_query("SELECT * FROM users WHERE id=".sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
     $user = mysql_fetch_assoc($res) or sqlerr(__FILE__, __LINE__);
-
-    //== Check to make sure your not editing someone of the same or higher class
-     if ($CURUSER["class"] <= $user['class'] && ($CURUSER['id'] != $userid && $CURUSER["class"] < UC_ADMINISTRATOR))
-	stderr('Error','You cannot edit someone of the same or higher class.. injecting stuff arent we? Action logged');
 
     $updateset = array();
 
@@ -62,10 +52,8 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
     // Set class
 
     if ((isset($_POST['class'])) && (($class = $_POST['class']) != $user['class']))
-{
-if ($class >= UC_SYSOP || ($class >= $CURUSER['class']) || ($user['class'] >= $CURUSER['class']))
-stderr("{$lang['modtask_user_error']}", "{$lang['modtask_try_again']}");
-if (!is_valid_user_class($class) || $CURUSER["class"] <= $_POST['class']) stderr( ("Error"), "Bad class :P");
+    {
+    if (($CURUSER['class'] < UC_SYSOP) && ($user['class'] >= $CURUSER['class'])) stderr("{$lang['modtask_user_error']}", "{$lang['modtask_try_again']}");
 
     // Notify user
     $what = ($class > $user['class'] ? "{$lang['modtask_promoted']}" : "{$lang['modtask_demoted']}");
@@ -212,7 +200,7 @@ if (!is_valid_user_class($class) || $CURUSER["class"] <= $_POST['class']) stderr
     // Change Custom Title
     if ((isset($_POST['title'])) && (($title = $_POST['title']) != ($curtitle = $user['title'])))
     {
-    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_custom_title']}'".$title."' from '".$curtitle."' {$lang['modtask_by']} " . $CURUSER['username'] . ".\n" . $modcomment;
+    $modcomment = get_date( time(), 'DATE', 1 ) . "{$lang['modtask_custom_title']}'".$title."' from '".$curtitle."'{$lang['modtask_by']}" . $CURUSER['username'] . ".\n" . $modcomment;
 
     $updateset[] = "title = " . sqlesc($title);
     }
@@ -564,9 +552,8 @@ if (!is_valid_user_class($class) || $CURUSER["class"] <= $_POST['class']) stderr
     $updateset[] = "supportfor = ".sqlesc($supportfor);
     } */
 
-    // Add ModComment... (if we changed something we update otherwise we dont include this..)
-	if (($CURUSER['class'] == UC_SYSOP && ($user['modcomment'] != $_POST['modcomment'] || $modcomment != $_POST['modcomment'])) || ($CURUSER['class'] < UC_SYSOP && $modcomment != $user['modcomment']))
-	 $updateset[] = "modcomment = " . sqlesc($modcomment);
+    // Add ModComment to the update set...
+    $updateset[] = "modcomment = " . sqlesc($modcomment);
 
     mysql_query("UPDATE users SET " . implode(", ", $updateset) . " WHERE id=".sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
 

@@ -16,7 +16,7 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once "emoticons.php";
+require_once ("emoticons.php");
   
 //Finds last occurrence of needle in haystack
 //in PHP5 use strripos() instead of this
@@ -141,7 +141,7 @@ function format_comment($text, $strip_html = true)
 
   if( preg_match( "#function\s*\((.*?)\|\|#is", $s ) )
   {
-    $s = str_replace( ":"     , "&#58;", $s );
+    		$s = str_replace( ":"     , "&#58;", $s );
 		$s = str_replace( "["     , "&#91;", $s );
 		$s = str_replace( "]"     , "&#93;", $s );
 		$s = str_replace( ")"     , "&#41;", $s );
@@ -230,6 +230,94 @@ function format_comment($text, $strip_html = true)
 	foreach($smilies as $code => $url) {
 		$s = str_replace($code, "<img border='0' src=\"{$TBDEV['pic_base_url']}smilies/{$url}\" alt=\"" . htmlspecialchars($code) . "\" />", $s);
 }
+	return $s;
+}
+
+function format_desc($text, $strip_html = true)
+{
+	global $TBDEV;
+
+	$s = $text;
+  	unset($text);
+
+	if ($strip_html)
+		$s = htmlentities($s, ENT_QUOTES, 'UTF-8');
+
+  if( preg_match( "#function\s*\((.*?)\|\|#is", $s ) )
+  {
+    		$s = str_replace( ":"     , "&#58;", $s );
+		$s = str_replace( "["     , "&#91;", $s );
+		$s = str_replace( "]"     , "&#93;", $s );
+		$s = str_replace( ")"     , "&#41;", $s );
+		$s = str_replace( "("     , "&#40;", $s );
+		$s = str_replace( "{"	 , "&#123;", $s );
+		$s = str_replace( "}"	 , "&#125;", $s );
+		$s = str_replace( "$"	 , "&#36;", $s );   
+  }
+  
+	// [*]
+	$s = preg_replace("/\[\*\]/", "<li>", $s);
+	
+	// [b]Bold[/b]
+	$s = preg_replace("/\[b\]((\s|.)+?)\[\/b\]/", "<b>\\1</b>", $s);
+
+	// [i]Italic[/i]
+	$s = preg_replace("/\[i\]((\s|.)+?)\[\/i\]/", "<i>\\1</i>", $s);
+
+	// [u]Underline[/u]
+	$s = preg_replace("/\[u\]((\s|.)+?)\[\/u\]/", "<u>\\1</u>", $s);
+
+	// [u]Underline[/u]
+	$s = preg_replace("/\[u\]((\s|.)+?)\[\/u\]/i", "<u>\\1</u>", $s);
+
+	// [img]http://www/image.gif[/img]
+	$s = preg_replace("/\[img\](http:\/\/[^\s'\"<>]+(\.(jpg|gif|png)))\[\/img\]/i", "<img border=\"0\" src=\"\\1\" alt='' />", $s);
+
+	// [img=http://www/image.gif]
+	$s = preg_replace("/\[img=(http:\/\/[^\s'\"<>]+(\.(gif|jpg|png)))\]/i", "<img border=\"0\" src=\"\\1\" alt='' />", $s);
+
+	// [color=blue]Text[/color]
+	$s = preg_replace(
+		"/\[color=([a-zA-Z]+)\]((\s|.)+?)\[\/color\]/i",
+		"<font color='\\1'>\\2</font>", $s);
+
+	// [color=#ffcc99]Text[/color]
+	$s = preg_replace(
+		"/\[color=(#[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9])\]((\s|.)+?)\[\/color\]/i",
+		"<font color='\\1'>\\2</font>", $s);
+
+	// [url=http://www.example.com]Text[/url]
+            $s = preg_replace_callback("/\[url=([^()<>\s]+?)\]((\s|.)+?)\[\/url\]/i", "islocal", $s);
+            // [url]http://www.example.com[/url]
+            $s = preg_replace_callback("/\[url\]([^()<>\s]+?)\[\/url\]/i", "islocal", $s);
+
+	// [size=4]Text[/size]
+	$s = preg_replace(
+		"/\[size=([1-7])\]((\s|.)+?)\[\/size\]/i",
+		"<font size='\\1'>\\2</font>", $s);
+
+	// [font=Arial]Text[/font]
+	$s = preg_replace(
+		"/\[font=([a-zA-Z ,]+)\]((\s|.)+?)\[\/font\]/i",
+		"<font face=\"\\1\">\\2</font>", $s);
+
+	// URLs
+	$s = format_urls($s);
+//	$s = format_local_urls($s);
+
+	// Linebreaks
+//	$s = nl2br($s);
+
+	// [pre]Preformatted[/pre]
+	$s = preg_replace("/\[pre\]((\s|.)+?)\[\/pre\]/i", "<tt><span style=\"white-space: nowrap;\">\\1</span></tt>", $s);
+
+	// [nfo]NFO-preformatted[/nfo]
+	$s = preg_replace("/\[nfo\]((\s|.)+?)\[\/nfo\]/i", "<tt><span style=\"white-space: nowrap;\"><font face='MS Linedraw' size='2' style='font-size: 10pt; line-height: " .
+		"10pt'>\\1</font></span></tt>", $s);
+
+	// Maintain spacing
+	$s = str_replace("  ", " &nbsp;", $s);
+
 	return $s;
 }
 
