@@ -226,6 +226,8 @@ $outmessages = $arr[0];
     $HTMLOUT .= tr($lang['my_stylesheet'], "<select name='stylesheet'>\n$stylesheets\n</select>",1);
     $HTMLOUT .= tr($lang['my_language'], "English",1);
     $HTMLOUT .= tr($lang['my_country'], "<select name='country'>\n$countries\n</select>",1);
+    $HTMLOUT .= tr("".$lang['my_shoutback']."", "<input type='radio' name='shoutboxbg'" . ($CURUSER["shoutboxbg"] == "1" ? " checked='checked'" : "") . " value='1' />{$lang['my_shoutback_white']}
+    <input type='radio' name='shoutboxbg'" . ($CURUSER["shoutboxbg"] == "2" ? " checked='checked'" : "") . " value='2' />{$lang['my_shoutback_grey']}<input type='radio' name='shoutboxbg'" . ($CURUSER["shoutboxbg"] == "3" ? " checked='checked'" : "") . " value='3' />{$lang['my_shoutback_black']}<input type='radio' name='shoutboxbg'" . ($CURUSER["shoutboxbg"] == "4" ? " checked='checked'" : "") . " value='4' />{$lang['my_shoutback_transparent']}", 1);
 
     // Timezone stuff //
     $HTMLOUT .= tr($lang['my_tz'], $time_select ,1);

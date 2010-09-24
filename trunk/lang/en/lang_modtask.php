@@ -35,6 +35,7 @@ $lang = array(
 'modtask_avatar_change' => " - Avatar changed from ",
 'modtask_to' => "to",
 'modtask_no_idea' => "No idea what to do",
+'modtask_chatpos' => "- Chat post rights set to",
 
 
 );

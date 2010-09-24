@@ -151,6 +151,8 @@ function isproxy()
 		implode(",", array_map("sqlesc", array($wantusername, $wantpasshash, $secret, $editsecret, $email, (!$arr[0]?'confirmed':'pending')))).
 		", ". (!$arr[0]?UC_SYSOP.", ":""). "". time() ." , $time_offset, {$dst_in_use['tm_isdst']})");
 
+    $message = "Welcome New {$TBDEV['site_name']} Member : - " . htmlspecialchars($wantusername) . "";
+
     if (!$ret) 
     {
       if (mysql_errno() == 1062)
@@ -163,6 +165,8 @@ function isproxy()
 //write_log("User account $id ($wantusername) was created");
 
     $psecret = $editsecret; //md5($editsecret);
+
+    autoshout($message);
 
     $body = str_replace(array('<#SITENAME#>', '<#USEREMAIL#>', '<#IP_ADDRESS#>', '<#REG_LINK#>'),
                         array($TBDEV['site_name'], $email, $_SERVER['REMOTE_ADDR'], "{$TBDEV['baseurl']}/confirm.php?id=$id&secret=$psecret"),

@@ -70,6 +70,8 @@ if ( ! defined( 'IN_TBDEV_FORUM' ) )
       @mysql_query("INSERT INTO topics (userid, forumid, subject) VALUES($userid, $forumid, $subject)") or sqlerr(__FILE__, __LINE__);
 
       $topicid = mysql_insert_id() or stderr("{$lang['forum_post_error']}", "{$lang['forum_post_topic_id']}");
+
+      $message1 = $CURUSER['username'] . " Created a new forum topic [url={$TBDEV['baseurl']}/forums.php?action=viewtopic&topicid=$topicid&page=last]{$subject}[/url]";
     }
     else
     {
@@ -97,6 +99,18 @@ if ( ! defined( 'IN_TBDEV_FORUM' ) )
     "VALUES($topicid, $userid, $added, $body)") or sqlerr(__FILE__, __LINE__);
 
     $postid = mysql_insert_id() or die("{$lang['forum_post_post_na']}");
+
+    $subject = mysql_result(mysql_query("SELECT subject from topics where id=".$topicid),0);
+	$message = $CURUSER['username'] . " replied to the thread [url={$TBDEV['baseurl']}/forums.php?action=viewtopic&topicid=$topicid&page=last]{$subject}[/url]";	
+  if ($newtopic ){
+  if (!in_array($forumid, array("9"))) {
+  autoshout($message1);
+  }
+  }else{
+  if (!in_array($forumid, array("9"))) {
+  autoshout($message); 
+  }
+  }
 
     //------ Update topic last post
 

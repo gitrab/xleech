@@ -76,6 +76,7 @@ $lang = array(
 'userdetails_immunity' => "Immunity",
 'userdetails_leechwarn' => "Leech warn",
 'userdetails_pmpos' => "Pm possible",
+'userdetails_chatpos' => "Chat possible",
 // '' => "",
 'userdetails_snatched_stuff' => "Snatched stuff:",
 'userdetails_show' => "Show",
