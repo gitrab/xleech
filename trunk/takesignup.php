@@ -101,10 +101,7 @@ function isproxy()
 */
     if (empty($wantusername) || empty($wantpassword) || empty($email))
       stderr($lang['takesignup_user_error'], $lang['takesignup_blank']);
-    /*
-    if (strlen($wantusername) > 12)
-      bark("Sorry, username is too long (max is 12 chars)");
-    */
+
     if ($wantpassword != $passagain)
       stderr($lang['takesignup_user_error'], $lang['takesignup_nomatch']);
 
@@ -176,6 +173,10 @@ function isproxy()
       mail($email, "{$TBDEV['site_name']} {$lang['takesignup_confirm']}", $body, "{$lang['takesignup_from']} {$TBDEV['site_email']}");
     else 
       logincookie($id, $wantpasshash);
+
+	$added = time();
+	$welcome = sqlesc("{$lang['takesignup_welcome']}");
+	mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES(0, $id, $welcome, $added)") or sqlerr(__FILE__, __LINE__);
 
     header("Refresh: 0; url=ok.php?type=". (!$arr[0]?"sysop":("signup&email=" . urlencode($email))));
 

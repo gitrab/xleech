@@ -65,7 +65,7 @@ $assoc = mysql_fetch_assoc($select_inv);
 if ($rows == 0)
 stderr("Invite not found.\nPlease request a invite from one of our members.");
 
-if ($assoc["receiver"]!=0)
+if ($assoc["receiver"] != 0)
 stderr("Invite already taken.\nPlease request a new one from your inviter.");
 
 $secret = mksecret();
@@ -91,6 +91,11 @@ $id = mysql_insert_id();
 mysql_query('UPDATE invite_codes SET receiver = ' . sqlesc($id) . ', status = "Confirmed" WHERE sender = ' . sqlesc((int)$assoc['sender']). ' AND code = ' . sqlesc($invite)) or sqlerr(__FILE__, __LINE__);
 $bonus = '5368709120';
 mysql_query('UPDATE users SET uploaded = uploaded + ' . sqlesc($bonus) . ' WHERE id = ' . sqlesc((int)$assoc['sender'])) or sqlerr(__FILE__, __LINE__);
+// send welcome message start
+$added = time();
+$welcome = sqlesc("{$lang['gl_welcome']}");
+mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES(0, $id, $welcome, $added)") or sqlerr(__FILE__, __LINE__);
+// send welcome message end
 write_log('User account '.htmlspecialchars($wantusername).' was created!');
 stderr('Signup successfull', 'Your inviter needs to confirm your account now!');
 ?>
