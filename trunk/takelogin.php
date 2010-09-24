@@ -16,8 +16,9 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once 'include/bittorrent.php';
-require_once "include/password_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/password_functions.php");
+require_once ("include/page_verify.php");
 
     if (!mkglobal('username:password:captcha'))
       die();
@@ -31,6 +32,9 @@ require_once "include/password_functions.php";
     dbconn();
     
     $lang = array_merge( load_language('global'), load_language('takelogin') );
+
+$newpage = new page_verify(); 
+$newpage->check('login');
 
     $res = mysql_query("SELECT id, passhash, secret, enabled FROM users WHERE username = " . sqlesc($username) . " AND status = 'confirmed'");
     $row = mysql_fetch_assoc($res);

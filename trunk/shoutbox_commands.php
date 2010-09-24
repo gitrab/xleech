@@ -13,12 +13,37 @@ die();
 		\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 		<html xmlns='http://www.w3.org/1999/xhtml'>
 		<head>
-    <meta name='generator' content='TBDev.net' />
+    		<meta name='generator' content='TBDev.net' />
 	  <meta name='MSSmartTagsPreventParsing' content='TRUE' />
 		<title>Shoutbox Commands</title>
-    <link rel='stylesheet' href='./1.css' type='text/css' />
+    <link rel='stylesheet' href='templates/1/1.css' type='text/css' />
     </head>
     <body>
+<!-- Piwik -->
+<script type=\"text/javascript\">
+var pkBaseURL = ((\"https:\" == document.location.protocol) ? \"https://stats.xdns.ro/\" : \"http://stats.xdns.ro/\");
+document.write(unescape(\"%3Cscript src='\" + pkBaseURL + \"piwik.js' type='text/javascript'%3E%3C/script%3E\"));
+</script><script type=\"text/javascript\">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + \"piwik.php\", 15);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src=\"http://stats.xdns.ro/piwik.php?idsite=15\" style=\"border:0\" alt=\"\" /></p></noscript>
+<!-- End Piwik Tag -->
+<script type=\"text/javascript\">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18179445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
     <script type='text/javascript'>
     function command(command,form,text){
     window.opener.document.forms[form].elements[text].value = window.opener.document.forms[form].elements[text].value+command+' ';

@@ -19,12 +19,12 @@
 |  $Authors = pdq, putyn, sir_snugglebunny, Bigjoos for 09
 +------------------------------------------------
 */
-require_once 'include/bittorrent.php';
+require_once ("include/bittorrent.php");
 require_once ROOT_PATH.'/include/user_functions.php';
 dbconn( false );
 loggedinorreturn();
 
-$HTMLOUT ="";
+$HTMLOUT = "";
 
 // === added turn on / off shoutbox - sir snuggs
 if ( ( isset( $_GET['show_shout'] ) ) && ( ( $show_shout = $_GET['show'] ) !== $CURUSER['show_shout'] ) ) {
@@ -52,7 +52,7 @@ $sql = mysql_query('SELECT id, text FROM shoutbox WHERE id='.sqlesc($_GET['edit'
 $res = mysql_fetch_assoc($sql);
 unset($sql);
 
-$HTMLOUT .="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+$HTMLOUT .= "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
 <html xmlns='http://www.w3.org/1999/xhtml'>
 <head>
 <meta http-equiv='Pragma' content='no-cache' />
@@ -97,7 +97,7 @@ if (isset($_GET['edit']) && ($_GET['user'] == $CURUSER['id']) && ($CURUSER['clas
 {	
 $sql = mysql_query('SELECT id, text, userid FROM shoutbox WHERE userid ='.sqlesc($_GET['user']).' AND id='.sqlesc($_GET['edit']));
 $res = mysql_fetch_array($sql);
-$HTMLOUT .="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+$HTMLOUT .= "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
 <html xmlns='http://www.w3.org/1999/xhtml'>
 <head>
 <meta http-equiv='Pragma' content='no-cache' />
@@ -159,7 +159,7 @@ unset($text, $text_parsed);
 }
 
 //== begin main output
-$HTMLOUT .="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+$HTMLOUT .= "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
 <html xmlns='http://www.w3.org/1999/xhtml'>
 <head>
 <title>ShoutBox</title>
@@ -193,7 +193,7 @@ span.size7 { font-size:2.25em; }
 //==Background colours begin
 //== White
 if ( $CURUSER['shoutboxbg'] == 1 ) {
-$HTMLOUT .="<style type='text/css'>
+$HTMLOUT .= "<style type='text/css'>
 A {color: #000000; font-weight: bold;  }
 A:hover {color: #FF273D;}
 .small {font-size: 10pt; font-family: arial; }
@@ -205,7 +205,7 @@ $dtcolor = '#356AA0';
 }
 // == Grey
 if ( $CURUSER['shoutboxbg'] == 2 ) {
-$HTMLOUT .="<style type='text/css'>
+$HTMLOUT .= "<style type='text/css'>
 A {color: #ffffff; font-weight: bold;  }
 A:hover {color: #FF273D;}
 .small {font-size: 10pt; font-family: arial; }
@@ -217,7 +217,7 @@ $dtcolor = '#FFFFFF';
 }
 // == Black
 if ( $CURUSER['shoutboxbg'] == 3 ) {
-$HTMLOUT .="<style type='text/css'>
+$HTMLOUT .= "<style type='text/css'>
 A {color: #FFFFFF; font-weight: bold; ; }
 A:hover {color: #FFFFFF;}
 .small {font-size: 10pt; font-family: arial; }
@@ -239,11 +239,11 @@ $bg = '#';
 $fontcolor = '#ffffdc';
 $dtcolor = '#FFFFFF';
 }
-$HTMLOUT .="</head><body>";
+$HTMLOUT .= "</head><body>";
 //== Banned from shout ??
 if ($CURUSER['chatpost'] == 'no')
 {
-$HTMLOUT .="<div class='error' align='center'><br />Sorry, you are not authorized to Shout.  (<a href=\"./rules.php\" target=\"_blank\"><font color='black'>Contact Site Admin For The Reason Why</font></a>)<br /><br /></div></body></html>";
+$HTMLOUT .= "<div class='error' align='center'><br />Sorry, you are not authorized to Shout.  (<a href=\"./rules.php\" target=\"_blank\"><font color='black'>Contact Site Admin For The Reason Why</font></a>)<br /><br /></div></body></html>";
 exit;
 }
 //=End
@@ -270,8 +270,8 @@ if ( isset( $_GET['sent'] ) && ( $_GET['sent'] == "yes" ) ) {
         $command = $vars[1];
         $user = $vars[2];
         $c = mysql_query( "SELECT id, class, modcomment FROM users where username=" . sqlesc( $user ) ) or sqlerr();
-        $a = mysql_fetch_row( $c );
-        if ( mysql_num_rows( $c ) == 1 && $CURUSER["class"] > $a[1] ) {
+        $a = mysql_fetch_row($c);
+        if (mysql_num_rows($c) == 1 && $CURUSER["class"] > $a[1] ) {
             switch ( $command ) {
                 case "/EMPTY" :
                     $what = 'deleted all shouts';
@@ -315,43 +315,43 @@ if ( isset( $_GET['sent'] ) && ( $_GET['sent'] == "yes" ) ) {
                     $query = "UPDATE users SET enabled='yes', modcomment = concat(" . sqlesc( $modcomment ) . ", modcomment) WHERE id = " . $a[0];
                     break;
             }
-            if ( mysql_query( $query ) )
-                autoshout($msg);
-            $HTMLOUT .="<script type=\"text/javascript\">parent.document.forms[0].shbox_text.value='';</script>";
+           if (mysql_query($query))
+            autoshout($msg);
+            $HTMLOUT .= "<script type=\"text/javascript\">parent.document.forms[0].shbox_text.value='';</script>";
             write_log("Shoutbox user " . $user . " has been " . $what . " by " . $CURUSER["username"] );
             unset($text, $text_parsed, $query, $date, $modcomment, $what, $msg, $commands);
         }
     }
 	  elseif(preg_match($private_pattern,$text,$vars)) {
-		$to_user = mysql_result(mysql_query('select id from users WHERE username = '.sqlesc($vars[2])),0) or exit(mysql_error());
+		$to_user = mysql_result(mysql_query('select id from users WHERE username = '.sqlesc($vars[2])), 0) or exit(mysql_error());
 		if($to_user != 0 && $to_user != $CURUSER['id']) {
 			$text = $vars[2]." - ".$vars[3];
 			$text_parsed = format_comment($text);
-			mysql_query( "INSERT INTO shoutbox (userid, date, text, text_parsed,to_user) VALUES (".sqlesc($userid).", $date, " . sqlesc( $text ) . ",".sqlesc( $text_parsed) .",".sqlesc($to_user).")") or sqlerr( __FILE__, __LINE__ );
+			mysql_query("INSERT INTO shoutbox (userid, date, text, text_parsed,to_user) VALUES (".sqlesc($userid).", $date, " . sqlesc( $text ) . ",".sqlesc( $text_parsed) .",".sqlesc($to_user).")") or sqlerr( __FILE__, __LINE__ );
 		}		
-        $HTMLOUT .="<script type=\"text/javascript\">parent.document.forms[0].shbox_text.value='';</script>";
+        $HTMLOUT .= "<script type=\"text/javascript\">parent.document.forms[0].shbox_text.value='';</script>";
 	} else {
         $a = mysql_fetch_row( mysql_query( "SELECT userid,date FROM shoutbox ORDER by id DESC LIMIT 1 " ) ) or print( "First shout or an error :)" );
         if ( empty( $text ) || strlen( $text ) == 1 )
-            $HTMLOUT .="<font class=\"small\" color=\"red\">Shout can't be empty</font>";
+            $HTMLOUT .= "<font class=\"small\" color=\"red\">Shout can't be empty</font>";
         elseif ( $a[0] == $userid && ( time() - $a[1] ) < $limit && $CURUSER['class'] < UC_MODERATOR )
-            $HTMLOUT .="<font class=\"small\" color=\"red\">$limit seconds between shouts <font class=\"small\">Seconds Remaining : (" . ( $limit - ( time() - $a[1] ) ) . ")</font></font>";
+            $HTMLOUT .= "<font class=\"small\" color=\"red\">$limit seconds between shouts <font class=\"small\">Seconds Remaining : (" . ( $limit - ( time() - $a[1] ) ) . ")</font></font>";
         else {
-            mysql_query( "INSERT INTO shoutbox (id, userid, date, text, text_parsed) VALUES ('id'," . sqlesc( $userid ) . ", $date, " . sqlesc( $text ) . ",".sqlesc( $text_parsed ) .")" ) or sqlerr( __FILE__, __LINE__ );
-            $HTMLOUT .="<script type=\"text/javascript\">parent.document.forms[0].shbox_text.value='';</script>";
+            mysql_query("INSERT INTO shoutbox (id, userid, date, text, text_parsed) VALUES ('id'," . sqlesc( $userid ) . ", $date, " . sqlesc( $text ) . ",".sqlesc( $text_parsed ) .")" ) or sqlerr( __FILE__, __LINE__ );
+            $HTMLOUT .= "<script type=\"text/javascript\">parent.document.forms[0].shbox_text.value='';</script>";
         }
     }
 }
 // //////////////////////
-$res = mysql_query( "SELECT s.id, s.userid, s.date , s.text,s.to_user,u.username,u.class,u.donor,u.warned,u.chatpost FROM shoutbox as s LEFT JOIN users as u ON s.userid=u.id ORDER BY s.date DESC LIMIT 30" ) or sqlerr( __FILE__, __LINE__ );
+$res = mysql_query("SELECT s.id, s.userid, s.date , s.text, s.to_user, u.username, u.class, u.donor, u.warned, u.chatpost FROM shoutbox as s LEFT JOIN users as u ON s.userid=u.id ORDER BY s.date DESC LIMIT 30" ) or sqlerr( __FILE__, __LINE__ );
 if ( mysql_num_rows( $res ) == 0 )
-    $HTMLOUT .="No shouts here";
+    $HTMLOUT .= "No shouts here";
 else {
-   $HTMLOUT .="<table border='0' cellspacing='0' cellpadding='2' width='100%' align='left' class='small'>\n";
+   $HTMLOUT .= "<table border='0' cellspacing='0' cellpadding='2' width='100%' align='left' class='small'>\n";
     while ( $arr = mysql_fetch_assoc( $res ) ) {
 	if(($arr['to_user'] != $CURUSER['id'] && $arr['to_user'] != 0) && $arr['userid'] != $CURUSER['id']) 
 		continue;
-	elseif($arr['to_user'] == $CURUSER['id'] || ($arr['userid'] == $CURUSER['id'] && $arr['to_user'] !=0) )
+	elseif($arr['to_user'] == $CURUSER['id'] || ($arr['userid'] == $CURUSER['id'] && $arr['to_user'] != 0) )
 		$private = "<a href=\"javascript:private_reply('".$arr['username']."')\"><img src=\"{$TBDEV['pic_base_url']}private-shout.png\" alt=\"Private shout\" title=\"Private shout! click to reply to ".$arr['username']."\" width=\"16\" style=\"padding-left:2px;padding-right:2px;\" border=\"0\" /></a>";
 	else
 		$private = '';
@@ -359,15 +359,15 @@ else {
         $del = ( $CURUSER['class'] >= UC_MODERATOR ? "<a href='./shoutbox.php?del=" . $arr['id'] . "'><img src='{$TBDEV['pic_base_url']}button_delete2.gif' border='0' alt=\"Delete Single Shout\" title=\"Delete Single Shout\" /></a> " : "" );
         $delall = ( $CURUSER['class'] >= UC_SYSOP ? "<a href='./shoutbox.php?delall' onclick=\"confirm_delete(); return false;\"><img src='{$TBDEV['pic_base_url']}del.png' border='0' alt=\"Empty Shout\" title=\"Empty Shout\" /></a> " : "" );      
         $pm = "<span class='date' style=\"color:$dtcolor\"><a target='_blank' href='./sendmessage.php?receiver=$arr[userid]'><img src='{$TBDEV['pic_base_url']}button_pm2.gif' border='0' alt=\"Pm User\" title=\"Pm User\" /></a></span>\n";
-        $datum = get_date($arr["date"] + (isset($CURUSER['dst_in_use']) + (isset($CURUSER["time_offset"])) ),0,1);
+        $datum = get_date($arr["date"] + (isset($CURUSER['dst_in_use']) + (isset($CURUSER["time_offset"])) ), 0, 1);
         require_once('include/bbcode_functions.php');
-        $HTMLOUT .="<tr style='background-color:$bg;'><td><span class='size1' style='color:$fontcolor; '>[$datum]</span>\n$del $delall $edit $pm $private<a href='userdetails.php?id=" . $arr["userid"] . "' target='_blank'><font color='#" . get_user_class_color( $arr['class'] ) . "'>" . htmlspecialchars( $arr['username'] ) . "</font></a>\n" .
+        $HTMLOUT .= "<tr style='background-color:$bg;'><td><span class='size1' style='color:$fontcolor; '>[$datum]</span>\n$del $delall $edit $pm $private<a href='userdetails.php?id=" . $arr["userid"] . "' target='_blank'><font color='#" . get_user_class_color( $arr['class'] ) . "'>" . htmlspecialchars( $arr['username'] ) . "</font></a>\n" .
             ( $arr["donor"] == "yes" ? "<img src='./pic/star.gif' alt='Donor' title='Donor' />\n" : "" ) .
             ( $arr["warned"] == "yes" ? "<img src='./pic/warned.gif' alt='Warned' title='warned' />\n" : "" ) .
             ( $arr["chatpost"] == "no" ? "<img src='./pic/chatpos.gif' alt='No Chat' title='Shout disabled' />\n" : "" ) .
             "<span class='size2' style='color:$fontcolor;'> " . format_comment( $arr["text"] ) . "\n</span></td></tr>\n";
     }
-    $HTMLOUT .="</table>";
+    $HTMLOUT .= "</table>";
 }
-$HTMLOUT .="</body></html>";
+$HTMLOUT .= "</body></html>";
 print $HTMLOUT;

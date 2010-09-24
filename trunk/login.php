@@ -16,11 +16,15 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once "include/bittorrent.php" ;
+require_once ("include/bittorrent.php");
+require_once ("include/page_verify.php");
 
     ini_set('session.use_trans_sid', '0');
 
     $lang = array_merge( load_language('global'), load_language('login') );
+
+$newpage = new page_verify(); 
+$newpage->create('login');
     
     // Begin the session
     session_start();

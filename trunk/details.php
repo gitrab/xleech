@@ -18,12 +18,12 @@
 */
 ob_start("ob_gzhandler");
 
-require_once("include/bittorrent.php");
-require_once "include/user_functions.php";
-require_once "include/bbcode_functions.php";
-require_once "include/pager_functions.php";
-require_once "include/torrenttable_functions.php";
-require_once "include/html_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
+require_once ("include/bbcode_functions.php");
+require_once ("include/pager_functions.php");
+require_once ("include/torrenttable_functions.php");
+require_once ("include/html_functions.php");
 
 
 function ratingpic($num) {
@@ -62,8 +62,7 @@ loggedinorreturn();
       exit();
     }
 	
-$res = mysql_query("SELECT torrents.seeders, torrents.banned, torrents.leechers, torrents.info_hash, torrents.filename, torrents.poster, LENGTH(torrents.nfo) AS nfosz, torrents.last_action AS lastseed, torrents.numratings, torrents.name, IF(torrents.numratings < {$TBDEV['minvotes']}, NULL, ROUND(torrents.ratingsum / torrents.numratings, 1)) AS rating, torrents.comments, torrents.owner, torrents.save_as, torrents.descr, torrents.visible, torrents.size, torrents.added, torrents.views, torrents.hits, torrents.times_completed, torrents.id, torrents.type, torrents.numfiles, categories.name AS cat_name, users.username FROM torrents LEFT JOIN categories ON torrents.category = categories.id LEFT JOIN users ON torrents.owner = users.id WHERE torrents.id = $id")
-	or sqlerr();
+$res = mysql_query("SELECT torrents.seeders, torrents.banned, torrents.leechers, torrents.info_hash, torrents.filename, torrents.poster, LENGTH(torrents.nfo) AS nfosz, torrents.last_action AS lastseed, torrents.numratings, torrents.name, IF(torrents.numratings < {$TBDEV['minvotes']}, NULL, ROUND(torrents.ratingsum / torrents.numratings, 1)) AS rating, torrents.comments, torrents.owner, torrents.save_as, torrents.descr, torrents.visible, torrents.size, torrents.added, torrents.views, torrents.hits, torrents.times_completed, torrents.id, torrents.type, torrents.numfiles, categories.name AS cat_name, users.username FROM torrents LEFT JOIN categories ON torrents.category = categories.id LEFT JOIN users ON torrents.owner = users.id WHERE torrents.id = $id") or sqlerr();
 $row = mysql_fetch_assoc($res);
 
 $owned = $moderator = 0;
@@ -153,8 +152,8 @@ if (!$row || ($row["banned"] == "yes" && !$moderator))
 		else
 			$HTMLOUT .= tr("{$lang['details_type']}", "{$lang['details_none']}");
 
-		$HTMLOUT .= tr("{$lang['details_last_seeder']}", "{$lang['details_last_activity']}" .get_date( $row['lastseed'],'',0,1));
-		$HTMLOUT .= tr("{$lang['details_size']}",mksize($row["size"]) . " ( " . number_format($row["size"]) . "{$lang['details_bytes']})");
+		$HTMLOUT .= tr("{$lang['details_last_seeder']}", "{$lang['details_last_activity']}" .get_date( $row['lastseed'], '', 0, 1));
+		$HTMLOUT .= tr("{$lang['details_size']}", mksize($row["size"]) . " ( " . number_format($row["size"]) . "{$lang['details_bytes']})");
 /*
 		$s = "";
 		$s .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr><td valign=\"top\" class=embedded>";
@@ -214,7 +213,7 @@ if (!empty($xrow))
 
 */
 
-		$HTMLOUT .= tr("{$lang['details_added']}", get_date( $row['added'],"{$lang['details_long']}"));
+		$HTMLOUT .= tr("{$lang['details_added']}", get_date( $row['added'], "{$lang['details_long']}"));
 		$HTMLOUT .= tr("{$lang['details_views']}", $row["views"]);
 		$HTMLOUT .= tr("{$lang['details_hits']}", $row["hits"]);
 		$HTMLOUT .= tr("{$lang['details_snatched']}", ($row["times_completed"] > 0 ? "<a href='./snatches.php?id=$id'>$row[times_completed] {$lang['details_times']}</a>" : "0 {$lang['details_times']}"), 1);

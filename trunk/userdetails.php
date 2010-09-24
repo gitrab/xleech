@@ -16,16 +16,20 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once "include/bittorrent.php";
-require_once "include/user_functions.php";
-require_once "include/html_functions.php";
-require_once "include/bbcode_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
+require_once ("include/page_verify.php");
+require_once ("include/html_functions.php");
+require_once ("include/bbcode_functions.php");
 
 dbconn(false);
 
 loggedinorreturn();
 
 $lang = array_merge( load_language('global'), load_language('userdetails') );
+
+$newpage = new page_verify(); 
+$newpage->create('modtask');
 
 function maketable($res)
     {
@@ -51,7 +55,7 @@ function maketable($res)
       $catimage = "{$TBDEV['pic_base_url']}caticons/{$arr['image']}";
       $catname = htmlspecialchars($arr["catname"]);
       $catimage = "<img src=\"".htmlspecialchars($catimage) ."\" title=\"$catname\" alt=\"$catname\" width='42' height='42' />";
-      $ttl = (28*24) - floor((time() - $arr["added"]) / 3600);
+      $ttl = (28 * 24) - floor((time() - $arr["added"]) / 3600);
       if ($ttl == 1) $ttl .= "<br />{$lang['userdetails_hour']}"; else $ttl .= "<br />{$lang['userdetails_hours']}";
       $size = str_replace(" ", "<br />", mksize($arr["size"]));
       $uploaded = str_replace(" ", "<br />", mksize($arr["uploaded"]));
@@ -103,13 +107,13 @@ function maketable($res)
     if ($user['added'] == 0)
       $joindate = "{$lang['userdetails_na']}";
     else
-      $joindate = get_date( $user['added'],'');
+      $joindate = get_date( $user['added'], '');
     $lastseen = $user["last_access"];
     if ($lastseen == 0)
       $lastseen = "{$lang['userdetails_never']}";
     else
     {
-      $lastseen = get_date( $user['last_access'],'',0,1);
+      $lastseen = get_date( $user['last_access'], '', 0, 1);
     }
 
 
@@ -239,7 +243,7 @@ function maketable($res)
     if (isset($leeching))
        $HTMLOUT .= "<tr valign=top><td class=rowhead>{$lang['userdetails_cur_leech']}</td><td align=left>".maketable($leeching)."</td></tr>\n";
        //=== start snatched
-    $count_snatched='';
+    $count_snatched = '';
     if ($CURUSER['class'] >= UC_MODERATOR){
     if (isset($_GET["snatched_table"])){
     $HTMLOUT .="<tr><td class='clearalt6' align='right' valign='top'><b>Snatched stuff:</b><br />[ <a href=\"userdetails.php?id=$id\" class=\"sublink\">Hide list</a> ]</td><td class='clearalt6'>";
@@ -256,9 +260,9 @@ function maketable($res)
     "<td class='colhead' align='center'>Ratio</td><td class='colhead' align='center'>Client</td></tr>";
     while ($arr = mysql_fetch_assoc($res)){
     //=======change colors
-    $count2='';
-    $count2= (++$count2)%2;
-    $class = 'clearalt'.($count2==0?'6':'7');
+    $count2 = '';
+    $count2 = (++$count2) % 2;
+    $class  = 'clearalt'.($count2 == 0 ? '6' : '7');
     //=== speed color red fast green slow ;)
     if ($arr["upspeed"] > 0)
     $ul_speed = ($arr["upspeed"] > 0 ? mksize($arr["upspeed"]) : ($arr["seedtime"] > 0 ? mksize($arr["uploaded"] / ($arr["seedtime"] + $arr["leechtime"])) : mksize(0)));
@@ -269,8 +273,8 @@ function maketable($res)
     else
     $dl_speed = mksize(($arr["downloaded"] / ( $arr['c'] - $arr['s'] + 1 )));
     
-    $dlc="";
-    switch (true){
+    $dlc = "";
+    switch (true) {
     case ($dl_speed > 600):
     $dlc = 'red';
     break;
@@ -285,7 +289,7 @@ function maketable($res)
     break;
     }
 
-    if ($arr["downloaded"] > 0){
+    if ($arr["downloaded"] > 0) {
     $ratio = number_format($arr["uploaded"] / $arr["downloaded"], 3);
     $ratio = "<font color='" . get_ratio_color($ratio) . "'><b>Ratio:</b><br />$ratio</font>";
     }
@@ -347,6 +351,8 @@ function maketable($res)
     {
       $HTMLOUT .= begin_frame("{$lang['userdetails_edit_user']}", true);
       $HTMLOUT .= "<form method='post' action='modtask.php'>\n";
+      require_once ("include/validator.php");
+      $HTMLOUT .= validatorForm("ModTask_$user[id]");
       $HTMLOUT .= "<input type='hidden' name='action' value='edituser' />\n";
       $HTMLOUT .= "<input type='hidden' name='userid' value='$id' />\n";
       $HTMLOUT .= "<input type='hidden' name='returnto' value='userdetails.php?id=$id' />\n";
@@ -372,8 +378,8 @@ function maketable($res)
         else
           $maxclass = $CURUSER['class'] - 1;
         for ($i = 0; $i <= $maxclass; ++$i)
-          $HTMLOUT .= "<option value='$i'" . ($user["class"] == $i ? " selected='selected'" : "") . ">" . get_user_class_name($i) . "</option>\n";
-        $HTMLOUT .= "</select></td></tr>\n";
+         $HTMLOUT .= "<option value='$i'" . ($user["class"] == $i ? " selected='selected'" : "") . ">" . get_user_class_name($i) . "</option>\n";
+         $HTMLOUT .= "</select></td></tr>\n";
       }
 
       $modcomment = htmlspecialchars($user["modcomment"]);
@@ -512,7 +518,7 @@ function maketable($res)
      //==Immunity
      if ($CURUSER['class'] >= UC_MODERATOR) {
 	   $immunity = $user['immunity'] != 0;
-     $HTMLOUT .= "<tr><td class='rowhead'".(!$immunity ? ' rowspan="2"' : '').">{$lang['userdetails_immunity']}</td>
+      $HTMLOUT .= "<tr><td class='rowhead'".(!$immunity ? ' rowspan="2"' : '').">{$lang['userdetails_immunity']}</td>
  	   <td align='left' width='20%'>".($immunity ? "<input name='immunity' value='42' type='radio' />{$lang['userdetails_r_immune_s']}" : "{$lang['userdetails_immunity_ss']}")."</td>\n";
 
       if ($immunity)
@@ -524,7 +530,7 @@ function maketable($res)
             mkprettytime($user['immunity'] - time()). " to go)</td></tr>";
      } else
      {
-     $HTMLOUT .= "<td>{$lang['userdetails_immunity_for']}<select name='immunity'>
+      $HTMLOUT .= "<td>{$lang['userdetails_immunity_for']}<select name='immunity'>
      <option value='0'>------</option>
      <option value='1'>1 {$lang['userdetails_week']}</option>
      <option value='2'>2 {$lang['userdetails_weeks']}</option>
@@ -539,7 +545,7 @@ function maketable($res)
      //==Leech Warnings
      if ($CURUSER['class'] >= UC_MODERATOR) {
 	   $leechwarn = $user['leechwarn'] != 0;
-     $HTMLOUT .= "<tr><td class='rowhead'".(!$leechwarn ? ' rowspan="2"' : '').">{$lang['userdetails_leechwarn']}</td>
+      $HTMLOUT .= "<tr><td class='rowhead'".(!$leechwarn ? ' rowspan="2"' : '').">{$lang['userdetails_leechwarn']}</td>
  	   <td align='left' width='20%'>".($leechwarn ? "<input name='leechwarn' value='42' type='radio' />{$lang['userdetails_r_lw_s']}" : "{$lang['userdetails_n_l_w_ss']}")."</td>\n";
 
       if ($leechwarn)
@@ -551,7 +557,7 @@ function maketable($res)
             mkprettytime($user['leechwarn'] - time()). " to go)</td></tr>";
      } else
      {
-     $HTMLOUT .= "<td>{$lang['userdetails_leech_warn_for']}<select name='leechwarn'>
+      $HTMLOUT .= "<td>{$lang['userdetails_leech_warn_for']}<select name='leechwarn'>
      <option value='0'>------</option>
      <option value='1'>1 {$lang['userdetails_week']}</option>
      <option value='2'>2 {$lang['userdetails_weeks']}</option>
@@ -595,8 +601,8 @@ function maketable($res)
       $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_highspeed']}</td><td class='row' colspan='2' align='left'><input type='radio' name='highspeed' value='yes' " .($user["highspeed"] == "yes" ? " checked='checked'" : "") ." />Yes <input type='radio' name='highspeed' value='no' " . ($user["highspeed"] == "no" ? " checked='checked'" : "") . " />No</td></tr>\n";
            }
       $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_enabled']}</td><td colspan='2' align='left'><input name='enabled' value='yes' type='radio'" . ($enabled ? " checked='checked'" : "") . " />{$lang['userdetails_yes']} <input name='enabled' value='no' type='radio'" . (!$enabled ? " checked='checked'" : "") . " />{$lang['userdetails_no']}</td></tr>\n";
-      $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_invright']}</td><td class='row' colspan='2' align='left'><input type='radio' name='invite_rights' value='yes'" .($user["invite_rights"]=="yes" ? " checked='checked'" : "") . " />{$lang['userdetails_yes']}<input type='radio' name='invite_rights' value='no'" .($user["invite_rights"]=="no" ? " checked='checked'" : "") . " />{$lang['userdetails_no']}</td></tr>\n";
-      $HTMLOUT .= "<tr><td class='rowhead' align='left'><b>{$lang['userdetails_invites']}</b></td><td colspan='2' align='left' class='rowhead'><input type='text' size='3' name='invites' value='" . htmlspecialchars($user['invites']) . "' /></td></tr>\n";
+      $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_invright']}</td><td class='row' colspan='2' align='left'><input type='radio' name='invite_rights' value='yes'" .($user["invite_rights"] == "yes" ? " checked='checked'" : "") . " />{$lang['userdetails_yes']}<input type='radio' name='invite_rights' value='no'" .($user["invite_rights"] == "no" ? " checked='checked'" : "") . " />{$lang['userdetails_no']}</td></tr>\n";
+      $HTMLOUT .= "<tr><td class='rowhead' align='left'><b>{$lang['userdetails_invites']}</b></td><td colspan='2' align='left' class='row'><input type='text' size='3' name='invites' value='" . htmlspecialchars($user['invites']) . "' /></td></tr>\n";
       $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_reset']}</td><td colspan='2'><input type='checkbox' name='resetpasskey' value='1' /><font class='small'>{$lang['userdetails_pass_msg']}</font></td></tr>";
       //$HTMLOUT .= "</td></tr>";
       $HTMLOUT .= "<tr><td colspan='3' align='center'><input type='submit' class='btn' value='{$lang['userdetails_okay']}' /></td></tr>\n";

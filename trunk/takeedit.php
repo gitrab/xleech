@@ -16,15 +16,18 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once 'include/bittorrent.php';
-require_once 'include/user_functions.php';
-
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
+require_once ("include/page_verify.php");
 
 dbconn();
 
 loggedinorreturn();
 
     $lang = array_merge( load_language('global'), load_language('takeedit') );
+
+$newpage = new page_verify(); 
+$newpage->check('edit');
 
     if (!mkglobal('name:descr:type'))
       stderr($lang['takedit_failed'], $lang['takedit_no_data']);
