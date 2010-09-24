@@ -19,6 +19,9 @@ $lang = array(
 'upload_choose_one' => "choose one",
 'upload_type' => "Type",
 'upload_submit' => "Do it!",
+// Poster
+'upload_poster' => "Poster",
+'upload_poster1' => "Direct link for a poster image to be shown on the details page",
 
 #upload stdhead
 'upload_stdhead' => "Upload"

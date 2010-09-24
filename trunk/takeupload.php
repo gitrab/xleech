@@ -40,6 +40,9 @@ loggedinorreturn();
     if (!isset($_FILES["file"]))
       stderr($lang['takeupload_failed'], $lang['takeupload_no_formdata']);
 
+    if (!empty($_POST['poster']))
+      $poster = unesc($_POST['poster']);
+
     $f = $_FILES["file"];
     $fname = unesc($f["name"]);
     if (empty($fname))
@@ -176,7 +179,7 @@ loggedinorreturn();
       $type = "multi";
     }
 
-
+    $poster = unesc($_POST['poster']);
     //$infohash = pack("H*", sha1($info["string"]));
     $infohash = sha1($info["string"]);
 
@@ -186,8 +189,8 @@ loggedinorreturn();
     $torrent = str_replace("_", " ", $torrent);
 
 
-    $ret = mysql_query("INSERT INTO torrents (search_text, filename, owner, visible, info_hash, name, size, numfiles, type, descr, ori_descr, category, save_as, added, last_action, nfo, client_created_by) VALUES (" .
-        implode(",", array_map("sqlesc", array(searchfield("$shortfname $dname $torrent"), $fname, $CURUSER["id"], "no", $infohash, $torrent, $totallen, count($filelist), $type, $descr, $descr, 0 + $_POST["type"], $dname))) .
+    $ret = mysql_query("INSERT INTO torrents (search_text, filename, poster, owner, visible, info_hash, name, size, numfiles, type, descr, ori_descr, category, save_as, added, last_action, nfo, client_created_by) VALUES (" .
+        implode(",", array_map("sqlesc", array(searchfield("$shortfname $dname $torrent"), $fname, '".$poster."', $CURUSER["id"], "no", $infohash, $torrent, $totallen, count($filelist), $type, $descr, $descr, 0 + $_POST["type"], $dname))) .
         ", " . time() . ", " . time() . ", $nfo, $tmaker)");
     if (!$ret) {
       if (mysql_errno() == 1062)

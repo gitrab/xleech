@@ -316,3 +316,22 @@ border-style:solid;
 	font-size:11px; text-align:center; float: center;
 	padding:5px; margin-top:10px;}
 
+#marqueecontainer{
+position: relative;
+width: 99%; /*marquee width - adjust to your design */
+height: 120px; /*marquee height */
+background-color:lightyellow;
+color:black;
+overflow: hidden;
+border: 1px solid blue;
+padding: 2px;
+padding-left: 4px;
+text-align:left;
+}
+
+#marqueecontainer img {
+border-width:2px;
+border-style:solid;
+}
+
+
