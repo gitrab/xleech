@@ -125,7 +125,7 @@ function maketable($res)
       $forumposts = $arr3[0];
 
     //if ($user['donated'] > 0)
-    //  $don = "<img src='{$TBDEV['pic_base_url']}starbig.gif' alt='' />";
+    //  $don = "<img src='{$TBDEV['pic_base_url']}theme/star.png' alt='Donor' />";
     $country = '';
     $res = mysql_query("SELECT name,flagpic FROM countries WHERE id=".$user['country']." LIMIT 1") or sqlerr();
     if (mysql_num_rows($res) == 1)
@@ -134,7 +134,7 @@ function maketable($res)
       $country = "<td class='embedded'><img src=\"{$TBDEV['pic_base_url']}flag/{$arr['flagpic']}\" alt=\"". htmlspecialchars($arr['name']) ."\" style='margin-left: 8pt' /></td>";
     }
 
-    //if ($user["donor"] == "yes") $donor = "<td class='embedded'><img src='{$TBDEV['pic_base_url']}starbig.gif' alt='Donor' style='margin-left: 4pt' /></td>";
+    //if ($user["donor"] == "yes") $donor = "<td class='embedded'><img src='{$TBDEV['pic_base_url']}theme/star.png' alt='Donor' style='margin-left: 4pt' /></td>";
     //if ($user["warned"] == "yes") $warned = "<td class='embedded'><img src=\"{$TBDEV['pic_base_url']}warnedbig.gif\" alt='Warned' style='margin-left: 4pt' /></td>";
 
     $res = mysql_query("SELECT p.torrent, p.uploaded, p.downloaded, p.seeder, t.added, t.name as torrentname, t.size, t.category, t.seeders, t.leechers, c.name as catname, c.image FROM peers p LEFT JOIN torrents t ON p.torrent = t.id LEFT JOIN categories c ON t.category = c.id WHERE p.userid=$id") or sqlerr();
@@ -217,6 +217,10 @@ function maketable($res)
     if ($user["avatar"])
     $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_avatar']}</td><td align='left'><img src='" . htmlspecialchars($user["avatar"]) . "' width='{$user['av_w']}' height='{$user['av_h']}' alt='' /></td></tr>\n";
     $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_class']}</td><td align='left'>" . get_user_class_name($user["class"]) . "</td></tr>\n";
+	$HTMLOUT .= "<tr><td class='rowhead'>Freeleech Slots</td>
+                 <td align='left'>".(int)$user['freeslots']."</td></tr>";
+    $HTMLOUT .= "<tr><td class='rowhead'>Freeleech Status</td>
+                 <td align='left'>".($user['free_switch'] != 0 ? 'FREE Status '.($user['free_switch'] > 1 ? 'Expires: '.get_date($user['free_switch'], 'DATE').' ('.mkprettytime($user['free_switch'] - time()).' to go) <br />':'Unlimited<br />'):'None')."</td></tr>";
     $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_comments']}</td>";
     if ($torrentcomments && (($user["class"] >= UC_POWER_USER && $user["id"] == $CURUSER["id"]) || $CURUSER['class'] >= UC_MODERATOR))
       $HTMLOUT .= "<td align='left'><a href='userhistory.php?action=viewcomments&amp;id=$id'>$torrentcomments</a></td></tr>\n";
@@ -569,6 +573,40 @@ function maketable($res)
      }
      }
      //==End
+	 if ($CURUSER['class'] >= UC_MODERATOR)
+$HTMLOUT .= "<tr><td class='rowhead'>Freeleech Slots:</td><td colspan='2' align='left'>
+<input type='text' size='6' name='freeslots' value='".(int)$user['freeslots']."' /></td></tr>";
+
+if ($CURUSER['class'] == UC_SYSOP) {
+	
+$free_switch = $user['free_switch'] != 0;
+
+$HTMLOUT .= "<tr><td class='rowhead'".(!$free_switch ? ' rowspan="2"' : '').
+    ">Freeleech Status</td>
+ 	<td align='left' width='20%'>".($free_switch ?
+    "<input name='free_switch' value='42' type='radio' />Remove Freeleech Status" :
+    "No Freeleech Status Set")."</td>\n";
+
+if ($free_switch)
+{
+    if ($user['free_switch'] == 1)
+        $HTMLOUT .= '<td align="center">(Unlimited Duration)</td></tr>';
+    else
+        $HTMLOUT .= "<td align='center'>Until ".get_date($user['free_switch'], 'DATE'). " (".
+            mkprettytime($user['free_switch'] - time()). " to go)</td></tr>";
+} else
+{
+    $HTMLOUT .= "<td>{$lang['userdetails_fr_leh_4']}<select name='free_switch'>
+     <option value='0'>------</option>
+     <option value='1'>1 {$lang['userdetails_week']}</option>
+     <option value='2'>2 {$lang['userdetails_weeks']}</option>
+     <option value='4'>4 {$lang['userdetails_weeks']}</option>
+     <option value='8'>8 {$lang['userdetails_weeks']}</option>
+     <option value='255'>{$lang['userdetails_unlimited']}</option>
+    </select>       </td></tr>
+    <tr><td colspan='2' align='left'>PM comment:<input type='text' size='60' name='free_pm' /></td></tr>";
+}
+}
 //==Pm disable
      if ($CURUSER['class'] >= UC_MODERATOR) {
 	   $sendpmpos = $user['sendpmpos'] != 1;

@@ -27,7 +27,7 @@ dbconn(false);
 
 loggedinorreturn();
 
-    $lang = array_merge( load_language('global'), load_language('browse'), load_language('torrenttable_functions') );
+    $lang = array_merge( load_language('global'), load_language('search'), load_language('browse'), load_language('torrenttable_functions') );
     
     $HTMLOUT = '';
     
@@ -190,9 +190,9 @@ loggedinorreturn();
       //list($pagertop, $pagerbottom, $limit) = pager($torrentsperpage, $count, "browse.php?" . $addparam);
       $pager = pager($torrentsperpage, $count, "browse.php?" . $addparam);
 
-      $query = "SELECT torrents.id, torrents.category, torrents.leechers, torrents.seeders, torrents.name, torrents.times_completed, torrents.size, torrents.added, torrents.type,  torrents.comments,torrents.numfiles,torrents.filename,torrents.owner,IF(torrents.nfo <> '', 1, 0) as nfoav," .
+      $query = "SELECT torrents.id, torrents.category, torrents.leechers, torrents.seeders, torrents.name, torrents.times_completed, torrents.size, torrents.added, torrents.type, torrents.free, torrents.comments, torrents.numfiles, torrents.filename, torrents.owner, IF(torrents.nfo <> '', 1, 0) as nfoav," .
     //	"IF(torrents.numratings < {$TBDEV['minvotes']}, NULL, ROUND(torrents.ratingsum / torrents.numratings, 1)) AS rating, categories.name AS cat_name, categories.image AS cat_pic, users.username FROM torrents LEFT JOIN categories ON category = categories.id LEFT JOIN users ON torrents.owner = users.id $where $orderby $limit";
-      "categories.name AS cat_name, categories.image AS cat_pic, users.username FROM torrents LEFT JOIN categories ON category = categories.id LEFT JOIN users ON torrents.owner = users.id $where $orderby {$pager['limit']}";
+      "categories.name AS cat_name, categories.image AS cat_pic, users.username, freeslots.tid, freeslots.uid, freeslots.free AS freeslot, freeslots.double AS doubleup FROM torrents LEFT JOIN categories ON category = categories.id LEFT JOIN users ON torrents.owner = users.id LEFT JOIN freeslots ON (torrents.id=freeslots.tid AND freeslots.uid={$CURUSER['id']}) $where $orderby {$pager['limit']}";
       $res = mysql_query($query) or die(mysql_error());
     }
     else
@@ -288,7 +288,42 @@ loggedinorreturn();
     </table>
     </form>";
 
+$HTMLOUT .= "<table width='750' class='main' border='0' cellspacing='0' cellpadding='0'><tr><td class='embedded'>
 
+    <form method='get' action='browse.php'>
+    <p align='center'>
+    {$lang['search_search']}
+    <input type='text' name='search' size='40' value='' />
+    {$lang['search_in']}
+    <select name='cat'>
+    <option value='0'>{$lang['search_all_types']}</option>";
+
+
+
+    $cats = genrelist();
+    $catdropdown = "";
+    foreach ($cats as $cat) {
+        $catdropdown .= "<option value=\"" . $cat["id"] . "\"";
+        $getcat = (isset($_GET["cat"])?$_GET["cat"]:'');
+        if ($cat["id"] == $getcat)
+            $catdropdown .= " selected='selected'";
+        $catdropdown .= ">" . htmlspecialchars($cat["name"]) . "</option>\n";
+    }
+
+    $deadchkbox = "<input type='checkbox' name='incldead' value='1'";
+    if (isset($_GET["incldead"]))
+        $deadchkbox .= " checked='checked'";
+    $deadchkbox .= " /> {$lang['search_inc_dead']}";
+
+
+    $HTMLOUT .= $catdropdown;
+    
+    $HTMLOUT .= "</select>
+    $deadchkbox
+    <input type='submit' value='{$lang['search_search_btn']}' class='btn' />
+    </p>
+    </form>
+    </td></tr></table>";
 
     if (isset($cleansearchstr))
     {

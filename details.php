@@ -62,7 +62,7 @@ loggedinorreturn();
       exit();
     }
 	
-$res = mysql_query("SELECT torrents.seeders, torrents.banned, torrents.leechers, torrents.info_hash, torrents.filename, torrents.poster, LENGTH(torrents.nfo) AS nfosz, torrents.last_action AS lastseed, torrents.numratings, torrents.name, IF(torrents.numratings < {$TBDEV['minvotes']}, NULL, ROUND(torrents.ratingsum / torrents.numratings, 1)) AS rating, torrents.comments, torrents.owner, torrents.save_as, torrents.descr, torrents.visible, torrents.size, torrents.added, torrents.views, torrents.hits, torrents.times_completed, torrents.id, torrents.type, torrents.numfiles, categories.name AS cat_name, users.username FROM torrents LEFT JOIN categories ON torrents.category = categories.id LEFT JOIN users ON torrents.owner = users.id WHERE torrents.id = $id") or sqlerr();
+$res = mysql_query("SELECT torrents.seeders, torrents.banned, torrents.leechers, torrents.info_hash, torrents.filename, torrents.poster, LENGTH(torrents.nfo) AS nfosz, torrents.last_action AS lastseed, torrents.numratings, torrents.name, IF(torrents.numratings < {$TBDEV['minvotes']}, NULL, ROUND(torrents.ratingsum / torrents.numratings, 1)) AS rating, torrents.comments, torrents.owner, torrents.save_as, torrents.descr, torrents.visible, torrents.size, torrents.added, torrents.views, torrents.hits, torrents.times_completed, torrents.id, torrents.type, torrents.numfiles, torrents.free, categories.name AS cat_name, users.username, freeslots.free AS freeslot, freeslots.double AS doubleslot, freeslots.tid AS slotid, freeslots.uid AS slotuid FROM torrents LEFT JOIN categories ON torrents.category = categories.id LEFT JOIN users ON torrents.owner = users.id LEFT JOIN freeslots ON (torrents.id=freeslots.tid AND freeslots.uid = {$CURUSER['id']}) WHERE torrents.id = $id") or sqlerr();
 $row = mysql_fetch_assoc($res);
 
 $owned = $moderator = 0;
@@ -104,6 +104,19 @@ if (!$row || ($row["banned"] == "yes" && !$moderator))
 
     $s = htmlentities( $row["name"], ENT_QUOTES );
 		$HTMLOUT .= "<h1>$s</h1>\n";
+/** free mod for TBDev 09 by pdq **/
+$clr = '#FF6600'; /// font color	
+$freeimg = '<img src="pic/freedownload.gif" border="0" alt="" />';
+$doubleimg = '<img src="pic/doubleseed.gif" border="0" alt="" />';	
+	
+$HTMLOUT .= '
+<div id="balloon1" class="balloonstyle">
+Once chosen this torrent will be freeleech '.$freeimg.' until '.get_date($row['freeslot'], 'DATE').' and can be resumed or started over using the regular download link. Doing so will result in one freeleech Slot being taken away from your total.</div>
+<div id="balloon2" class="balloonstyle">
+Once chosen this torrent will be Doubleseed '.$doubleimg.' until '.get_date($row['doubleslot'], 'DATE').' and can be resumed or started over using the regular download link. Doing so will result in one freeleech Slot being taken away from your total.</div>
+
+<script type="text/javascript" src="scripts/balloontip.js"></script>';
+/** end **/
     $HTMLOUT .= "<table width='750' border=\"1\" cellspacing=\"0\" cellpadding=\"5\">\n";
 
 		$url = "edit.php?id=" . $row["id"];
@@ -119,7 +132,13 @@ if (!$row || ($row["banned"] == "yes" && !$moderator))
 //			$s .= " $spacer<$editlink>[Edit torrent]</a>";
 //		tr("Name", $s, 1);
                 if (!($CURUSER["downloadpos"] == 0 && $CURUSER["id"] != $row["owner"] OR $CURUSER["downloadpos"] > 1)) {
+/*
 		$HTMLOUT .= "<tr><td class='rowhead' width='1%'>{$lang['details_download']}</td><td width='99%' align='left'><a class='index' href='download.php?torrent=$id'>" . htmlspecialchars($row["filename"]) . "</a></td></tr>";
+*/
+/** free mod for TBDev 09 by pdq **/
+		include ROOT_PATH.'/mods/free_details.php';
+/** end **/
+
 /*
 		function hex_esc($matches) {
 			return sprintf("%02x", ord($matches[0]));

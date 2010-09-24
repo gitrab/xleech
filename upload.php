@@ -76,6 +76,19 @@ loggedinorreturn();
         <td class='heading' valign='top' align='right'>{$lang['upload_type']}</td>
         <td valign='top' align='left'>$s</td>
       </tr>
+<tr>
+        <td class='heading' valign='top' align='right'>Free Leech</td>
+        <td valign='top' align='left'>
+    <select name='free_length'>
+    <option value='0'>Not Free</option>
+    <option value='42'>free for 1 day</option>
+    <option value='1'>free for 1 week</option>
+    <option value='2'>free for 2 weeks</option>
+    <option value='4'>free for 4 weeks</option>
+    <option value='8'>free for 8 weeks</option>
+    <option value='255'>Unlimited</option>
+    </select></td>
+      </tr>
       <tr>
         <td align='center' colspan='2'><input type='submit' class='btn' value='{$lang['upload_submit']}' /></td>
       </tr>

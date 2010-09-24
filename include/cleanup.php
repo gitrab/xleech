@@ -143,6 +143,11 @@ mysql_query("UPDATE `users` SET `chatpost` = 1 WHERE `chatpost` > 1 AND `chatpos
 mysql_query("UPDATE `users` SET `immunity` = 0 WHERE `immunity` > 1 AND `immunity` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
 mysql_query("UPDATE `users` SET `leechwarn` = 0 WHERE `leechwarn` > 1 AND `leechwarn` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
 mysql_query("UPDATE `users` SET `sendpmpos` = 1 WHERE `sendpmpos` > 1 AND `sendpmpos` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
+mysql_query("UPDATE `freeslots` SET `double` = 0 WHERE `double` != 0 AND `double` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__); 
+mysql_query("UPDATE `freeslots` SET `free` = 0 WHERE `free` != 0 AND `free` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__); 
+mysql_query("DELETE FROM `freeslots` WHERE `double` = 0 AND `free` = 0") or sqlerr(__FILE__, __LINE__);
+mysql_query("UPDATE `users` SET `free_switch` = 0 WHERE `free_switch` > 1 AND `free_switch` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
+mysql_query("UPDATE `torrents` SET `free` = 0 WHERE `free` > 1 AND `free` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
 // delete inactive user accounts / starts
 	$secs = 42 * 86400;
 	$dt = (time() - $secs);

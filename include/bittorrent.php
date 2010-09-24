@@ -18,6 +18,7 @@
 */
 require_once ("include/config.php");
 require_once ("cleanup.php");
+require_once ROOT_PATH.'/cache/free_cache.php';
 
 
 /**** validip/getip courtesy of manolete <manolete@myway.com> ****/
@@ -253,7 +254,7 @@ function sqlwildcardesc($x) {
 
 
 function stdhead($title = "", $msgalert = true) {
-    global $CURUSER, $TBDEV, $lang;
+    global $CURUSER, $TBDEV, $lang, $free;
 
     if (!$TBDEV['site_online'])
       die("Site is down for maintenance, please check back again later... thanks<br />");
@@ -342,6 +343,43 @@ piwikTracker.enableLinkTracking();
     $htmlout .="</div></td></tr></table><br /><br />
     <table class='mainouter' width='100%' border='0' cellspacing='0' cellpadding='10'>
     <tr><td align='center' class='outer' style='padding-top: 20px; padding-bottom: 20px'>";
+	//=== free addon start
+if ($CURUSER) { 
+if (isset($free)) {
+  foreach ($free as $fl) {
+        switch ($fl['modifier']) {
+            case 1:
+                $mode = 'All Torrents Free';
+                break;
+
+            case 2:
+                $mode = 'All Double Upload';
+                break;
+
+            case 3:
+                $mode = 'All Torrents Free and Double Upload';
+                break;
+
+            default:
+                $mode = 0;
+        }
+        
+$htmlout .= ($fl['modifier'] != 0 && ($fl['expires'] > TIME_NOW || $fl['expires'] == 1) ? '<table width="50%"><tr>
+     <td class="colhead" colspan="3" align="center">'.$fl['title'].'<br />'.$mode.'</td>
+   </tr>
+   <tr>
+     <td width="42" align="center">
+     <img src="'.$TBDEV['baseurl'].'/pic/cat_free.gif" alt="FREE!" /></td>
+     <td align="center">'.$fl['message'].' set by '.$fl['setby'].'<br />'.($fl['expires'] != 1 ? 
+'Until '.get_date($fl['expires'], 'DATE').' ('.mkprettytime($fl['expires'] - TIME_NOW).' to go)' : '').'</td>
+     <td width="42" align="center">
+     <img src="'.$TBDEV['baseurl'].'/pic/cat_free.gif" alt="FREE!" /></td>
+</tr></table>
+<br />' : '');
+}
+}
+}
+//=== free addon end
     
    if ($TBDEV['msg_alert'] && isset($unread) && !empty($unread))
    {

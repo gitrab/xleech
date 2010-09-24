@@ -239,7 +239,7 @@ $seeder = ($left == 0) ? "yes" : "no";
 dbconn();
 
 
-$user_query = mysql_query("SELECT id, uploaded, downloaded, class, enabled, downloadpos, highspeed FROM users WHERE passkey=".sqlesc($passkey)) or err("Tracker error 2");
+$user_query = mysql_query("SELECT id, uploaded, downloaded, class, free_switch, enabled, downloadpos, highspeed FROM users WHERE passkey=".sqlesc($passkey)) or err("Tracker error 2");
 
 if ( mysql_num_rows($user_query) != 1 )
 
@@ -251,7 +251,7 @@ if ( mysql_num_rows($user_query) != 1 )
            err("Your downloading priviledges have been disabled! (Read the rules)");
 	
 	
-$res = mysql_query("SELECT id, banned, seeders + leechers AS numpeers, added AS ts FROM torrents WHERE info_hash = " .sqlesc($info_hash));//" . hash_where("info_hash", $info_hash));
+$res = mysql_query("SELECT torrents.id, torrents.banned, torrents.free, torrents.seeders + torrents.leechers AS numpeers, torrents.added AS ts, freeslots.free AS freeslot, freeslots.double AS doubleslot FROM torrents LEFT JOIN freeslots ON (torrents.id=freeslots.tid AND freeslots.uid=".sqlesc($user['id']).") WHERE info_hash = ".sqlesc($info_hash));//" . hash_where("info_hash", $info_hash));
 
 $torrent = mysql_fetch_assoc($res);
 if (!$torrent)
@@ -444,7 +444,26 @@ else
         $announcetime = ($self["seeder"] == "yes" ? "seedtime = seedtime + $self[announcetime]" : "leechtime = leechtime + $self[announcetime]");
 
 	if ($upthis > 0 || $downthis > 0)
-           mysql_query("UPDATE users SET uploaded = uploaded + $upthis, downloaded = downloaded + $downthis WHERE id=".$user['id']) or err("Tracker error 3");
+{
+/** free addon start **/
+$isfree = $isdouble = '';
+include 'cache/free_cache.php';
+if (isset($free)) {
+foreach ($free as $fl) {
+$isfree =   ($fl['modifier'] == 1 || $fl['modifier'] == 3) && $fl['expires'] > TIME_NOW;
+$isdouble = ($fl['modifier'] == 2 || $fl['modifier'] == 3) && $fl['expires'] > TIME_NOW;
+}
+}
+
+if (!($user['free_switch'] != 0 || $isfree || $torrent['free'] != 0 || ($torrent['freeslot'] != 0)
+))
+$updq[0] = "downloaded = downloaded + $downthis";
+
+$updq[1] = "uploaded = uploaded + ".(($torrent['doubleslot'] != 0 || $isdouble) ? ($upthis*2) : $upthis);
+
+$udq=implode(',',$updq);
+mysql_query("UPDATE users SET $udq WHERE id=".$user['id']) or err('Tracker error 3');
+}
       //=== abnormal upload detection
 			if ($user['highspeed'] == 'no' && $upthis > 103872) 
 			{

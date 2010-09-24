@@ -101,6 +101,7 @@ $lang = array(
 'userdetails_r_lw_s' => 'Remove Leechwarn Status',
 'userdetails_n_l_w_ss' => 'No leech warning Status Set',
 'userdetails_r_pm_disbl' => 'Remove pm disablement',
+'userdetails_fr_leh_4' => 'Freeleech for ',
 'userdetails_until_' => 'Until ',
 
 

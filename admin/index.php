@@ -99,6 +99,16 @@ require_once "include/user_functions.php";
 			<span class='btn'><a href='reputation_settings.php'>{$lang['index_rep_settings']}</a></span>
 			
 			<span class='btn'><a href='admin.php?action=news'>{$lang['index_news']}</a></span>
+
+			</td></tr>
+			<!-- row 6 -->
+			<tr><td>
+
+			<span class='btn'><a href='admin.php?action=freeslots'>Manage freeslots</a></span>
+
+			<span class='btn'><a href='admin.php?action=freeleech'>Freeleech</a></span>
+
+			<span class='btn'><a href='admin.php?action=freeusers'>Freeleech Users</a></span>
 			
 			
 		</td></tr></table>";
