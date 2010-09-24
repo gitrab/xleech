@@ -20,6 +20,7 @@ $lang = array (
 'gl_staff' 			=> "Staff",
 'gl_credits'                    => "Credits",
 'gl_invites'                    => "Invites",
+'gl_welcome' => "Welcome to {$TBDEV['site_name']}. Feel to download torrents, and talk in the forums, please seed everything to at least 1.1 or 168 hour! We are very glad to have you here in our community, and we hope you have a good stay. Please feel free to contact any staff member about anything. Thanks for joining.",
 
 #Mod admin link
 'gl_admin' 			  => "Admin",
@@ -47,6 +48,8 @@ $lang = array (
 'gl_act_torrents'			=>	"Active Torrents",
 'gl_seed_torrents'		=>	"Seeding",
 'gl_leech_torrents'		=>	"Leeching",
+'gl_user_error'		    =>	"User Error",
+'gl_perm_denied'		  =>	"Permission Denied",
 
 'gl_time_date' => ""
 );

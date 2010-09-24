@@ -23,6 +23,7 @@ $lang = array(
 'takesignup_fatal_error' => "Fatal Error!",
 'takesignup_mail' => "",
 'takesignup_confirm' => "user registration confirmation",
+'takesignup_welcome' => "Welcome to {$TBDEV['site_name']}. Feel to download torrents, and talk in the forums, please seed everything to at least 1.1 or 168 hour! We are very glad to have you here in our community, and we hope you have a good stay. Please feel free to contact any staff member about anything. Thanks for joining.",
 'takesignup_from' => "From:"
 );
 

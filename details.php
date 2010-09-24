@@ -154,7 +154,7 @@ if (!$row || ($row["banned"] == "yes" && !$moderator))
 			$HTMLOUT .= tr("{$lang['details_type']}", "{$lang['details_none']}");
 
 		$HTMLOUT .= tr("{$lang['details_last_seeder']}", "{$lang['details_last_activity']}" .get_date( $row['lastseed'],'',0,1));
-		$HTMLOUT .= tr("{$lang['details_size']}",mksize($row["size"]) . " (" . number_format($row["size"]) . "{$lang['details_bytes']})");
+		$HTMLOUT .= tr("{$lang['details_size']}",mksize($row["size"]) . " ( " . number_format($row["size"]) . "{$lang['details_bytes']})");
 /*
 		$s = "";
 		$s .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr><td valign=\"top\" class=embedded>";
