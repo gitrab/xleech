@@ -162,6 +162,8 @@ loggedinorreturn();
     $updateset[] = "notifs = '$notifs'";
     $updateset[] = "avatar = " . sqlesc($avatar);
     $updateset[] = "avatars = '$avatars'";
+    $shoutboxbg = 0 + $_POST["shoutboxbg"];
+    $updateset[] = "shoutboxbg = " . sqlesc($shoutboxbg);
 
     /* ****** */
 

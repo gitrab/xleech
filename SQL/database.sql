@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 10, 2010 at 12:44 AM
+-- Generation Time: Apr 11, 2010 at 02:19 AM
 -- Server version: 5.1.37
 -- PHP Version: 5.2.10-2ubuntu6.4
 
@@ -621,6 +621,29 @@ CREATE TABLE IF NOT EXISTS `searchcloud` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `shoutbox`
+--
+
+CREATE TABLE IF NOT EXISTS `shoutbox` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `userid` bigint(6) NOT NULL DEFAULT '0',
+  `to_user` int(10) NOT NULL DEFAULT '0',
+  `username` varchar(25) NOT NULL DEFAULT '',
+  `date` int(11) NOT NULL DEFAULT '0',
+  `text` text NOT NULL,
+  `text_parsed` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `for` (`to_user`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `shoutbox`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sitelog`
 --
 
@@ -829,6 +852,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `leechwarn` int(11) NOT NULL DEFAULT '0',
   `sendpmpos` int(11) NOT NULL DEFAULT '1',
   `highspeed` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `show_shout` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'yes',
+  `shoutboxbg` enum('1','2','3','4') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '4',
+  `smile_until` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `ip` (`ip`),

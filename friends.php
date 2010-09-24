@@ -200,8 +200,8 @@ loggedinorreturn();
       <td class='colhead'><h2 align='left' style='width:50%;vertical-align:top;'><a name='blocks'>{$lang['friends_blocks_list']}</a></h2></td>
     </tr>
     <tr>
-      <td style='padding:10px;background-color:#ECE9D8;width:50%;'>$friends</td>
-      <td style='padding:10px;background-color:#ECE9D8' valign='top'>$blocks</td>
+      <td style='padding:10px;width:50%;'>$friends</td>
+      <td style='padding:10px' valign='top'>$blocks</td>
     </tr>
     </table>";
     

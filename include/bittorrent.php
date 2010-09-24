@@ -458,6 +458,12 @@ function get_mycookie($name)
     	}
 }
 
+function autoshout($msg = '')
+{
+    $message = $msg;
+    mysql_query("INSERT INTO shoutbox (date, text, userid, username) VALUES (" . implode(", ", array_map("sqlesc", array(time(), $message, '2', 'System'))) . ")") or sqlerr(__FILE__, __LINE__);
+}
+
 function logoutcookie() {
     //setcookie("uid", "", 0x7fffffff, "/");
     //setcookie("pass", "", 0x7fffffff, "/");

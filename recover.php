@@ -109,10 +109,10 @@ $body = sprintf($lang['email_request'], $email, $_SERVER["REMOTE_ADDR"], $TBDEV[
     }
     else
     {
-
+/*
     if (isset($_SESSION['captcha_time']))
     (time() - $_SESSION['captcha_time'] < 10) ? exit($lang['captcha_spam']) : NULL;
-      
+*/      
       
     $HTMLOUT = '';
     

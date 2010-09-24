@@ -29,6 +29,7 @@ $lang = array_merge( load_language('global'), load_language('userdetails') );
 
 function bark($msg)
 {
+  global $lang;
   stderr("{$lang['userdetails_error']}", $msg);
 }
 
@@ -594,6 +595,8 @@ function maketable($res)
         $HTMLOUT .= "</select>{$lang['userdetails_pm_comm']}</td></tr>\n";
         $HTMLOUT .= "<tr><td colspan='2' align='left'><input type='text' size='60' name='warnpm' /></td></tr>";
       }
+
+      $HTMLOUT .= "<tr><td class='rowhead'>{$lang['userdetails_chatpos']}</td><td colspan='2' align='left'><input type='radio' name='chatpost' value='yes'" .($user["chatpost"] == "yes" ? " checked='checked'" : "")." />{$lang['userdetails_yes']} <input type='radio' name='chatpost' value='no'" .($user["chatpost"] == "no" ? " checked='checked'" : "")." />{$lang['userdetails_no']}</td></tr>\n";
       if ($CURUSER["class"] < UC_SYSOP)
       $HTMLOUT .="<input type=\"hidden\" name=\"highspeed\" value=\"$user[highspeed]\" />\n";
       else {

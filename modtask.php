@@ -505,6 +505,12 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
 
       $updateset[] = "avatar = ".sqlesc($avatar);
     }
+// === Enable / Disable chat box rights
+    if ((isset($_POST['chatpost'])) && (($chatpost = $_POST['chatpost']) != $user['chatpost'])) {
+        $modcomment = get_date( time(), 'DATE', 1 ) . " {$lang['modtask_chatpos']} " . sqlesc($chatpost) .
+            " {$lang['modtask_by']} " . $CURUSER['username'] . ".\n" . $modcomment;
+        $updateset[] = "chatpost = " . sqlesc($chatpost);
+    }
 // Set higspeed Upload Enable / Disable
     if ((isset($_POST['highspeed'])) && (($highspeed = $_POST['highspeed']) != $user['highspeed'])) {
         if ($highspeed == 'yes') {

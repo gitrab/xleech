@@ -34,11 +34,9 @@ function _strlastpos ($haystack, $needle, $offset = 0)
 
 
 function format_urls($s)
-{
-	return preg_replace(
-    	"/(\A|[^=\]'\"a-zA-Z0-9])((http|ftp|https|ftps|irc):\/\/[^()<>\s]+)/i",
-	    "\\1<a href=\"\\2\">\\2</a>", $s);
-}
+        {
+            return preg_replace_callback("/(\A|[^=\]'\"a-zA-Z0-9])((http|ftp|https|ftps|irc):\/\/[^<>\s]+)/i", "islocal", $s);
+        }
 
 /*
 
@@ -89,6 +87,40 @@ function format_quotes($s)
 
 	return $s;
 }
+
+//=== smilie function
+function get_smile()
+{
+global $CURUSER;
+return $CURUSER["smile_until"];
+}
+
+function islocal($link)
+        {
+            global $TBDEV;
+            $flag = false;
+            $baseurl  = str_replace(array('http://','www','http://www'),'',$TBDEV['baseurl']);
+            $limit = 60;
+
+            if (false !== stristr($link[0], '[url=')) {
+                $url = trim($link[1]);
+                $title = trim($link[2]);
+                if (false !== stristr($link[2], '[img]')) {
+                    $flag = true;
+                    $title = preg_replace("/\[img](http:\/\/[^\s'\"<>]+(\.(jpg|gif|png)))\[\/img\]/i", "<img src=\"\\1\" alt=\"\" border=\"0\" />", $title);
+                }
+            } elseif (false !== stristr($link[0], '[url]'))
+                $url = $title = trim($link[1]);
+            else
+                $url = $title = trim($link[2]);
+
+            if (strlen($title) > $limit && $flag == false) {
+                $l[0] = substr($title, 0, ($limit / 2));
+                $l[1] = substr($title, strlen($title) - round($limit / 3));
+                $lshort = $l[0] . "..." . $l[1];
+            } else $lshort = $title;
+            return " <a href=\"" . ((stristr($url, $baseurl) !== false) ? "" : "http://anonym.to?") . $url . "\" target=\"_blank\">" . $lshort . "</a>";
+        }
 
 function format_comment($text, $strip_html = true)
 {
@@ -151,14 +183,9 @@ function format_comment($text, $strip_html = true)
 		"<font color='\\1'>\\2</font>", $s);
 
 	// [url=http://www.example.com]Text[/url]
-	$s = preg_replace(
-		"/\[url=([^()<>\s]+?)\]((\s|.)+?)\[\/url\]/i",
-		"<a href=\"\\1\">\\2</a>", $s);
-
-	// [url]http://www.example.com[/url]
-	$s = preg_replace(
-		"/\[url\]([^()<>\s]+?)\[\/url\]/i",
-		"<a href=\"\\1\">\\1</a>", $s);
+            $s = preg_replace_callback("/\[url=([^()<>\s]+?)\]((\s|.)+?)\[\/url\]/i", "islocal", $s);
+            // [url]http://www.example.com[/url]
+            $s = preg_replace_callback("/\[url\]([^()<>\s]+?)\[\/url\]/i", "islocal", $s);
 
 	// [size=4]Text[/size]
 	$s = preg_replace(

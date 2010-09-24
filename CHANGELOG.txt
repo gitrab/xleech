@@ -8,5 +8,8 @@ Invite a friend added - Tue 23 Mar 2010 10:31:18 PM EET
 attempting to remove wait time #3 - Tue 23 Mar 2010 11:49:46 PM EET
 Sat 03 Apr 2010 08:12:17 PM EEST - 09 New and Improved Snatchlist added - support for this mod - http://bit.ly/a0acxo
 09 Modified Abnormal Upload Speed Detector installed - support for this mod - http://bit.ly/aJW5Dv
-
 announce fixed a bit
+Sat 10 Apr 2010 02:55:16 PM EEST - remove spam function / it's annoying
+Sat 10 Apr 2010 05:55:09 PM EEST - 09 Iframe Shoutbox With Extra's installed - support for this mod - http://bit.ly/bSyT8F
+Sun 11 Apr 2010 02:15:12 AM EEST - shoutbox.php has transparent for background ( set in profile ) / mod by cybernet2u
+Sun 11 Apr 2010 02:15:38 AM EEST - friends.php has transparent background

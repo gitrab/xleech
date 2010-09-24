@@ -64,9 +64,11 @@ $mm_template[3] = array( $lang['sendmessage_mm_template3_sub'], $lang['sendmessa
       $HTMLOUT .= "<h1>{$mass_msg_pm_to}</h1>
       <form method='post' action='takemessage.php'>";
       
-      if ($_SERVER["HTTP_REFERER"]) 
+      if (isset($_SERVER["HTTP_REFERER"]) == './shoutbox.php')
       { 
-        $HTMLOUT .= "<input type='hidden' name='returnto' value='{$_SERVER["HTTP_REFERER"]}' />";
+      $HTMLOUT .= "<input type='hidden' name='returnto' value='./index.php' />";
+      } else {
+      $HTMLOUT .= "<input type='hidden' name='returnto' value='".(isset($_GET["returnto"]) ? $_GET["returnto"]:$_SERVER["HTTP_REFERER"])."' />";
       }
       
       $HTMLOUT .= "<table border='1' cellspacing='0' cellpadding='5'>
@@ -167,9 +169,11 @@ $mm_template[3] = array( $lang['sendmessage_mm_template3_sub'], $lang['sendmessa
       <h1>Message to <a href='userdetails.php?id={$receiver}'>{$user["username"]}</a></h1>
       <form method='post' action='takemessage.php'>";
       
-      if (isset($_GET["returnto"]) || isset($_SERVER["HTTP_REFERER"])) 
-      {
-        $HTMLOUT .= "<input type='hidden' name='returnto' value='".(isset($_GET["returnto"]) ? $_GET["returnto"] : $_SERVER["HTTP_REFERER"])."' />";
+      if (isset($_GET["returnto"]) || isset($_SERVER["HTTP_REFERER"]) == './shoutbox.php')
+      { 
+      $HTMLOUT .= "<input type='hidden' name='returnto' value='./index.php' />";
+      } else {
+      $HTMLOUT .= "<input type='hidden' name='returnto' value='".(isset($_GET["returnto"]) ? $_GET["returnto"]:$_SERVER["HTTP_REFERER"])."' />";
       }
       
       $HTMLOUT .= "<table border='1' cellspacing='0' cellpadding='5'>
@@ -212,10 +216,12 @@ $mm_template[3] = array( $lang['sendmessage_mm_template3_sub'], $lang['sendmessa
         
         $HTMLOUT .= "</select>";
         
-        if (isset($_SERVER["HTTP_REFERER"])) 
-        { 
-          $HTMLOUT .= "<input type='hidden' name='returnto' value='".(isset($_GET["returnto"]) ? $_GET["returnto"]:$_SERVER["HTTP_REFERER"])."' />";
-        }
+        if (isset($_SERVER["HTTP_REFERER"]) == './shoutbox.php')
+      { 
+      $HTMLOUT .= "<input type='hidden' name='returnto' value='./index.php' />";
+      } else {
+      $HTMLOUT .= "<input type='hidden' name='returnto' value='".(isset($_GET["returnto"]) ? $_GET["returnto"]:$_SERVER["HTTP_REFERER"])."' />";
+      }
         
         $HTMLOUT .= "<input type='hidden' name='receiver' value='$receiver' />
         <input type='hidden' name='replyto' value='$replyto' />
