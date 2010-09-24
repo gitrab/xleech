@@ -48,6 +48,8 @@ require_once "include/user_functions.php";
 			<span class='btn'><a href='admin.php?action=docleanup'>{$lang['index_mcleanup']}</a></span>
 			
 			<span class='btn'><a href='users.php'>{$lang['index_user_list']}</a></span>
+
+                        <span class='btn'><a href='admin.php?action=cheaters'>Ratio Cheats</a></span>
 			
 			</td></tr>
 			<!-- row 2 -->

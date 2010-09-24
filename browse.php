@@ -207,13 +207,14 @@ loggedinorreturn();
 
 
 
-
+/*
     $HTMLOUT .= "<div id='wrapper' style='width:90%;border:1px solid black;background-color:pink;'>";
 
 
     //print out the tag cloud
     require_once "include/searchcloud_functions.php";
-    $HTMLOUT .= /* cloud() . */"</div><br /><br />";
+    $HTMLOUT .= cloud() . "</div><br /><br />";
+*/
 
 	$HTMLOUT .= "<a href='{$TBDEV['baseurl']}/invite.php'><b>{$lang['browse_invite_your_shit']}</b></a><br /><br />";
 

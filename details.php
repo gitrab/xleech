@@ -217,7 +217,7 @@ if (!empty($xrow))
 		$HTMLOUT .= tr("{$lang['details_added']}", get_date( $row['added'],"{$lang['details_long']}"));
 		$HTMLOUT .= tr("{$lang['details_views']}", $row["views"]);
 		$HTMLOUT .= tr("{$lang['details_hits']}", $row["hits"]);
-		$HTMLOUT .= tr("{$lang['details_snatched']}", $row["times_completed"] . "{$lang['details_times']}");
+		$HTMLOUT .= tr("{$lang['details_snatched']}", ($row["times_completed"] > 0 ? "<a href='./snatches.php?id=$id'>$row[times_completed] {$lang['details_times']}</a>" : "0 {$lang['details_times']}"), 1);
 
 		//$keepget = "";
 		$uprow = (isset($row["username"]) ? ("<a href='userdetails.php?id=" . $row["owner"] . "'><b>" . htmlspecialchars($row["username"]) . "</b></a>") : "<i>{$lang['details_unknown']}</i>");

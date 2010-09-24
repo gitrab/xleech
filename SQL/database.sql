@@ -3,14 +3,14 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2010 at 08:58 PM
+-- Generation Time: Apr 10, 2010 at 12:44 AM
 -- Server version: 5.1.37
 -- PHP Version: 5.2.10-2ubuntu6.4
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
--- Database: `cancer`
+-- Database: `qty`
 --
 
 -- --------------------------------------------------------
@@ -108,6 +108,31 @@ INSERT INTO `categories` (`id`, `name`, `image`, `cat_desc`) VALUES
 (11, 'Movies/DVD-R', 'cat_movies_dvdr.png', 'No Description'),
 (13, 'Appz/misc', 'cat_appz_0day.png', 'No Description'),
 (14, 'Misc', 'cat_dox.png', 'Misc');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cheaters`
+--
+
+CREATE TABLE IF NOT EXISTS `cheaters` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `added` int(11) NOT NULL,
+  `userid` int(10) NOT NULL DEFAULT '0',
+  `torrentid` int(10) NOT NULL DEFAULT '0',
+  `client` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `rate` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `beforeup` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `upthis` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `timediff` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `userip` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `cheaters`
+--
+
 
 -- --------------------------------------------------------
 
@@ -615,6 +640,42 @@ CREATE TABLE IF NOT EXISTS `sitelog` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `snatched`
+--
+
+CREATE TABLE IF NOT EXISTS `snatched` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(10) unsigned NOT NULL DEFAULT '0',
+  `torrentid` int(10) unsigned NOT NULL DEFAULT '0',
+  `ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `port` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `connectable` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `agent` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `peer_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `uploaded` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `upspeed` bigint(20) NOT NULL DEFAULT '0',
+  `downloaded` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `downspeed` bigint(20) NOT NULL DEFAULT '0',
+  `to_go` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `seeder` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `seedtime` int(11) unsigned NOT NULL DEFAULT '0',
+  `leechtime` int(11) unsigned NOT NULL DEFAULT '0',
+  `start_date` int(11) NOT NULL,
+  `last_action` int(11) NOT NULL,
+  `complete_date` int(11) NOT NULL,
+  `timesann` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `tr_usr` (`torrentid`,`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `snatched`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stylesheets`
 --
 
@@ -767,6 +828,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `immunity` int(11) NOT NULL DEFAULT '0',
   `leechwarn` int(11) NOT NULL DEFAULT '0',
   `sendpmpos` int(11) NOT NULL DEFAULT '1',
+  `highspeed` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `ip` (`ip`),
