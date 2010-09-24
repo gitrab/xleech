@@ -23,6 +23,9 @@ require_once "include/password_functions.php";
 dbconn();
 
     $lang = array_merge( load_language('global'), load_language('takesignup') );
+
+   if(!$TBDEV['openreg'])
+    stderr('Sorry', 'Invite only - Signups are closed presently');
     
     $res = mysql_query("SELECT COUNT(*) FROM users") or sqlerr(__FILE__, __LINE__);
     $arr = mysql_fetch_row($res);

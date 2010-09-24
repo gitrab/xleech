@@ -29,8 +29,10 @@ loggedinorreturn();
     
     $lang = array_merge( load_language('global'), load_language('takeupload') );
     
+/*
     if ($CURUSER['class'] < UC_UPLOADER)
       header( "Location: {$TBDEV['baseurl']}/upload.php" );
+*/
 
     foreach(explode(":","descr:type:name") as $v) {
       if (!isset($_POST[$v]))

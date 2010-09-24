@@ -3,11 +3,11 @@
 $lang = array (
 
 #header
-'gl_donate'	      => "Please make a donation",
+'gl_donate'	                => "Please make a donation",
 
 #menu
 
-'gl_home' 		    => "Home",
+'gl_home' 		        => "Home",
 'gl_browse' 			=> "Browse",
 'gl_search' 			=> "Search",
 'gl_upload' 			=> "Upload",
@@ -19,6 +19,7 @@ $lang = array (
 'gl_links' 			=> "Links",
 'gl_staff' 			=> "Staff",
 'gl_credits'                    => "Credits",
+'gl_invites'                    => "Invites",
 
 #Mod admin link
 'gl_admin' 			  => "Admin",

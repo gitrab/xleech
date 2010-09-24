@@ -96,37 +96,35 @@ else
 	$HTMLOUT .= "</div>
 \n";
 
- if (get_user_class() >= UC_POWER_USER) {
- 	
-// 09 poster mod - UNCOMMENT IF YOU HAVE THIS
-/* $query = "SELECT id, name, poster FROM torrents WHERE poster <> '' ORDER BY added DESC limit 15";
-	$result = mysql_query( $query );
-	$num = mysql_num_rows( $result );
-	// count rows
-	$HTMLOUT .="<script type='text/javascript' src='{$TBDEV['baseurl']}/scripts/scroll.js'></script>";
-	$HTMLOUT .= "<div><div id='headindex'>{$lang['index_latest']}</div>
-";
-	$HTMLOUT .="<div style=\"overflow:hidden\">
-	<div id=\"marqueecontainer\" onmouseover=\"copyspeed=pausespeed\" onmouseout=\"copyspeed=marqueespeed\"> 
-	<span id=\"vmarquee\" style=\"position: absolute; width: 100%;\"><span style=\"white-space: nowrap;\">";
-	$i = 20;
-	while ( $row = mysql_fetch_assoc( $result ) ) {
- 	$id = (int) $row['id'];
- 	$name = htmlspecialchars( $row['name'] );
- 	$poster = htmlspecialchars( $row['poster'] );
- 	$name = str_replace( '_', ' ' , $name );
- 	$name = str_replace( '.', ' ' , $name );
- 	$name = substr( $name, 0, 50 );
- 	if ( $i == 0 )
- 	$HTMLOUT .= "</span></span><span id=\"vmarquee2\" style=\"position: absolute; width: 98%;\"></span></div></div><div style=\"overflow:hidden\">
- 	<div id=\"marqueecontainer\" onmouseover=\"copyspeed=pausespeed\" onmouseout=\"copyspeed=marqueespeed\"> <span id=\"vmarquee\" style=\"position: absolute; width: 98%;\"><span style=\"white-space: nowrap;\">";
- 	$HTMLOUT .= "<a href='{$TBDEV['baseurl']}/details.php?id=$id'><img src='" . htmlspecialchars( $poster ) . "' alt='$name' title='$name' width='100' height='120' border='0' /></a>";
- 	$i++;
-	}
-	$HTMLOUT .= "</span></span><span id=\"vmarquee2\" style=\"position: absolute; width: 98%;\"></span></div></div></div>
-\n";
-	//== end 09 poster mod
- */
+// if (get_user_class() >= UC_POWER_USER) {
+/* 	
+// 09 poster mod
+    $query = "SELECT id, name, poster FROM torrents WHERE poster <> '' ORDER BY added DESC limit 15";
+    $result = mysql_query( $query );
+    $num = mysql_num_rows( $result );
+    // count rows
+    $HTMLOUT .= "<script type='text/javascript' src='{$TBDEV['baseurl']}/scripts/scroll.js'></script>";
+    $HTMLOUT .= "<div id='headlineindex'>{$lang['index_latest']}</div><br />
+    <div style=\"overflow:hidden\">
+    <div id=\"marqueecontainer\" onmouseover=\"copyspeed=pausespeed\" onmouseout=\"copyspeed=marqueespeed\"> 
+    <span id=\"vmarquee\" style=\"position: absolute; width: 98%;\"><span style=\"white-space: nowrap;\">";
+    $i = 20;
+    while ( $row = mysql_fetch_assoc( $result ) ) {
+        $id = (int) $row['id'];
+        $name = htmlspecialchars( $row['name'] );
+        $poster = htmlspecialchars( $row['poster'] );
+        $name = str_replace( '_', ' ' , $name );
+        $name = str_replace( '.', ' ' , $name );
+        $name = substr( $name, 0, 50 );
+        if ( $i == 0 )
+        $HTMLOUT .= "</span><span id=\"vmarquee2\" style=\"position: absolute; width: 98%;\"></span></div></div><div style=\"overflow:hidden\">
+        <div id=\"marqueecontainer\" onmouseover=\"copyspeed=pausespeed\" onmouseout=\"copyspeed=marqueespeed\"> <span id=\"vmarquee\" style=\"position: absolute; width: 98%;\"><span style=\"white-space: nowrap;\">
+        <a href='{$TBDEV['baseurl']}/details.php?id=$id'><img src='" . htmlspecialchars( $poster ) . "' alt='$name' title='$name' width='100' height='120' border='0' /></a>";
+        $i++;
+    }
+    $HTMLOUT .= "</span></span><span id=\"vmarquee2\" style=\"position: absolute; width: 98%;\"></span></div></div></div><br />\n";
+    //== end 09 poster mod
+*/
  // === TbDev 09 Shoutbox USE SHOUT UNCOMMENT THIS
 /* if ($CURUSER['show_shout'] === "yes") {
  $commandbutton = '';
@@ -248,7 +246,7 @@ if (!$activeusers)
  	<td class='rowhead'>{$lang['stats_regusers']}</td><td align='right'>{$registered}</td>
  	<td class='rowhead'>{$lang['stats_torrents']}</td><td align='right'>{$torrents}</td>
  	";
-		}
+// }
 	if (isset($peers)) 
 	{ 
  	$HTMLOUT .= "<td class='rowhead'>{$lang['stats_peers']}</td><td align='right'>{$peers}</td>
