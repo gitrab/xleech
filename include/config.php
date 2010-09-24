@@ -128,6 +128,8 @@ $TBDEV['allowed_ext'] = array('image/gif', 'image/png', 'image/jpeg');
 // Invites
 $TBDEV['invites'] = 3500; // set this to what you want
 $TBDEV['openreg'] = true; //==true=open, false = closed
+// wait time
+$TBDEV['user_ratios'] = 0;
 // Set this to the line break character sequence of your system
 //$TBDEV['linebreak'] = "\r\n"; // not used at present.
 

@@ -29,8 +29,9 @@ function torrenttable($res, $variant = "index") {
 
     $wait = 0;
     $htmlout = '';
+
     
-    if ($CURUSER["class"] < UC_VIP)
+    if ($CURUSER["class"] < UC_VIP && $TBDEV['user_ratios'])
     {
       $gigs = $CURUSER["uploaded"] / (1024*1024*1024);
       $ratio = (($CURUSER["downloaded"] > 0) ? ($CURUSER["uploaded"] / $CURUSER["downloaded"]) : 0);
@@ -47,7 +48,7 @@ function torrenttable($res, $variant = "index") {
     <td class='colhead' align='left'>{$lang["torrenttable_name"]}</td>
     <!--<td class='heading' align='left'>{$lang["torrenttable_dl"]}</td>-->";
 
-	if ($wait)
+	if ($wait && $TBDEV['user_ratios'])
 	{
 		$htmlout .= "<td class='colhead' align='center'>{$lang["torrenttable_wait"]}</td>\n";
 	}
@@ -112,7 +113,7 @@ function torrenttable($res, $variant = "index") {
             $htmlout .= "&amp;hit=1";
         $htmlout .= "'><b>$dispname</b></a>\n";
 
-				if ($wait)
+				if ($wait && $TBDEV['user_ratios'])
 				{
 				  $elapsed = floor((time() - $row["added"]) / 3600);
 	        if ($elapsed < $wait)

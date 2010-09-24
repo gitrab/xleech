@@ -83,12 +83,14 @@ stderr("borked");
 //===send PM to inviter
 $sender = $assoc["sender"];
 $added = sqlesc(time());
-$msg = sqlesc("Hey there [you] ! :wave:\nIt seems that someone you invited to {$TBDEV['site_name']} has arrived ! :clap2: \n\n Please go to your [url={$TBDEV['baseurl']}/invite.php]Invite page[/url] to confirm them so they can log in.\n\ncheers\n");
+$msg = sqlesc("Hey there [you] ! :wave:\nIt seems that someone you invited to {$TBDEV['site_name']} has arrived ! :clap2: \n\n Please go to your [url={$TBDEV['baseurl']}/invite.php]Invite page[/url] to confirm them so they can log in.\nAnd you received 5 GB upload\ncheers\n");
 $subject = sqlesc("Someone you invited has arrived!");
 mysql_query("INSERT INTO messages (sender, subject, receiver, msg, added) VALUES (0, $subject, $sender, $msg, $added)") or sqlerr(__FILE__, __LINE__);
 //////////////end/////////////////////
 $id = mysql_insert_id();
 mysql_query('UPDATE invite_codes SET receiver = ' . sqlesc($id) . ', status = "Confirmed" WHERE sender = ' . sqlesc((int)$assoc['sender']). ' AND code = ' . sqlesc($invite)) or sqlerr(__FILE__, __LINE__);
+$bonus = '5368709120';
+mysql_query('UPDATE users SET uploaded = uploaded + ' . sqlesc($bonus) . ' WHERE id = ' . sqlesc((int)$assoc['sender'])) or sqlerr(__FILE__, __LINE__);
 write_log('User account '.htmlspecialchars($wantusername).' was created!');
 stderr('Signup successfull', 'Your inviter needs to confirm your account now!');
 ?>

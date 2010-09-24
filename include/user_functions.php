@@ -160,7 +160,7 @@ function get_ratio_color($ratio)
     if ($ratio < 0.8) return "#880000";
     if ($ratio < 0.9) return "#770000";
     if ($ratio < 1) return "#660000";
-    return "#000000";
+    return "#3D537C";
   }
 
 function get_slr_color($ratio)
@@ -180,7 +180,7 @@ function get_slr_color($ratio)
     if ($ratio < 0.325) return "#330000";
     if ($ratio < 0.35) return "#220000";
     if ($ratio < 0.375) return "#110000";
-    return "#000000";
+    return "#6CA3C0";
   }
 
 

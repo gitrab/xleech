@@ -90,6 +90,7 @@ function dbconn($autoclean = false)
 				die("Too many users. Please press the Refresh button in your browser to retry.");
         default:
     	    die("[" . mysql_errno() . "] dbconn: mysql_connect: " . mysql_error());
+		 
       }
     }
     mysql_select_db($TBDEV['mysql_db'])
@@ -329,7 +330,7 @@ function stdhead($title = "", $msgalert = true) {
 
 function stdfoot() {
   global $TBDEV;
-  
+
     return "<script type=\"text/javascript\">
 var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");
 document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));
@@ -345,12 +346,14 @@ var pkBaseURL = ((\"https:\" == document.location.protocol) ? \"https://stats.xd
 document.write(unescape(\"%3Cscript src='\" + pkBaseURL + \"piwik.js' type='text/javascript'%3E%3C/script%3E\"));
 </script><script type=\"text/javascript\">
 try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + \"piwik.php\", 5);
+var piwikTracker = Piwik.getTracker(pkBaseURL + \"piwik.php\", 1);
 piwikTracker.trackPageView();
 piwikTracker.enableLinkTracking();
 } catch( err ) {}
-</script><noscript><p><img src=\"http://stats.xdns.ro/piwik.php?idsite=5\" style=\"border:0\" alt=\"\"/></p></noscript>
+</script><noscript><p><img src=\"http://stats.xdns.ro/piwik.php?idsite=1\" style=\"border:0\" alt=\"\"/></p></noscript>
 <!-- End Piwik Tag -->\n
+<br /><br /><br /><br /><br />
+<p align='center'><a href='http://validator.w3.org'><img src='pic/login/xhtml_valid.png' alt='Xhtml valid'/></a>&nbsp;&nbsp;<a href='http://jigsaw.w3.org/css-validator/check/'><img src='pic/login/css_valid.png' alt='Xhtml valid' /></a>&nbsp;&nbsp;<a href='http://tbdev.net'><img src='pic/login/tbdev_power.png' alt='TBDEV'/></a>&nbsp;&nbsp;<a href='http://kidvision.me'><img src='pic/login/kidvision_design.png' alt='Design'/></a></p>
     </td></tr></table>\n
     </body></html>\n";
 }

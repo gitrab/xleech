@@ -40,7 +40,7 @@ width: 940px; height: 45px;}
 
 /* ------------------------------------ STATUSBAR SETTING -------------------------------------- */
 
-#personlig {width: 980px; text-align: right; color: #FFF;}
+#personlig {width: 980px; text-align: center; color: #FFF;}
 #personlig a, a:visited { text-decoration: none; color: #FFF;}
 #personlig a:hover { color: #FFF;}
 #statusbar a, a:visited {text-decoration: none; color: #FFF;}

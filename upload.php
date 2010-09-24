@@ -28,14 +28,9 @@ loggedinorreturn();
     
     $HTMLOUT = '';
 
-if ($CURUSER['class'] < UC_UPLOADER OR $CURUSER["uploadpos"] == 0 || $CURUSER["uploadpos"] > 1 )
-stderr($lang['upload_sorry'], $lang['upload_no_auth']);
-
 /*
-    if ($CURUSER['class'] < UC_UPLOADER)
-    {
-        stderr($lang['upload_sorry'], $lang['upload_no_auth']);
-    }
+    if ($CURUSER['class'] < UC_UPLOADER OR $CURUSER["uploadpos"] == 0 || $CURUSER["uploadpos"] > 1 )
+      stderr($lang['upload_sorry'], $lang['upload_no_auth']);
 */
 
     $HTMLOUT .= "<div align='center'>
