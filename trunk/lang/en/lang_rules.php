@@ -60,33 +60,33 @@ $lang = array(
       If you have something interesting that somehow violate these rules (e.g. not ISO format), ask a mod and we might make an exception.",
 'rules_moderating_header' => "Moderating rules - <font color='#004E98'>Whom to promote and why</font>",
 'rules_moderating_body' => "<tr>
-        <td class='embedded' bgcolor='#F5F4EA' valign='top' width='80'>&nbsp; <b>Power User</b></td>
+        <td class='embedded' bgcolor='#121212' valign='top' width='80'>&nbsp; <b>Power User</b></td>
         <td class='embedded' width='5'>&nbsp;</td>
         <td class='embedded'>Automatically given to (and revoked from) users who have been members for at least 4 weeks, have uploaded at least
         25 GB and have a share ratio above 1.05. Moderator changes of status last only until the next execution of the script.</td>
       </tr>
       <tr>
-        <td class='embedded' bgcolor='#F5F4EA' valign='top'>&nbsp; <b><img src='pic/star.gif' alt='' /></b></td>
+        <td class='embedded' bgcolor='#121212' valign='top'>&nbsp; <b><img src='pic/star.gif' alt='' /></b></td>
         <td class='embedded' width='5'>&nbsp;</td>
         <td class='embedded'>This status is given ONLY by Redbeard since he is the only one who can verify that they actually donated something.</td>
       </tr>
       <tr>
-        <td class='embedded' bgcolor='#F5F4EA' valign='top'>&nbsp; <b>VIP</b></td>
+        <td class='embedded' bgcolor='#121212' valign='top'>&nbsp; <b>VIP</b></td>
         <td class='embedded' width='5'>&nbsp;</td>
         <td class='embedded'>Conferred to users you feel contribute something special to the site. (Anyone begging for VIP status will be automatically disqualified)</td>
       </tr>
       <tr>
-        <td class='embedded' bgcolor='#F5F4EA' valign='top'>&nbsp; <b>Other</b></td>
+        <td class='embedded' bgcolor='#121212' valign='top'>&nbsp; <b>Other</b></td>
         <td class='embedded' width='5'>&nbsp;</td>
         <td class='embedded'>Customised title given to special users only (Not available to Users or Power Users).</td>
       </tr>
       <tr>
-        <td class='embedded' bgcolor='#F5F4EA' valign='top'>&nbsp; <b><font color='#4040c0'>Uploader</font></b></td>
+        <td class='embedded' bgcolor='#121212' valign='top'>&nbsp; <b><font color='#4040c0'>Uploader</font></b></td>
         <td class='embedded' width='5'>&nbsp;</td>
         <td class='embedded'>Appointed by Admins/SysOp. Send a PM to <a class='altlink' href='sendmessage.php?receiver=2'>RB</a> / <a class='altlink' href='sendmessage.php?receiver=277'>HS</a> / <a class='altlink' href='sendmessage.php?receiver=2253'>H</a> if you think you've got a good candidate.</td>
       </tr>
       <tr>
-        <td class='embedded' bgcolor='#F5F4EA' valign='top'>&nbsp; <b><font color='#A83838'>Moderator</font></b></td>
+        <td class='embedded' bgcolor='#121212' valign='top'>&nbsp; <b><font color='#A83838'>Moderator</font></b></td>
         <td class='embedded' width='5'>&nbsp;</td>
         <td class='embedded'>Appointed by Redbeard only. If you think you've got a good candidate,
         send him a <a class='altlink' href='sendmessage.php?receiver=2'>PM</a>.</td>
