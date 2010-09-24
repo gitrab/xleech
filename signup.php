@@ -30,6 +30,9 @@ dbconn();
     ini_set('session.use_trans_sid', '0');
 
     $lang = array_merge( load_language('global'), load_language('signup') );
+
+    if(!$TBDEV['openreg'])
+    stderr('Sorry', 'Invite only - Signups are closed presently');
     
     // Begin the session
     session_start();

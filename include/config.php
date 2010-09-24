@@ -125,6 +125,9 @@ $TBDEV['readpost_expiry'] = 14 * 86400; // 14 days
 $TBDEV['av_img_height'] = 100;
 $TBDEV['av_img_width'] = 100;
 $TBDEV['allowed_ext'] = array('image/gif', 'image/png', 'image/jpeg');
+// Invites
+$TBDEV['invites'] = 3500; // set this to what you want
+$TBDEV['openreg'] = true; //==true=open, false = closed
 // Set this to the line break character sequence of your system
 //$TBDEV['linebreak'] = "\r\n"; // not used at present.
 

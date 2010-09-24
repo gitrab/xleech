@@ -102,6 +102,31 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
     $updateset[] = "warned = 'yes'";
     }
 
+// invite rights
+	   if ((isset($_POST['invite_rights'])) && (($invite_rights = $_POST['invite_rights']) != $user['invite_rights'])){
+	   if ($invite_rights == 'yes')
+	   {
+	   $modcomment = get_date( time(), 'DATE', 1 ) . " - Invite rights enabled by " . htmlspecialchars($CURUSER['username']) . ".\n" . $modcomment;
+	   $msg = sqlesc("Your invite rights have been given back by " . htmlspecialchars($CURUSER['username']) . ". You can invite users again.");
+	   $added = time();
+	   mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
+	   }
+	   elseif ($invite_rights == 'no'){
+	   $modcomment = get_date( time(), 'DATE', 1 ) . " - Invite rights disabled by " . htmlspecialchars($CURUSER['username']) . ".\n" . $modcomment;
+	   $msg = sqlesc("Your invite rights have been removed by " . htmlspecialchars($CURUSER['username']) . ", probably because you invited a bad user.");
+	   $added = time();
+	   mysql_query("INSERT INTO messages (sender, receiver, msg, added) VALUES (0, $userid, $msg, $added)") or sqlerr(__FILE__, __LINE__);
+	   }
+	   $updateset[] = "invite_rights = " . sqlesc($invite_rights);
+	   }
+	   
+	   // change invite amount
+	   if ((isset($_POST['invites'])) && (($invites = $_POST['invites']) != ($curinvites = $user['invites'])))
+	   {
+	   $modcomment = get_date( time(), 'DATE', 1 ) . " - Invite amount changed to ".$invites." from ".$curinvites." by " . htmlspecialchars($CURUSER['username']) . ".\n" . $modcomment;
+	   $updateset[] = "invites = " . sqlesc($invites);
+	   }
+
     // Clear donor - Code not called for setting donor
     if (isset($_POST['donor']) && (($donor = $_POST['donor']) != $user['donor']))
     {

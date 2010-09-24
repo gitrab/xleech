@@ -856,7 +856,7 @@ function StatusBar() {
 		$StatusBar = 
 		"<div id='statusbar'>
         {$lang['gl_msg_welcome']}, <a href='userdetails.php?id={$CURUSER['id']}'>{$CURUSER['username']}</a>
-		$IsDonor$warn&nbsp;|&nbsp;[<a href='logout.php'>logout</a>]&nbsp;&nbsp;|&nbsp;&nbsp;
+		$IsDonor$warn&nbsp;|&nbsp;[<a href='logout.php'>logout</a>]&nbsp;&nbsp;|&nbsp;&nbsp;Invites:&nbsp;<a href='{$TBDEV['baseurl']}/invite.php'>{$CURUSER['invites']}</a>
 		&nbsp;&nbsp;|&nbsp;&nbsp;{$lang['gl_uploaded']}: {$upped}<!--&nbsp;&nbsp;|&nbsp;&nbsp;{$lang['gl_ratio']}:{$ratio}-->&nbsp;&nbsp;|&nbsp;&nbsp;<a href='messages.php'>$inbox</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://twitter.com/xlist_ro' target='_blank'><img src='templates/1/pic/twitter.png' alt='Twitter' /></a>&nbsp;&nbsp;<a href='http://www.facebook.com/cybernet2u' target='_blank'><img src='templates/1/pic/facebook.png' alt='Facebook' /></a>
   </div>";
 	

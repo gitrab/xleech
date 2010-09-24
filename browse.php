@@ -213,7 +213,7 @@ loggedinorreturn();
 
     //print out the tag cloud
     require_once "include/searchcloud_functions.php";
-    $HTMLOUT .= cloud() . "</div><br /><br />";
+//    $HTMLOUT .= cloud() . "</div><br /><br />";
 
     $HTMLOUT .= "<form method='get' action='browse.php'>
     <table class='bottom'>
