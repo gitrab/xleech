@@ -1,9 +1,10 @@
 <?php
-require_once('include/bittorrent.php');
-require_once('include/bbcode_functions.php');
+require_once ("include/bittorrent.php");
+require_once ("include/bbcode_functions.php");
+
 dbconn(false);
 
-$lang = array_merge( load_language('global'));
+$lang = array_merge( load_language('global') );
 
 loggedinorreturn();
 		$htmlout = '';
@@ -17,6 +18,31 @@ loggedinorreturn();
     <link rel='stylesheet' href='templates/1/1.css' type='text/css' />
     </head>
     <body>
+<!-- Piwik -->
+<script type=\"text/javascript\">
+var pkBaseURL = ((\"https:\" == document.location.protocol) ? \"https://stats.xdns.ro/\" : \"http://stats.xdns.ro/\");
+document.write(unescape(\"%3Cscript src='\" + pkBaseURL + \"piwik.js' type='text/javascript'%3E%3C/script%3E\"));
+</script><script type=\"text/javascript\">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + \"piwik.php\", 15);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src=\"http://stats.xdns.ro/piwik.php?idsite=15\" style=\"border:0\" alt=\"\" /></p></noscript>
+<!-- End Piwik Tag -->
+<script type=\"text/javascript\">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18179445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
     <script type='text/javascript'>
     function SmileIT(smile,form,text){
     window.opener.document.forms[form].elements[text].value = window.opener.document.forms[form].elements[text].value+' '+smile+' ';

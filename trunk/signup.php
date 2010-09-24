@@ -16,8 +16,8 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once "include/bittorrent.php";
-require_once ROOT_PATH."/cache/timezones.php";
+require_once ("include/bittorrent.php");
+require_once (ROOT_PATH."/cache/timezones.php");
 
 dbconn();
     

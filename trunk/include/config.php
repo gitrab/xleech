@@ -46,17 +46,17 @@ $TBDEV['mysql_pass'] = "you_wish";
 $TBDEV['mysql_db']   = "cancer_live";
 
 // Cookie setup
-$TBDEV['cookie_prefix']  = '204b_'; // This allows you to have multiple trackers, eg for demos, testing etc.
+$TBDEV['cookie_prefix']  = 'xleech'; // This allows you to have multiple trackers, eg for demos, testing etc.
 $TBDEV['cookie_path']    = ''; // ATTENTION: You should never need this unless the above applies eg: /tbdev
-$TBDEV['cookie_domain']  = '.204b.xdns.ro'; // set to eg: .somedomain.com or is subdomain set to: .sub.somedomain.com
+$TBDEV['cookie_domain']  = '.xleech.in'; // set to eg: .somedomain.com or is subdomain set to: .sub.somedomain.com
                               
 $TBDEV['site_online'] = 1;
-$TBDEV['tracker_post_key'] = 'i';
+$TBDEV['tracker_post_key'] = 'ioyt57i6hnnb98';
 $TBDEV['max_torrent_size'] = 1000000;
 $TBDEV['announce_interval'] = 60 * 30;
 $TBDEV['signup_timeout'] = 86400 * 3;
 $TBDEV['minvotes'] = 1;
-$TBDEV['max_dead_torrent_time'] = 6 * 3600;
+$TBDEV['max_dead_torrent_time'] = 31 * 3600;
 
 // Max users on site
 $TBDEV['maxusers'] = 5000; // LoL Who we kiddin' here?
@@ -78,7 +78,7 @@ $TBDEV['torrent_dir'] = ROOT_PATH . '/torrents'; # must be writable for httpd us
 
 # the first one will be displayed on the pages
 $TBDEV['announce_urls'] = array();
-$TBDEV['announce_urls'][] = "http://204b.xdns.ro/announce.php";
+$TBDEV['announce_urls'][] = "http://tracker.xleech.in/announce.php";
 //$TBDEV['announce_urls'] = "http://localhost:2710/announce";
 //$TBDEV['announce_urls'] = "http://domain.com:83/announce.php";
 
@@ -109,9 +109,9 @@ $script = str_replace( "\\", "/", $script );
 //$TBDEV['peerlimit'] = 50000; //deprecated. no longer used.
 
 // Email for sender/return path.
-$TBDEV['site_email'] = "204b@xdns.ro";
+$TBDEV['site_email'] = "support@xleech.in";
 
-$TBDEV['site_name'] = "xDns 204b";
+$TBDEV['site_name'] = "xLeech";
 
 $TBDEV['language'] = 'en';
 $TBDEV['msg_alert'] = 0; // saves a query when off
@@ -122,8 +122,8 @@ $TBDEV['pic_base_url'] = "./pic/";
 $TBDEV['stylesheet'] = "./1.css";
 $TBDEV['readpost_expiry'] = 14 * 86400; // 14 days
 //set this to size of user avatars
-$TBDEV['av_img_height'] = 100;
-$TBDEV['av_img_width'] = 100;
+$TBDEV['av_img_height'] = 150;
+$TBDEV['av_img_width'] = 250;
 $TBDEV['allowed_ext'] = array('image/gif', 'image/png', 'image/jpeg');
 // Invites
 $TBDEV['invites'] = 3500; // set this to what you want

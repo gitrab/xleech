@@ -57,7 +57,7 @@ else
 	$leechers = number_format($leechers);
 
 
-	// stdhead();
+	//stdhead();
 
 	$adminbutton = '';
 	

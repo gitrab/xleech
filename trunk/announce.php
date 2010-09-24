@@ -18,7 +18,7 @@
 */
 error_reporting(0);
 ////////////////// GLOBAL VARIABLES ////////////////////////////	
-$TBDEV['baseurl'] = 'http://xlist.ro/';
+$TBDEV['baseurl'] = 'http://xleech.in/';
 $TBDEV['announce_interval'] = 60 * 30;
 $TBDEV['user_ratios'] = 0;
 $TBDEV['connectable_check'] = 0;
@@ -30,10 +30,10 @@ define ('UC_MODERATOR', 4);
 define ('UC_ADMINISTRATOR', 5);
 define ('UC_SYSOP', 6);
 // DB setup
-$TBDEV['mysql_host'] = "localhost";
-$TBDEV['mysql_user'] = "root";
-$TBDEV['mysql_pass'] = "blank";
-$TBDEV['mysql_db']   = "tb";
+$TBDEV['mysql_host'] = "cancer";
+$TBDEV['mysql_user'] = "you_wish";
+$TBDEV['mysql_pass'] = "you_wish";
+$TBDEV['mysql_db']   = "cancer_live";
 ////////////////// GLOBAL VARIABLES ////////////////////////////
 
 // DO NOT EDIT BELOW UNLESS YOU KNOW WHAT YOU'RE DOING!!
@@ -247,7 +247,7 @@ if ( mysql_num_rows($user_query) != 1 )
  
 	$user = mysql_fetch_assoc($user_query);
 	if( $user['enabled'] == 'no' ) err('Permission denied, you\'re not enabled');
-        if ($user["downloadpos"] == 0 OR $user["downloadpos"] > 1 )
+        if ($user["downloadpos"] == 0 || $user["downloadpos"] > 1 )
            err("Your downloading priviledges have been disabled! (Read the rules)");
 	
 	
@@ -259,7 +259,9 @@ if (!$torrent)
 
 $torrentid = $torrent["id"];
 
-$fields = 'seeder, peer_id, ip, port, uploaded, downloaded, userid, ('.time().' - last_action) AS announcetime, last_action AS ts';
+$xL_time = time();
+
+$fields = "seeder, peer_id, ip, port, uploaded, downloaded, userid, ($xL_time - last_action) AS announcetime, last_action AS ts";
 
 $numpeers = $torrent["numpeers"];
 $limit = "";

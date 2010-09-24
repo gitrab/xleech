@@ -72,7 +72,7 @@ stderr("Error","Your download rights have been disabled.");
 
 
 
-  header('Content-Disposition: attachment; filename="[xList.ro]'.$row['filename'].'"');
+  header('Content-Disposition: attachment; filename="[xLeech.in]'.$row['filename'].'"');
 
   header("Content-Type: application/x-bittorrent");
 

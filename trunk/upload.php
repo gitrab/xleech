@@ -27,11 +27,10 @@ loggedinorreturn();
     $lang = array_merge( load_language('global'), load_language('upload') );
     
     $HTMLOUT = '';
-
-/*
-    if ($CURUSER['class'] < UC_UPLOADER OR $CURUSER["uploadpos"] == 0 || $CURUSER["uploadpos"] > 1 )
+	
+    if ($CURUSER['class'] < UC_USER OR $CURUSER["uploadpos"] == 0 || $CURUSER["uploadpos"] > 1 )
       stderr($lang['upload_sorry'], $lang['upload_no_auth']);
-*/
+
 
     $HTMLOUT .= "<div align='center'>
     <form enctype='multipart/form-data' action='takeupload.php' method='post'>

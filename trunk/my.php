@@ -49,11 +49,11 @@ $newpage->create('takeprofileedit');
     
     if(!empty($CURUSER['avatar']) && $CURUSER['av_w'] > 5 && $CURUSER['av_h'] > 5)
     {
-      $avatar = "<img src='{$CURUSER['avatar']}' width='{$CURUSER['av_w']}' height='{$CURUSER['av_h']}' alt='' />";
+      $avatar = "<img src='{$CURUSER['avatar']}' width='{$CURUSER['av_w']}' height='{$CURUSER['av_h']}' alt='xLeech Member' />";
     }
     else
     {
-      $avatar = "<img src='{$TBDEV['pic_base_url']}forumicons/default_avatar.gif' alt='' />";
+      $avatar = "<img src='{$TBDEV['pic_base_url']}/default_avatar.png' alt='' />";
     }
 
     $HTMLOUT .= "<script type='text/javascript'>
