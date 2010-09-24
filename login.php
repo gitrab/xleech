@@ -24,8 +24,10 @@ require_once "include/bittorrent.php" ;
     
     // Begin the session
     session_start();
+/*
     if (isset($_SESSION['captcha_time']))
     (time() - $_SESSION['captcha_time'] < 10) ? exit("{$lang['login_spam']}") : NULL;
+*/
 
     $HTMLOUT = '';
 

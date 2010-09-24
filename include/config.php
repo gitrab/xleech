@@ -21,8 +21,8 @@ error_reporting(E_ALL);
 define('SQL_DEBUG', 2);
 
 /* Compare php version for date/time stuff etc! */
-	if (version_compare(PHP_VERSION, "5.1.0RC1", ">="))
-		date_default_timezone_set('Europe/London');
+	if (version_compare(PHP_VERSION, "5.1.0", ">="))
+		date_default_timezone_set('Europe/Bucharest');
 
 
 define('TIME_NOW', time());
@@ -40,18 +40,18 @@ $TBDEV['time_date'] = '';
 
 // DB setup
 // FYNNON FUCKWIT FRENCH RETARD
-$TBDEV['mysql_host'] = "localhost";
-$TBDEV['mysql_user'] = "root";
-$TBDEV['mysql_pass'] = "blank";
-$TBDEV['mysql_db']   = "tb";
+$TBDEV['mysql_host'] = "cancer";
+$TBDEV['mysql_user'] = "you_wish";
+$TBDEV['mysql_pass'] = "you_wish";
+$TBDEV['mysql_db']   = "cancer_live";
 
 // Cookie setup
-$TBDEV['cookie_prefix']  = 'tbalpha_'; // This allows you to have multiple trackers, eg for demos, testing etc.
+$TBDEV['cookie_prefix']  = '204b_'; // This allows you to have multiple trackers, eg for demos, testing etc.
 $TBDEV['cookie_path']    = ''; // ATTENTION: You should never need this unless the above applies eg: /tbdev
-$TBDEV['cookie_domain']  = ''; // set to eg: .somedomain.com or is subdomain set to: .sub.somedomain.com
+$TBDEV['cookie_domain']  = '.204b.xdns.ro'; // set to eg: .somedomain.com or is subdomain set to: .sub.somedomain.com
                               
 $TBDEV['site_online'] = 1;
-$TBDEV['tracker_post_key'] = 'changethisorelse';
+$TBDEV['tracker_post_key'] = 'i';
 $TBDEV['max_torrent_size'] = 1000000;
 $TBDEV['announce_interval'] = 60 * 30;
 $TBDEV['signup_timeout'] = 86400 * 3;
@@ -78,14 +78,14 @@ $TBDEV['torrent_dir'] = ROOT_PATH . '/torrents'; # must be writable for httpd us
 
 # the first one will be displayed on the pages
 $TBDEV['announce_urls'] = array();
-$TBDEV['announce_urls'][] = "http://localhost/TB_ALPHA/announce.php";
+$TBDEV['announce_urls'][] = "http://204b.xdns.ro/announce.php";
 //$TBDEV['announce_urls'] = "http://localhost:2710/announce";
 //$TBDEV['announce_urls'] = "http://domain.com:83/announce.php";
 
 if ($_SERVER["HTTP_HOST"] == "")
   $_SERVER["HTTP_HOST"] = $_SERVER["SERVER_NAME"];
   
-$TBDEV['baseurl'] = "http://" . $_SERVER["HTTP_HOST"]."/TB_ALPHA";
+$TBDEV['baseurl'] = "http://" . $_SERVER["HTTP_HOST"]."";
 
 /*
 ## DO NOT UNCOMMENT THIS: IT'S FOR LATER USE!
@@ -109,9 +109,9 @@ $script = str_replace( "\\", "/", $script );
 //$TBDEV['peerlimit'] = 50000; //deprecated. no longer used.
 
 // Email for sender/return path.
-$TBDEV['site_email'] = "coldfusion@localhost";
+$TBDEV['site_email'] = "204b@xdns.ro";
 
-$TBDEV['site_name'] = "TBDEV.NET";
+$TBDEV['site_name'] = "xDns 204b";
 
 $TBDEV['language'] = 'en';
 $TBDEV['msg_alert'] = 0; // saves a query when off
@@ -120,7 +120,7 @@ $TBDEV['autoclean_interval'] = 900;
 $TBDEV['sql_error_log'] = ROOT_PATH.'/logs/sql_err_'.date("M_D_Y").'.log';
 $TBDEV['pic_base_url'] = "./pic/";
 $TBDEV['stylesheet'] = "./1.css";
-$TBDEV['readpost_expiry'] = 14*86400; // 14 days
+$TBDEV['readpost_expiry'] = 14 * 86400; // 14 days
 //set this to size of user avatars
 $TBDEV['av_img_height'] = 100;
 $TBDEV['av_img_width'] = 100;
