@@ -17,7 +17,7 @@
 +------------------------------------------------
 */error_reporting(0);
 ////////////////// GLOBAL VARIABLES ////////////////////////////	
-$TBDEV['baseurl'] = 'http://localhost/TB_ALPHA/';
+$TBDEV['baseurl'] = 'http://204b.xdns.ro/';
 $TBDEV['announce_interval'] = 60 * 30;
 $TBDEV['user_ratios'] = 0;
 $TBDEV['connectable_check'] = 0;

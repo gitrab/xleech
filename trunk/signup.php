@@ -33,8 +33,10 @@ dbconn();
     
     // Begin the session
     session_start();
+/*
     if (isset($_SESSION['captcha_time']))
-    (time() - $_SESSION['captcha_time'] < 10) ? exit($lang['captcha_spam']) : NULL;
+    (time() - $_SESSION['captcha_time'] < 10) ? exit("{$lang['login_spam']}") : NULL;
+*/
     
     $HTMLOUT = '';
     
