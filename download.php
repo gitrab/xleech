@@ -38,11 +38,12 @@ loggedinorreturn();
 
   if (!$row || !is_file($fn) || !is_readable($fn))
     httperr();
-
+/*
 if (!($CURUSER["id"] == $row["owner"])) {
 if ($CURUSER["downloadpos"] == 0 || $CURUSER["downloadpos"] > 1 )
 stderr("Error","Your download rights have been disabled.");
 }
+*/
 
   @mysql_query("UPDATE torrents SET hits = hits + 1 WHERE id = $id");
 
