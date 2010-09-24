@@ -67,7 +67,7 @@ loggedinorreturn();
 
 
 
-  header('Content-Disposition: attachment; filename="[TBDev]'.$row['filename'].'"');
+  header('Content-Disposition: attachment; filename="[xList.ro]'.$row['filename'].'"');
 
   header("Content-Type: application/x-bittorrent");
 

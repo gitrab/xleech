@@ -300,7 +300,6 @@ function stdhead($title = "", $msgalert = true) {
     <li><a href='{$TBDEV['baseurl']}/upload.php'>{$lang['gl_upload']}</a></li>
     <li><a href='{$TBDEV['baseurl']}/forums.php'>{$lang['gl_forums']}</a></li>
     <li><a href='{$TBDEV['baseurl']}/rules.php'>{$lang['gl_rules']}</a></li>
-    <li><a href='{$TBDEV['baseurl']}/credits.php'>{$lang['gl_credits']}</a></li>
     <li><a href='{$TBDEV['baseurl']}/my.php'>{$lang['gl_profile']}</a></li>
     ";
         if (get_user_class() >= UC_POWER_USER)
@@ -784,7 +783,7 @@ function StatusBar() {
 	global $CURUSER, $TBDEV, $lang;
 	
 	if (!$CURUSER)
-		return "<tr><td colspan='2'>Yeah Yeah!</td></tr>";
+		return "<tr><td colspan='2'>Welcome!</td></tr>";
 
 
 	$upped = mksize($CURUSER['uploaded']);
