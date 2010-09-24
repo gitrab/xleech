@@ -24,6 +24,9 @@ loggedinorreturn();
 
 $lang = array_merge( load_language('global'), load_language('sendmessage') );
 
+if ($CURUSER["sendpmpos"] == 0|| $CURUSER["sendpmpos"] > 1 )
+stderr($lang['sendmessage_sorry'], $lang['sendmessage_no_auth']);
+
 // Standard Administrative PM Replies
 $pm_std_reply[1] = sprintf( $lang['sendmessage_std_reply1'], $TBDEV['baseurl'] );
 $pm_std_reply[2] = "{$lang['sendmessage_std_reply2']}";

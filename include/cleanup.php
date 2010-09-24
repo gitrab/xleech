@@ -136,7 +136,13 @@ function docleanup() {
 		if (count($update))
 			@mysql_query("UPDATE torrents SET " . implode(",", $update) . " WHERE id = $id");
 	}
-
+mysql_query("UPDATE `users` SET `downloadpos` = 1 WHERE `downloadpos` > 1 AND `downloadpos` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
+mysql_query("UPDATE `users` SET `uploadpos` = 1 WHERE `uploadpos` > 1 AND `uploadpos` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
+mysql_query("UPDATE `users` SET `forumpost` = 1 WHERE `forumpost` > 1 AND `forumpost` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
+mysql_query("UPDATE `users` SET `chatpost` = 1 WHERE `chatpost` > 1 AND `chatpost` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
+mysql_query("UPDATE `users` SET `immunity` = 0 WHERE `immunity` > 1 AND `immunity` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
+mysql_query("UPDATE `users` SET `leechwarn` = 0 WHERE `leechwarn` > 1 AND `leechwarn` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
+mysql_query("UPDATE `users` SET `sendpmpos` = 1 WHERE `sendpmpos` > 1 AND `sendpmpos` < ".TIME_NOW) or sqlerr(__FILE__, __LINE__);
 	//delete inactive user accounts
 	$secs = 42*86400;
 	$dt = (time() - $secs);

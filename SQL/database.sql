@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2010 at 06:50 PM
+-- Generation Time: Mar 23, 2010 at 08:58 PM
 -- Server version: 5.1.37
 -- PHP Version: 5.2.10-2ubuntu6.4
 
@@ -760,6 +760,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `invites` int(10) unsigned NOT NULL DEFAULT '1',
   `invitedby` int(10) unsigned NOT NULL DEFAULT '0',
   `invite_rights` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `uploadpos` int(11) NOT NULL DEFAULT '1',
+  `forumpost` int(11) NOT NULL DEFAULT '1',
+  `downloadpos` int(11) NOT NULL DEFAULT '1',
+  `chatpost` int(11) NOT NULL DEFAULT '1',
+  `immunity` int(11) NOT NULL DEFAULT '0',
+  `leechwarn` int(11) NOT NULL DEFAULT '0',
+  `sendpmpos` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `ip` (`ip`),

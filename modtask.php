@@ -127,6 +127,338 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
 	   $updateset[] = "invites = " . sqlesc($invites);
 	   }
 
+/// Set download posssible Time based
+    if (isset($_POST['downloadpos']) && ($downloadpos =
+    0 + $_POST['downloadpos']))
+    {
+    unset($disable_pm);
+    if (isset($_POST['disable_pm']))
+        $disable_pm = $_POST['disable_pm'];
+    $subject = sqlesc('Notification!');
+    $added = time();
+    
+    if ($downloadpos == 255)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Download disablement by ".
+		$CURUSER['username'].".\nReason: $disable_pm\n".$modcomment;
+        $msg = sqlesc("Your Downloading rights have been disabled by ".$CURUSER['username'].($disable_pm ?
+            "\n\nReason: $disable_pm" : ''));
+        $updateset[] = 'downloadpos = 0';
+    } elseif ($downloadpos == 42)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Download disablement status removed by ".
+		$CURUSER['username'].".\n".$modcomment;
+        $msg = sqlesc("Your Downloading rights have been restored by ".
+		$CURUSER['username'].".");
+		$updateset[] = 'downloadpos = 1';
+    } else
+    {
+        $downloadpos_until = ($added + $downloadpos * 604800);
+        $dur = $downloadpos.' week'.($downloadpos > 1 ? 's' : '');
+        $msg = sqlesc("You have received $dur Download disablement from ".
+		$CURUSER['username'].($disable_pm ? "\n\nReason: $disable_pm" : ''));
+        $modcomment = get_date($added, 'DATE', 1)." - Download disablement for $dur by ".
+		$CURUSER['username'].".\nReason: $disable_pm\n".$modcomment;
+        $updateset[] = "downloadpos = ".$downloadpos_until;
+    }
+
+    mysql_query("INSERT INTO messages (sender, receiver, subject, msg, added) 
+	             VALUES (0, $userid, $subject, $msg, $added)") or sqlerr(__file__, __line__);
+   }
+    /// Set upload posssible Time based
+    if (isset($_POST['uploadpos']) && ($uploadpos =
+    0 + $_POST['uploadpos']))
+    {
+    unset($updisable_pm);
+    if (isset($_POST['updisable_pm']))
+        $updisable_pm = $_POST['updisable_pm'];
+    $subject = sqlesc('Notification!');
+    $added = time();
+    
+    if ($uploadpos == 255)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Upload disablement by ".
+		$CURUSER['username'].".\nReason: $updisable_pm\n".$modcomment;
+        $msg = sqlesc("Your Uploading rights have been disabled by ".$CURUSER['username'].($updisable_pm ?
+            "\n\nReason: $updisable_pm" : ''));
+        $updateset[] = 'uploadpos = 0';
+    } elseif ($uploadpos == 42)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Upload disablement status removed by ".
+		$CURUSER['username'].".\n".$modcomment;
+        $msg = sqlesc("Your Uploading rights have been restored by ".
+		$CURUSER['username'].".");
+		$updateset[] = 'uploadpos = 1';
+    } else
+    {
+        $uploadpos_until = ($added + $uploadpos * 604800);
+        $dur = $uploadpos.' week'.($uploadpos > 1 ? 's' : '');
+        $msg = sqlesc("You have received $dur Upload disablement from ".
+		$CURUSER['username'].($updisable_pm ? "\n\nReason: $updisable_pm" : ''));
+        $modcomment = get_date($added, 'DATE', 1)." - Upload disablement for $dur by ".
+		$CURUSER['username'].".\nReason: $updisable_pm\n".$modcomment;
+        $updateset[] = "uploadpos = ".$uploadpos_until;
+    }
+
+    mysql_query("INSERT INTO messages (sender, receiver, subject, msg, added) 
+	             VALUES (0, $userid, $subject, $msg, $added)") or sqlerr(__file__, __line__);
+   }
+    /// Set Forum posting posssible Time based
+    if (isset($_POST['forumpost']) && ($forumpost =
+    0 + $_POST['forumpost']))
+    {
+    unset($forumdisable_pm);
+    if (isset($_POST['forumdisable_pm']))
+        $forumdisable_pm = $_POST['forumdisable_pm'];
+    $subject = sqlesc('Notification!');
+    $added = time();
+    
+    if ($forumpost == 255)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Forum Posting disablement by ".
+		$CURUSER['username'].".\nReason: $forumdisable_pm\n".$modcomment;
+        $msg = sqlesc("Your posting rights have been disabled by ".$CURUSER['username'].($forumdisable_pm ?
+            "\n\nReason: $forumdisable_pm" : ''));
+        $updateset[] = 'forumpost = 0';
+    } elseif ($forumpost == 42)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Posting disablement status removed by ".
+		$CURUSER['username'].".\n".$modcomment;
+        $msg = sqlesc("Your posting rights have been restored by ".
+		$CURUSER['username'].".");
+		$updateset[] = 'forumpost = 1';
+    } else
+    {
+        $forumpost_until = ($added + $forumpost * 604800);
+        $dur = $forumpost.' week'.($forumpost > 1 ? 's' : '');
+        $msg = sqlesc("You have received $dur Posting disablement from ".
+		$CURUSER['username'].($forumdisable_pm ? "\n\nReason: $forumdisable_pm" : ''));
+        $modcomment = get_date($added, 'DATE', 1)." - Forum posting disablement for $dur by ".
+		$CURUSER['username'].".\nReason: $forumdisable_pm\n".$modcomment;
+        $updateset[] = "forumpost = ".$forumpost_until;
+    }
+
+    mysql_query("INSERT INTO messages (sender, receiver, subject, msg, added) 
+	             VALUES (0, $userid, $subject, $msg, $added)") or sqlerr(__file__, __line__);
+   }
+   /// Set shoutbox posssible Time based
+    if (isset($_POST['chatpost']) && ($chatpost =
+    0 + $_POST['chatpost']))
+    {
+    unset($chatdisable_pm);
+    if (isset($_POST['chatdisable_pm']))
+        $chatdisable_pm = $_POST['chatdisable_pm'];
+    $subject = sqlesc('Notification!');
+    $added = time();
+    
+    if ($chatpost == 255)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Shout disablement by ".
+		$CURUSER['username'].".\nReason: $chatdisable_pm\n".$modcomment;
+        $msg = sqlesc("Your Shoutbox rights have been disabled by ".$CURUSER['username'].($chatdisable_pm ?
+            "\n\nReason: $chatdisable_pm" : ''));
+        $updateset[] = 'chatpost = 0';
+    } elseif ($chatpost == 42)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Shoutbox disablement status removed by ".
+		$CURUSER['username'].".\n".$modcomment;
+        $msg = sqlesc("Your Shoutbox rights have been restored by ".
+		$CURUSER['username'].".");
+		$updateset[] = 'chatpost = 1';
+    } else
+    {
+        $chatpost_until = ($added + $chatpost * 604800);
+        $dur = $chatpost.' week'.($chatpost > 1 ? 's' : '');
+        $msg = sqlesc("You have received $dur Shoutbox disablement from ".
+		$CURUSER['username'].($chatdisable_pm ? "\n\nReason: $chatdisable_pm" : ''));
+        $modcomment = get_date($added, 'DATE', 1)." - Shoutbox disablement for $dur by ".
+		$CURUSER['username'].".\nReason: $chatdisable_pm\n".$modcomment;
+        $updateset[] = "chatpost = ".$chatpost_until;
+    }
+
+    mysql_query("INSERT INTO messages (sender, receiver, subject, msg, added) 
+	             VALUES (0, $userid, $subject, $msg, $added)") or sqlerr(__file__, __line__);
+   }
+   /// Set Immunity Status Time based
+   if (isset($_POST['immunity']) && ($immunity =
+   0 + $_POST['immunity']))
+   {
+   unset($immunity_pm);
+    if (isset($_POST['immunity_pm']))
+        $immunity_pm = $_POST['immunity_pm'];
+    $subject = sqlesc('Notification!');
+    $added = time();
+
+    if ($immunity == 255)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Immune Status enabled by ".
+		$CURUSER['username'].".\nReason: $immunity_pm\n".$modcomment;
+        $msg = sqlesc("You have received immunity Status from ".$CURUSER['username'].($immunity_pm ?
+            "\n\nReason: $immunity_pm" : ''));
+        $updateset[] = 'immunity = 1';
+    } elseif ($immunity == 42)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Immunity Status removed by ".
+		$CURUSER['username'].".\n".$modcomment;
+        $msg = sqlesc("Your Immunity Status has been removed by ".
+		$CURUSER['username'].".");
+		$updateset[] = 'immunity = 0';
+    } else
+    {
+        $immunity_until = ($added + $immunity * 604800);
+        $dur = $immunity.' week'.($immunity > 1 ? 's' : '');
+        $msg = sqlesc("You have received $dur Immunity Status from ".
+		$CURUSER['username'].($immunity_pm ? "\n\nReason: $immunity_pm" : ''));
+        $modcomment = get_date($added, 'DATE', 1)." - Immunity Status for $dur by ".
+		$CURUSER['username'].".\nReason: $immunity_pm\n".$modcomment;
+        $updateset[] = "immunity = ".$immunity_until;
+    }
+
+    mysql_query("INSERT INTO messages (sender, receiver, subject, msg, added) 
+	             VALUES (0, $userid, $subject, $msg, $added)") or sqlerr(__file__, __line__);
+   }
+   /// Set leechwarn Status Time based
+   if (isset($_POST['leechwarn']) && ($leechwarn =
+   0 + $_POST['leechwarn']))
+   {
+   unset($leechwarn_pm);
+    if (isset($_POST['leechwarn_pm']))
+        $leechwarn_pm = $_POST['leechwarn_pm'];
+    $subject = sqlesc('Notification!');
+    $added = time();
+
+    if ($leechwarn == 255)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - leechwarn Status enabled by ".
+		$CURUSER['username'].".\nReason: $leechwarn_pm\n".$modcomment;
+        $msg = sqlesc("You have received leechwarn Status from ".$CURUSER['username'].($leechwarn_pm ?
+            "\n\nReason: $leechwarn_pm" : ''));
+        $updateset[] = 'leechwarn = 1';
+    } elseif ($leechwarn == 42)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - leechwarn Status removed by ".
+		$CURUSER['username'].".\n".$modcomment;
+        $msg = sqlesc("Your leechwarn Status has been removed by ".
+		$CURUSER['username'].".");
+		$updateset[] = 'leechwarn = 0';
+    } else
+    {
+        $leechwarn_until = ($added + $leechwarn * 604800);
+        $dur = $leechwarn.' week'.($leechwarn > 1 ? 's' : '');
+        $msg = sqlesc("You have received $dur leechwarn Status from ".
+		$CURUSER['username'].($leechwarn_pm ? "\n\nReason: $leechwarn_pm" : ''));
+        $modcomment = get_date($added, 'DATE', 1)." - leechwarn Status for $dur by ".
+		$CURUSER['username'].".\nReason: $leechwarn_pm\n".$modcomment;
+        $updateset[] = "leechwarn = ".$leechwarn_until;
+    }
+
+    mysql_query("INSERT INTO messages (sender, receiver, subject, msg, added) 
+	             VALUES (0, $userid, $subject, $msg, $added)") or sqlerr(__file__, __line__);
+   }
+//09 Auto leech warn
+    // /==Updated/modified autoleech warning script////
+    $minratio = 0.3; // ratio < 0.4
+    $downloaded = 10 * 1024 * 1024 * 1024; // + 10 GB
+    $length = 3 * 7; // Give 3 weeks to let them sort there shit
+    $res = mysql_query("SELECT id FROM users WHERE enabled='yes' AND class = ".UC_USER." AND leechwarn = '0' AND uploaded / downloaded < $minratio AND downloaded >= $downloaded AND immunity = '0'") or sqlerr(__FILE__, __LINE__);
+    $msgs_buffer = $users_buffer = array();
+    if (mysql_num_rows($res) > 0) {
+        $dt = sqlesc(time());
+        $subject = "Auto leech warned";
+        $msg = "You have been warned and your download rights have been removed due to your low ratio. You need to get a ratio of 0.5 within the next 3 weeks or your Account will be disabled.";
+        $leechwarn = sqlesc(time() + ($length * 86400));
+        while ($arr = mysql_fetch_assoc($res)) {
+            $modcomment = sqlesc(get_date( time(), 'DATE', 1 ) . " - Automatically Leech warned and downloads disabled By System\n");
+            $msgs_buffer[] = '(0,' . $arr['id'] . ', '.time().', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
+            $users_buffer[] = '(' . $arr['id'] . ',' . $leechwarn . ',\'0\', ' . $modcomment . ')';
+        }
+        if (sizeof($msgs_buffer) > 0) {
+            mysql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $msgs_buffer)) or sqlerr(__FILE__, __LINE__);
+            mysql_query("INSERT INTO users (id, leechwarn, downloadpos, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE leechwarn=values(leechwarn),
+            downloadpos=values(downloadpos),modcomment=concat(values(modcomment),modcomment)") or sqlerr(__FILE__, __LINE__);
+            $count = mysql_affected_rows();
+            write_log("Cleanup: System applied auto leech Warning(s) to  " . $count / 2 . " Member(s)");
+        }
+        unset ($users_buffer);
+        unset ($msgs_buffer);
+    }
+    //End
+    //09 Auto leech warn
+    // ==Updated/Modified autoleech warn system - Remove warning and enable downloads
+    $minratio = 0.5; // ratio > 0.5
+    $res = mysql_query("SELECT id FROM users WHERE downloadpos = '0' AND leechwarn > '1' AND uploaded / downloaded >= $minratio") or sqlerr(__FILE__, __LINE__);
+    $msgs_buffer = $users_buffer = array();
+    if (mysql_num_rows($res) > 0) {
+       $subject = "Auto leech warning removed";
+        $msg = "Your warning for a low ratio has been removed and your downloads enabled. We highly recommend you to keep your ratio positive to avoid being automatically warned again.\n";
+        while ($arr = mysql_fetch_assoc($res)) {
+            $modcomment = sqlesc(get_date( time(), 'DATE', 1 ) . " - Leech warn removed and download enabled By System\n");
+            $msgs_buffer[] = '(0,' . $arr['id'] . ','.time().', ' . sqlesc($msg) . ',  ' . sqlesc($subject) . ')';
+            $users_buffer[] = '(' . $arr['id'] . ', \'0\', \'1\', ' . $modcomment . ')';
+        }
+        if (sizeof($msgs_buffer) > 0) {
+            mysql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $msgs_buffer)) or sqlerr(__FILE__, __LINE__);
+            mysql_query("INSERT INTO users (id, leechwarn, downloadpos, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE leechwarn=values(leechwarn),
+            downloadpos=values(downloadpos),modcomment=concat(values(modcomment),modcomment)") or sqlerr(__FILE__, __LINE__);
+            $count = mysql_affected_rows();
+            write_log("Cleanup: System removed auto leech Warning(s) and renabled download(s) - " . $count / 2 . " Member(s)");
+        }
+        unset ($users_buffer);
+        unset ($msgs_buffer);
+    }
+    //==End
+    //09 Auto leech warn
+    //==Disabled expired leechwarns
+    $res = mysql_query("SELECT id FROM users WHERE leechwarn > '1' AND leechwarn < ".TIME_NOW." AND leechwarn <> '0' ") or sqlerr(__FILE__, __LINE__);
+    $users_buffer = array();
+    if (mysql_num_rows($res) > 0) {
+        while ($arr = mysql_fetch_assoc($res)) {
+            $modcomment = sqlesc(get_date( time(), 'DATE', 1 ) . " - User disabled - Low ratio\n");
+            $users_buffer[] = '(' . $arr['id'] . ' , \'0\', \'no\', ' . $modcomment . ')';
+        }
+        if (sizeof($users_buffer) > 0) {
+            mysql_query("INSERT INTO users (id, leechwarn, enabled, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE class=values(class),
+            leechwarn=values(leechwarn),enabled=values(enabled),modcomment=concat(values(modcomment),modcomment)") or sqlerr(__FILE__, __LINE__);
+            $count = mysql_affected_rows();
+            write_log("Cleanup: Disabled " . $count / 2 . " Member(s) - Leechwarns expired");
+        }
+        unset ($users_buffer);
+    }
+    //==End
+    // Set Pm posssible Time based
+    if (isset($_POST['sendpmpos']) && ($sendpmpos =
+    0 + $_POST['sendpmpos']))
+    {
+    unset($pmdisable_pm);
+    if (isset($_POST['pmdisable_pm']))
+        $pmdisable_pm = $_POST['pmdisable_pm'];
+    $subject = sqlesc('Notification!');
+    $added = time();
+    
+    if ($sendpmpos == 255)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Pm disablement by ".
+		$CURUSER['username'].".\nReason: $pmdisable_pm\n".$modcomment;
+        $msg = sqlesc("Your Pm rights have been disabled by ".$CURUSER['username'].($pmdisable_pm ?
+            "\n\nReason: $pmdisable_pm" : ''));
+        $updateset[] = 'sendpmpos = 0';
+    } elseif ($sendpmpos == 42)
+    {
+        $modcomment = get_date($added, 'DATE', 1)." - Pm disablement status removed by ".
+		$CURUSER['username'].".\n".$modcomment;
+        $msg = sqlesc("Your Pm rights have been restored by ".
+		$CURUSER['username'].".");
+		$updateset[] = 'sendpmpos = 1';
+    } else
+    {
+        $sendpmpos_until = ($added + $sendpmpos * 604800);
+        $dur = $sendpmpos.' week'.($sendpmpos > 1 ? 's' : '');
+        $msg = sqlesc("You have received $dur Pm disablement from ".
+		$CURUSER['username'].($pmdisable_pm ? "\n\nReason: $pmdisable_pm" : ''));
+        $modcomment = get_date($added, 'DATE', 1)." - Pm disablement for $dur by ".
+		$CURUSER['username'].".\nReason: $pmdisable_pm\n".$modcomment;
+        $updateset[] = "sendpmpos = ".$sendpmpos_until;
+    }// End
     // Clear donor - Code not called for setting donor
     if (isset($_POST['donor']) && (($donor = $_POST['donor']) != $user['donor']))
     {
@@ -358,5 +690,5 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser"))
     }
 
 stderr("{$lang['modtask_user_error']}", "{$lang['modtask_no_idea']}");
-
+}
 ?>

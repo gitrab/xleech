@@ -48,6 +48,7 @@ $lang = array(
 'details_poster' => "Poster",
 'details_no_poster' => "No Poster",
 'details_no_poster_available' => "No poster available",
+'details_dloadpos' => "You are not allowed to download !",
 
 );
 

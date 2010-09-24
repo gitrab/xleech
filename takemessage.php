@@ -27,6 +27,9 @@ require_once "include/user_functions.php";
   loggedinorreturn();
   
   $lang = array_merge( load_language('global'), load_language('takemessage') );
+
+if ($CURUSER["sendpmpos"] == 0|| $CURUSER["sendpmpos"] > 1 )
+stderr($lang['takemessage_sorry'], $lang['takemessage_no_auth']);
   
   function ratios($up, $down) 
   {
