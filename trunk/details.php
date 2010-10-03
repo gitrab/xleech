@@ -292,6 +292,6 @@ if (!empty($xrow))
     $HTMLOUT .= $commentbar;
 
 ///////////////////////// HTML OUTPUT ////////////////////////////
-    print stdhead("{$lang['details_details']}\"" . htmlentities($row["name"], ENT_QUOTES) . "\"") . $HTMLOUT . stdfoot();
+    print stdhead(htmlentities($row["name"], ENT_QUOTES) . "\"") . $HTMLOUT . stdfoot();
 
 ?>

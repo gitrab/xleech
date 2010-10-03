@@ -252,6 +252,7 @@ mysql_query("UPDATE `torrents` SET `free` = 0 WHERE `free` > 1 AND `free` < ".TI
 		@mysql_query("DELETE FROM comments WHERE torrent={$arr['id']}");
 		@mysql_query("DELETE FROM files WHERE torrent={$arr['id']}");
 		@mysql_query("DELETE FROM snatched WHERE torrentid={$arr['id']}");
+		@mysql_query("DELETE FROM freeslots WHERE tid={$arr['id']}");
 		write_log("Torrent {$arr['id']} ({$arr['name']}) was deleted by system (older than $days days)");
 	}
 
