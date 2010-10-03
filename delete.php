@@ -16,6 +16,21 @@
 |   $URL$
 +------------------------------------------------
 */
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. view NFO
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+
 require_once "include/bittorrent.php";
 require_once "include/user_functions.php";
 
@@ -92,7 +107,7 @@ loggedinorreturn();
 function deletetorrent($id) {
     global $TBDEV;
     mysql_query("DELETE FROM torrents WHERE id = $id");
-    foreach(explode(".","peers.files.comments.ratings") as $x)
+    foreach(explode(".", "peers.files.comments") as $x)
         @mysql_query("DELETE FROM $x WHERE torrent = $id");
 	@mysql_query("DELETE FROM snatched WHERE torrentid = $id");
 	@mysql_query("DELETE FROM freeslots WHERE tid = $id");
