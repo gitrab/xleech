@@ -16,6 +16,21 @@
 |   $URL$
 +------------------------------------------------
 */
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. view NFO
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+
 ob_start("ob_gzhandler");
 require_once "include/bittorrent.php";
 require_once "include/bbcode_functions.php";
@@ -65,12 +80,12 @@ if (!$action)
     else
       $mailbox_name = "{$lang['messages_sentbox']}";
     }
-    //$pmcount = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM messages WHERE receiver = ".$CURUSER['id']));
+    // $pmcount = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM messages WHERE receiver = ".$CURUSER['id']));
     $pmcount = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM messages WHERE receiver=".$CURUSER['id']." AND location >= '1' || sender=".$CURUSER['id']." AND saved = 'yes' ")) or sqlerr(__FILE__,__LINE__);
 
     $pm_perc = $pmcount[0] ? ($pmcount[0] / 50 * 100) : 0;
     $perc_image = ($pm_perc > 66) ? 'loadbarred.gif' : (($pm_perc > 33) ? 'loadbaryellow.gif' : 'loadbargreen.gif');
-    //$image_width = ($pmcount[0] / 250 * 100);
+    // $image_width = ($pmcount[0] / 250 * 100);
     $image_width = $pm_perc > 0 ? round($pm_perc * 2.5) : 1;
     if($image_width > 250)
         $image_width = 250;
