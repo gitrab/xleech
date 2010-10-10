@@ -16,6 +16,21 @@
 |   $URL$
 +------------------------------------------------
 */
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. view NFO
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+
   require "include/bittorrent.php";
   $id = 0+$_GET["id"];
   if (!is_numeric($id) || $id < 1 || floor($id) != $id)
