@@ -1,20 +1,45 @@
 <?php
 /*
 +------------------------------------------------
+|   TBDev.net BitTorrent Tracker PHP
+|   =============================================
+|   by CoLdFuSiOn
+|   (c) 2003 - 2009 TBDev.Net
+|   http://www.tbdev.net
+|   =============================================
+|   svn: http://sourceforge.net/projects/tbdevnet/
+|   Licence Info: GPL
++------------------------------------------------
 |   $Date$
-|   $Revision$ 09 Final
-|   $password hint and answer
-|   $Author$ Neptune,Bigjoos
+|   $Revision$
+|   $Author$
 |   $URL$
 +------------------------------------------------
 */
-require_once('include/bittorrent.php');
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. invite
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
+require_once ('include/bittorrent.php');
 require_once ROOT_PATH.'/include/user_functions.php';
 require_once ROOT_PATH.'/include/password_functions.php';
 dbconn();
 loggedinorreturn();
-$HTMLOUT ='';
-$sure ='';
+$HTMLOUT = '';
+$sure = '';
 $lang = array_merge( load_language('global'), load_language('invite') );
 
 $do = (isset($_GET["do"]) ? $_GET["do"] : (isset($_POST["do"]) ? $_POST["do"] : ''));	
@@ -29,7 +54,7 @@ if ($do == 'view_page') {
 $query = mysql_query('SELECT * FROM users WHERE invitedby = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
 $rows = mysql_num_rows($query);
 
-$HTMLOUT ='';
+$HTMLOUT = '';
 
 $HTMLOUT .= "
 <table border='1' width='750' cellspacing='0' cellpadding='5'>
@@ -112,7 +137,7 @@ die;
  * @action Create Invites
  */
 
-elseif ($do =='create_invite') {
+elseif ($do == 'create_invite') {
 
 if ($CURUSER['invites'] <= 0)
 stderr($lang['invites_error'], $lang['invites_noinvite']);
@@ -138,7 +163,7 @@ header("Location: ?do=view_page");
  * @action Send e-mail
  */
 
-elseif ($do =='send_email') {
+elseif ($do == 'send_email') {
 	
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
@@ -200,7 +225,7 @@ print stdhead('Invites') . $HTMLOUT . stdfoot();
  * @action Delete Invites
  */
 
-elseif ($do =='delete_invite') {
+elseif ($do == 'delete_invite') {
 	
 $id = (isset($_GET["id"]) ? (int)$_GET["id"] : (isset($_POST["id"]) ? (int)$_POST["id"] : ''));	
 
@@ -226,7 +251,7 @@ header("Location: ?do=view_page");
  * @action Confirm Accounts
  */
 
-elseif ($do ='confirm_account') {
+elseif ($do = 'confirm_account') {
 	
 $userid = (isset($_GET["userid"]) ? (int)$_GET["userid"] : (isset($_POST["userid"]) ? (int)$_POST["userid"] : ''));
 
