@@ -19,7 +19,7 @@
 
 // CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
 
-// xLeech .::. view NFO
+// xLeech .::. torrent table
 // http://www.cyberfun.ro/
 // http://xList.ro/
 // http://xDnS.ro/
@@ -30,6 +30,8 @@
 
 // http://xleech-source.co.cc/
 // https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
 
 function linkcolor($num) {
     if (!$num)
@@ -333,10 +335,18 @@ function commenttable($rows)
 		$who_the_fuck_edit_my_comment = mysql_query("SELECT `username` AS `fucked_up_by` FROM `users` WHERE id ={$row['editedby']}") or sqlerr();
 		$my_comment = mysql_fetch_assoc($who_the_fuck_edit_my_comment);
     if ($row["editedby"])
-    	$text .= "<p><font size='1' class='small'>".$lang["commenttable_last_edited_by"]." <a href='userdetails.php?id={$row['editedby']}'><b>{$my_comment['fucked_up_by']}</b></a> ".$lang["commenttable_last_edited_at"]." ".get_date($row['editedat'],'DATE')."</font></p>\n";
+    	$text .= "<p><font size='1' class='small'>".$lang["commenttable_last_edited_by"]." <a href='userdetails.php?id={$row['editedby']}'><b>{$my_comment['fucked_up_by']}</b></a> ".$lang["commenttable_last_edited_at"]." ".get_date($row['editedat'], 'DATE')."</font></p>\n";
 		$htmlout .= begin_table(true);
 		$htmlout .= "<tr valign='top'>\n";
-		$htmlout .= "<td align='center' width='150' style='padding: 0px'><img width='{$row['av_w']}' height='{$row['av_h']}' src='{$avatar}' alt='' /></td>\n";
+
+if ( $CURUSER["id"] == 3 OR $CURUSER["id"] == 1 )
+{
+$av_size_for_ridaz = "<img width='150'";
+}
+else {
+$av_size_for_ridaz = "<img width='{$row['av_w']}' height='{$row['av_h']}'";
+     }
+		$htmlout .= "<td align='center' width='150' style='padding: 0px'>$av_size_for_ridaz src='{$avatar}' alt='xLeech Avatar' /></td>\n";
 		$htmlout .= "<td class='text'>$text</td>\n";
 		$htmlout .= "</tr>\n";
      $htmlout .= end_table();
