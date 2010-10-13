@@ -16,6 +16,23 @@
 |   $URL$
 +------------------------------------------------
 */
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. forum mod options
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
 if ( ! defined( 'IN_TBDEV_FORUM' ) )
 {
 	print "{$lang['forum_mod_options_access']}";
@@ -27,9 +44,9 @@ if ( ! defined( 'IN_TBDEV_FORUM' ) )
 
   if ($action == "locktopic")
   {
-    $forumid = 0+$_GET["forumid"];
-    $topicid = 0+$_GET["topicid"];
-    $page = 0+$_GET["page"];
+    $forumid = 0 + $_GET["forumid"];
+    $topicid = 0 + $_GET["topicid"];
+    $page = 0 + $_GET["page"];
 
     if (!is_valid_id($topicid) || get_user_class() < UC_MODERATOR)
       stderr("{$lang['forum_mod_options_user_error']}", "{$lang['forum_mod_options_incorrect']}");
