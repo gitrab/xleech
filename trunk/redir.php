@@ -16,7 +16,25 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once "include/bittorrent.php";
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. redir
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
+require_once ("include/bittorrent.php");
+
 dbconn(false);
 
 if(!isset($CURUSER)) 
@@ -36,4 +54,5 @@ if (substr($url, 0, 4) == "www.")
   print("<html><head><meta http-equiv='refresh' content='3;url=$url'></head><body>\n");
   print("<div style='width:100%;text-align:center;background: #E9D58F;border: 1px solid #CEAA49;margin: 5px 0 5px 0;padding: 0 5px 0 5px;font-weight: bold;'>Redirecting you to:<br />\n");
   print(htmlentities($url)."</div></body></html>\n");
+
 ?>
