@@ -16,12 +16,29 @@
 |   $URL$
 +------------------------------------------------
 */
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. take file search
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
 ob_start('ob_gzhandler');
 
-require_once 'include/bittorrent.php';
-require_once 'include/user_functions.php';
-require_once "include/html_functions.php";
-//require_once "include/pager_functions.php";
+require_once ('include/bittorrent.php');
+require_once ('include/user_functions.php');
+require_once ("include/html_functions.php");
+// require_once ("include/pager_functions.php");
 
 dbconn(false);
 
