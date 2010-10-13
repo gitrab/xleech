@@ -33,9 +33,9 @@
 // http://sourceforge.net/projects/xleech/
 // http://xleech.sourceforge.net/
 
-require_once "include/bittorrent.php";
-require_once "include/user_functions.php";
-require_once "include/password_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
+require_once ("include/password_functions.php");
 
 dbconn();
 
