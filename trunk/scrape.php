@@ -36,7 +36,7 @@
 $TBDEV['mysql_host'] = "cancer";
 $TBDEV['mysql_user'] = "you_wish";
 $TBDEV['mysql_pass'] = "you_wish";
-$TBDEV['mysql_db']   = "cancer_live";
+$TBDEV['mysql_db'] = "cancer_live";
 
     if (!@mysql_connect($TBDEV['mysql_host'], $TBDEV['mysql_user'], $TBDEV['mysql_pass']))
     {
