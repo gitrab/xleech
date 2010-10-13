@@ -16,10 +16,29 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once("include/bittorrent.php");
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. take rate
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
+require_once ("include/bittorrent.php");
 
 dbconn();
+
 loggedinorreturn();
+
 $lang = array_merge( load_language('global'), load_language('takerate') );
 
 if (!isset($CURUSER))
