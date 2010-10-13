@@ -30,6 +30,8 @@
 
 // http://xleech-source.co.cc/
 // https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
 
 error_reporting(0);
 
