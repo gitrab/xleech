@@ -19,7 +19,7 @@
 
 // CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
 
-// xLeech .::. view NFO
+// xLeech .::. filelist
 // http://www.cyberfun.ro/
 // http://xList.ro/
 // http://xDnS.ro/
@@ -30,10 +30,12 @@
 
 // http://xleech-source.co.cc/
 // https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
 
-require_once "include/bittorrent.php";
-require_once "include/user_functions.php";
-require_once "include/html_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
+require_once ("include/html_functions.php");
 
 dbconn(false);
 
