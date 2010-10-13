@@ -118,7 +118,7 @@ if ( ! defined( 'IN_TBDEV_FORUM' ) )
     $postid = mysql_insert_id() or die("{$lang['forum_post_post_na']}");
 
     $subject = mysql_result(mysql_query("SELECT subject from topics where id=".$topicid),0);
-	$message = $CURUSER['username'] . " replied to the thread [url={$TBDEV['baseurl']}/forums.php?action=viewtopic&topicid=$topicid&page=last]{$subject}[/url]";	
+    $message = $CURUSER['username'] . " replied to the thread [url={$TBDEV['baseurl']}/forums.php?action=viewtopic&topicid=$topicid&page=last]{$subject}[/url]";	
   if ($newtopic ){
   if (!in_array($forumid, array("9"))) {
   autoshout($message1);
