@@ -16,9 +16,26 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once "include/bittorrent.php";
-require_once "include/html_functions.php";
-require_once "include/user_functions.php";
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. staff
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
+require_once ("include/bittorrent.php");
+require_once ("include/html_functions.php");
+require_once ("include/user_functions.php");
 
 
 dbconn();
@@ -61,7 +78,7 @@ loggedinorreturn();
       $dt = time() - 180;
       $htmlout = '';
       
-      if($staff===false) 
+      if($staff === false) 
       {
         $htmlout .= "<br /><table width='75%' border='1' cellpadding='3'>";
         $htmlout .= "<tr><td class='colhead'><h2>{$staffclass}</h2></td></tr>";
