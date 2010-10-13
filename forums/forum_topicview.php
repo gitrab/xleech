@@ -16,6 +16,23 @@
 |   $URL$
 +------------------------------------------------
 */
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. torrent table
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
 if ( ! defined( 'IN_TBDEV_FORUM' ) )
 {
 	print "{$lang['forum_topic_view_access']}";
@@ -208,10 +225,16 @@ mysql_query("INSERT INTO readposts (userid, topicid) VALUES($userid, $topicid)")
           . ($arr["donor"] == "yes" ? "<img src='{$TBDEV['pic_base_url']}star.gif' alt='{$lang['forum_topic_view_donor']}' />" : "") 
           . ($arr["enabled"] == "no" ? "<img src='{$TBDEV['pic_base_url']}disabled.gif' alt='{$lang['forum_topic_view_disabled']}' style='margin-left: 2px' />" : ($arr["warned"] == "yes" ? "<a href='rules.php#warning' class='altlink'><img src='{$TBDEV['pic_base_url']}warned.gif' alt='{$lang['forum_topic_view_warned']}' border='0' /></a>" : "")) . " ($title)";
         }
-
+if ( $CURUSER["id"] == 3 OR $CURUSER["id"] == 1 )
+{
+$av_size_for_ridaz = "<img width='150'";
+}
+else {
+$av_size_for_ridaz = "<img width='{$arr['av_w']}' height='{$arr['av_h']}'";
+     }
         if ($CURUSER["avatars"] == "yes")
         {
-          $avatar = $arr['avatar'] ? "<div style='text-align:center;padding:5px;'><img width='{$arr['av_w']}' height='{$arr['av_h']}' src='".htmlentities($arr['avatar'], ENT_QUOTES)."' alt='' /></div>" : "<img width='100' src='{$forum_pic_url}default_avatar.gif' alt='' />";
+          $avatar = $arr['avatar'] ? "<div style='text-align:center;padding:5px;'>$av_size_for_ridaz src='".htmlentities($arr['avatar'], ENT_QUOTES)."' alt='' /></div>" : "<img width='100' src='{$forum_pic_url}default_avatar.gif' alt='' />";
         }
         else
         {
