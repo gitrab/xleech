@@ -17,6 +17,22 @@
 +------------------------------------------------
 */
 
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. forum functions
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
 if ( ! defined( 'IN_TBDEV_FORUM' ) )
 {
 	print "{$lang['forum_functions_access']}";
@@ -240,9 +256,16 @@ if ( ! defined( 'IN_TBDEV_FORUM' ) )
 
         $user = mysql_fetch_assoc($userres);
 
+if ( $CURUSER["id"] == 3 OR $CURUSER["id"] == 1 )
+{
+$av_size_for_ridaz = "<img width='150'";
+}
+else {
+$av_size_for_ridaz = "<img width='{$user['av_w']}' height='{$user['av_h']}'";
+     }
       	if ($CURUSER["avatars"] == "yes")
           {
-            $avatar = $user['avatar'] ? "<img width='{$user['av_w']}' height='{$user['av_h']}' src='".htmlentities($user['avatar'], ENT_QUOTES)."' alt='' />" : "<img width='100' src='{$forum_pic_url}default_avatar.gif' alt='default' />";
+            $avatar = $user['avatar'] ? "$av_size_for_ridaz src='".htmlentities($user['avatar'], ENT_QUOTES)."' alt='' />" : "<img width='100' src='{$forum_pic_url}default_avatar.gif' alt='default' />";
           }
           else
             $avatar = "<img width='100' src='{$forum_pic_url}default_avatar.gif' alt='' />";
