@@ -30,11 +30,15 @@
 
 // http://xleech-source.co.cc/
 // https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
 
 require ("include/bittorrent.php");
 require ("include/user_functions.php");
 require ("include/bbcode_functions.php");
+
 dbconn(false);
+
 loggedinorreturn();
 
     $lang = array_merge( load_language('global'), load_language('viewnfo') );
