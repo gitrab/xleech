@@ -19,7 +19,7 @@
 
 // CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
 
-// xLeech .::. view NFO
+// xLeech .::. BiTBucKeT UPload
 // http://www.cyberfun.ro/
 // http://xList.ro/
 // http://xDnS.ro/
