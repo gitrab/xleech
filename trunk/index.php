@@ -1,26 +1,42 @@
 <?php
 /*
 +------------------------------------------------
-| TBDev.net BitTorrent Tracker PHP
-| =============================================
-| by CoLdFuSiOn
-| (c) 2003 - 2009 TBDev.Net
-| http://www.tbdev.net
-| =============================================
-| svn: http://sourceforge.net/projects/tbdevnet/
-| Licence Info: GPL
+|   TBDev.net BitTorrent Tracker PHP
+|   =============================================
+|   by CoLdFuSiOn
+|   (c) 2003 - 2009 TBDev.Net
+|   http://www.tbdev.net
+|   =============================================
+|   svn: http://sourceforge.net/projects/tbdevnet/
+|   Licence Info: GPL
 +------------------------------------------------
-| $Date$
-| $Revision$
-| $Author$
-| $URL$
+|   $Date$
+|   $Revision$
+|   $Author$
+|   $URL$
 +------------------------------------------------
-| Kidvision style
 */
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. index
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
 ob_start("ob_gzhandler");
 
-require_once "include/bittorrent.php";
-require_once "include/user_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
 
 dbconn(true);
 
@@ -65,11 +81,9 @@ else
  	$adminbutton = "&nbsp;&nbsp;<span style='color:#191919; font-size:10px;'><a href='admin.php?action=news'>[Add]</a></span>\n";
  	
 	$HTMLOUT .= "<div style='text-align:left;width:950px;border:0px;padding:5px;'>
-	<div id='headindex'>{$lang['news_title']}{$adminbutton}</div>
-";
+	<div id='headindex'>{$lang['news_title']}{$adminbutton}</div>";
  	
-	$res = mysql_query("SELECT * FROM news WHERE added + ( 3600 *24 *45 ) >
-					".time()." ORDER BY added DESC LIMIT 10") or sqlerr(__FILE__, __LINE__);
+	$res = mysql_query("SELECT * FROM news WHERE added + ( 3600 *24 *45 ) > ".time()." ORDER BY added DESC LIMIT 10") or sqlerr(__FILE__, __LINE__);
 					
 	if (mysql_num_rows($res) > 0)
 	{
@@ -179,7 +193,7 @@ else
 \n";
  }
  if ($CURUSER['show_shout'] === "no") {
- $HTMLOUT .="<div id='headindex'>{$lang['index_shoutbox']} <span style='color:#fff; font-size:10px;'>[<a href='{$TBDEV['baseurl']}/shoutbox.php?show_shout=1&amp;show=yes'>{$lang['index_shoutbox_open']}</a>]</span></div></div>
+ $HTMLOUT .= "<div id='headindex'>{$lang['index_shoutbox']} <span style='color:#fff; font-size:10px;'>[<a href='{$TBDEV['baseurl']}/shoutbox.php?show_shout=1&amp;show=yes'>{$lang['index_shoutbox_open']}</a>]</span></div></div>
 
 ";
  }

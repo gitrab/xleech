@@ -19,7 +19,7 @@
 
 // CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
 
-// xLeech .::. view NFO
+// xLeech .::. forums
 // http://www.cyberfun.ro/
 // http://xList.ro/
 // http://xDnS.ro/
@@ -30,14 +30,16 @@
 
 // http://xleech-source.co.cc/
 // https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
 
-	define('IN_TBDEV_FORUM', TRUE);
+define('IN_TBDEV_FORUM', TRUE);
 
-  require_once "include/bittorrent.php";
-  require_once "include/user_functions.php";
-  require_once "include/html_functions.php";
-  //require_once "include/bbcode_functions.php";
-  require_once "forums/forum_functions.php";
+require_once "include/bittorrent.php";
+require_once "include/user_functions.php";
+require_once "include/html_functions.php";
+// require_once "include/bbcode_functions.php";
+require_once "forums/forum_functions.php";
   
 
   dbconn(false);
@@ -140,7 +142,7 @@ function std_view() {
   
   $htmlout .= "<div style='width:80%'><p style='text-align:right;'><span class='btn'><a href='forums.php?action=search'>{$lang['forums_search']}</a></span>&nbsp;<span class='btn'><a href='forums.php?action=viewunread'>{$lang['forums_view_unread']}</a></span>&nbsp;<span class='btn'><a href='forums.php?action=catchup'>{$lang['forums_catchup']}</a></span></p></div>";
   
-  $htmlout .="<table border='1' cellspacing='0' cellpadding='5' width='80%'>\n";
+  $htmlout .= "<table border='1' cellspacing='0' cellpadding='5' width='80%'>\n";
 
   $htmlout .= "<tr><td class='colhead' style='text-align:left;'>{$lang['forums_forum_heading']}</td><td class='colhead' style='text-align:right;'>{$lang['forums_topic_heading']}</td>" .
   "<td class='colhead' style='text-align:right;'>{$lang['forums_posts_heading']}</td>" .
