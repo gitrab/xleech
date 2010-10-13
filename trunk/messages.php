@@ -19,7 +19,7 @@
 
 // CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
 
-// xLeech .::. view NFO
+// xLeech .::. messages
 // http://www.cyberfun.ro/
 // http://xList.ro/
 // http://xDnS.ro/
@@ -30,11 +30,13 @@
 
 // http://xleech-source.co.cc/
 // https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
 
 ob_start("ob_gzhandler");
-require_once "include/bittorrent.php";
-require_once "include/bbcode_functions.php";
-require_once "include/user_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/bbcode_functions.php");
+require_once ("include/user_functions.php");
 // Connect to DB & check login
 dbconn();
 loggedinorreturn();
@@ -185,7 +187,7 @@ if (!$action)
           $username = mysql_fetch_array($res2);
           $username = "<a href='userdetails.php?id={$row['sender']}'>{$username[0]}</a>";
 
-          $id = 0+$row['sender'];
+          $id = 0 + $row['sender'];
 
           $r = mysql_query("SELECT id FROM friends WHERE userid={$CURUSER['id']} AND friendid=$id") or sqlerr(__FILE__, __LINE__);
           $friend = mysql_num_rows($r);
@@ -209,7 +211,7 @@ if (!$action)
           //if ($row['sender'] == $CURUSER['id'])
           //$id = 0+$row['receiver'];
           //else
-          $id = 0+$row['receiver'];
+          $id = 0 + $row['receiver'];
 
         }
         else
