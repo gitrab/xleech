@@ -19,7 +19,7 @@
 
 // CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
 
-// xLeech .::. index
+// xLeech .::. comment
 // http://www.cyberfun.ro/
 // http://xList.ro/
 // http://xDnS.ro/
@@ -81,9 +81,11 @@ else
  	$adminbutton = "&nbsp;&nbsp;<span style='color:#191919; font-size:10px;'><a href='admin.php?action=news'>[Add]</a></span>\n";
  	
 	$HTMLOUT .= "<div style='text-align:left;width:950px;border:0px;padding:5px;'>
-	<div id='headindex'>{$lang['news_title']}{$adminbutton}</div>";
+	<div id='headindex'>{$lang['news_title']}{$adminbutton}</div>
+";
  	
-	$res = mysql_query("SELECT * FROM news WHERE added + ( 3600 *24 *45 ) > ".time()." ORDER BY added DESC LIMIT 10") or sqlerr(__FILE__, __LINE__);
+	$res = mysql_query("SELECT * FROM news WHERE added + ( 3600 *24 *45 ) >
+					".time()." ORDER BY added DESC LIMIT 10") or sqlerr(__FILE__, __LINE__);
 					
 	if (mysql_num_rows($res) > 0)
 	{
@@ -199,9 +201,9 @@ else
  }
  //==end 09 shoutbox
 
-	/* UN COMMENT TO USE ACTIVE USERS ON INDEX
-	$file = "./cache/active.txt";
-$expire = 30; // 30 seconds
+// UN COMMENT TO USE ACTIVE USERS ON INDEX
+$file = "./cache/active.txt";
+$expire = 60; // 60 seconds
 if (file_exists($file) && filemtime($file) > (time() - $expire)) {
 $active3 = unserialize(file_get_contents($file));
 } else {
@@ -219,7 +221,7 @@ $activeusers = "";
 if (is_array($active3))
 foreach ($active3 as $arr) {
 	if ($activeusers) $activeusers .= ",\n";
-	$activeusers .= "<span style=\"white-space: nowrap;\">"; 
+	$activeusers .= "<span style=\"white-space: nowrap; background: #303130;\">"; 
 	$arr["username"] = "<font color='#" . get_user_class_color($arr['class']) . "'> " . htmlspecialchars($arr['username']) . "</font>";
 	$donator = $arr["donor"] === "yes";
 	$warned = $arr["warned"] === "yes";
@@ -247,8 +249,8 @@ if (!$activeusers)
 
 ";
 
- 	$HTMLOUT .="<div id='activeindex2'><span style='color:#4080B0'>Sysop</span> | <span style='color:#B000B0'>Administrator</span> | <span style='color:#FE2E2E'>Moderator</span> | <span style='color:#256903'>Code-Team</span> | <span style='color:#04ab27'>Graphic-Team</span> | <span style='color:#0000FF'>Uploader</span> | <span style='color:#009F00'>VIP</span> | <span style='color:#f9a200'>Power User</span> | <span style='color:#8E35EF'>User</span> | <span style='color:#b1b1b1'>Warned <img src='/pic/warned.gif' /></span></div>";
-*/
+ 	$HTMLOUT .= "<div id='activeindex2'><span style='color:#4080B0'>Sysop</span> | <span style='color:#B000B0'>Administrator</span> | <span style='color:#FE2E2E'>Moderator</span> | <span style='color:#256903'>Code-Team</span> | <span style='color:#04ab27'>Graphic-Team</span> | <span style='color:#0000FF'>Uploader</span> | <span style='color:#009F00'>VIP</span> | <span style='color:#f9a200'>Power User</span> | <span style='color:#8E35EF'>User</span> | <span style='color:#b1b1b1'>Warned <img src='/pic/warned.gif' /></span></div>";
+
 	$HTMLOUT .= "
 
 <div><div id='headindex'>{$lang['stats_title']}</div>
@@ -287,4 +289,5 @@ $HTMLOUT .= "<div><div id='newshold'>{$lang['foot_disclaimer']}</div>
 ///////////////////////////// FINAL OUTPUT //////////////////////
 
 	print stdhead('Home') . $HTMLOUT . stdfoot();
+
 ?>
