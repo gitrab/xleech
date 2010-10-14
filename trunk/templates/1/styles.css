@@ -14,7 +14,7 @@ img {border: 0;vertical-align: middle;}
 /* ------------------------------------  HEADER SETTINGS  -------------------------------------- */
 
 #logostrip{ 
-	background:transparent url(pic/header.png) no-repeat;
+	background:transparent url(pic/hallo.png) no-repeat;
 	height: 91px; width: 950px;
 	margin-top: 20; padding:0; }
 
@@ -307,7 +307,7 @@ border-style:solid;
 	
 	
 	
-#activeindex { width:920px; border: 0px dashed #d1e400; font-size:11px; min-height:35px; padding:5px; background-color:#f7f7f7;}
+#activeindex { width:920px; border: 0px dashed #d1e400; font-size:11px; min-height:35px; padding:5px;}
 #activeindex2 {width:700px; border: 1px dashed #d1e400; font-size:11px; padding:5px;}
 
  	/* 	::: SHOUTBOX ON INDEX PAGE ::: 	*/
