@@ -33,8 +33,8 @@
 // http://sourceforge.net/projects/xleech/
 // http://xleech.sourceforge.net/
 
-require_once("include/bittorrent.php");
-require_once "include/user_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
 
 $action = $_GET["action"];
 
@@ -54,7 +54,7 @@ loggedinorreturn();
           stderr("{$lang['comment_error']}", "{$lang['comment_invalid_id']}");
 
         $res = @mysql_query("SELECT name FROM torrents WHERE id = $torrentid") or sqlerr(__FILE__,__LINE__);
-        $arr = mysql_fetch_array($res,MYSQL_NUM);
+        $arr = mysql_fetch_array($res, MYSQL_NUM);
         if (!$arr)
           stderr("{$lang['comment_error']}", "{$lang['comment_invalid_torrent']}");
 
@@ -231,4 +231,5 @@ loggedinorreturn();
       stderr("{$lang['comment_error']}", "{$lang['comment_unknown']}");
 
     die;
+
 ?>
