@@ -220,7 +220,7 @@ $activeusers = "";
 if (is_array($active3))
 foreach ($active3 as $arr) {
 	if ($activeusers) $activeusers .= ",\n";
-	$activeusers .= "<span style=\"white-space: nowrap; background: #303130;\">"; 
+	$activeusers .= "<span style=\"white-space: nowrap;\">";
 	$arr["username"] = "<font color='#" . get_user_class_color($arr['class']) . "'> " . htmlspecialchars($arr['username']) . "</font>";
 	$donator = $arr["donor"] === "yes";
 	$warned = $arr["warned"] === "yes";
