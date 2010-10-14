@@ -19,7 +19,7 @@
 
 // CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
 
-// xLeech .::. comment
+// xLeech .::. index
 // http://www.cyberfun.ro/
 // http://xList.ro/
 // http://xDnS.ro/
@@ -84,8 +84,7 @@ else
 	<div id='headindex'>{$lang['news_title']}{$adminbutton}</div>
 ";
  	
-	$res = mysql_query("SELECT * FROM news WHERE added + ( 3600 *24 *45 ) >
-					".time()." ORDER BY added DESC LIMIT 10") or sqlerr(__FILE__, __LINE__);
+	$res = mysql_query("SELECT * FROM news WHERE added + ( 3600 *24 *45 ) > ".time()." ORDER BY added DESC LIMIT 10") or sqlerr(__FILE__, __LINE__);
 					
 	if (mysql_num_rows($res) > 0)
 	{
@@ -242,10 +241,10 @@ if (!$activeusers)
 	
 	$HTMLOUT .= "<div><div id='headindex'>{$lang['index_active']}</div>
 ";
- $HTMLOUT .="<table id='activeindex'>
+ $HTMLOUT .= "<table id='activeindex'>
 		<tr>
 		<td id='activeindex'>{$activeusers}</td>";
- $HTMLOUT .="</tr></table></div>
+ $HTMLOUT .= "</tr></table></div>
 
 ";
 
