@@ -250,9 +250,7 @@ if (!$activeusers)
 
  	$HTMLOUT .= "<div id='activeindex2'><span style='color:#4080B0'>Sysop</span> | <span style='color:#B000B0'>Administrator</span> | <span style='color:#FE2E2E'>Moderator</span> | <span style='color:#256903'>Code-Team</span> | <span style='color:#04ab27'>Graphic-Team</span> | <span style='color:#0000FF'>Uploader</span> | <span style='color:#009F00'>VIP</span> | <span style='color:#f9a200'>Power User</span> | <span style='color:#8E35EF'>User</span> | <span style='color:#b1b1b1'>Warned <img src='/pic/warned.gif' /></span></div>";
 
-	$HTMLOUT .= "
-
-<div><div id='headindex'>{$lang['stats_title']}</div>
+	$HTMLOUT .= "<div><div id='headindex'>{$lang['stats_title']}</div>
 
 	
  	<table align='center' class='statindex' border='0' cellspacing='5' cellpadding='5'>
@@ -270,20 +268,13 @@ if (!$activeusers)
 
 	} 
 
- 	$HTMLOUT .= "</table>
- 	</div>";
-	
+ 	$HTMLOUT .= "</table></div>";
 	$HTMLOUT .= "";
-	$HTMLOUT .= "
-<div><font class='small'>Welcome to our newest member, <b>$latestuser</b>!</font></div>
+	$HTMLOUT .= "<div><font class='small'>Welcome to our newest member, <b>$latestuser</b>!</font></div>\n"; 
 
+$HTMLOUT .= "<div><div id='headindex'>{$lang['index_dis']}</div>";
 
-\n"; 
-
-$HTMLOUT .= "<div><div id='headindex'>{$lang['index_dis']}</div>
-";
-$HTMLOUT .= "<div><div id='newshold'>{$lang['foot_disclaimer']}</div>
-";
+$HTMLOUT .= "<div><div id='newshold'>{$lang['foot_disclaimer']}</div>";
 
 ///////////////////////////// FINAL OUTPUT //////////////////////
 
