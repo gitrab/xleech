@@ -386,11 +386,11 @@ $htmlout .= ($fl['modifier'] != 0 && ($fl['expires'] > TIME_NOW || $fl['expires'
    </tr>
    <tr>
      <td width="42" align="center">
-     <img src="'.$TBDEV['baseurl'].'/pic/cat_free.gif" alt="FREE!" /></td>
+     <img src="'.$TBDEV['pic_base_url'].'cat_free.gif" alt="FREE!" /></td>
      <td align="center">'.$fl['message'].' set by '.$fl['setby'].'<br />'.($fl['expires'] != 1 ? 
 'Until '.get_date($fl['expires'], 'DATE').' ('.mkprettytime($fl['expires'] - TIME_NOW).' to go)' : '').'</td>
      <td width="42" align="center">
-     <img src="'.$TBDEV['baseurl'].'/pic/cat_free.gif" alt="FREE!" /></td>
+     <img src="'.$TBDEV['pic_base_url'].'cat_free.gif" alt="FREE!" /></td>
 </tr></table>
 <br />' : '');
 }
@@ -413,7 +413,7 @@ function stdfoot() {
 
     return "\n
 <br /><br /><br /><br /><br />
-<p align='center'><a href='http://validator.w3.org'><img src='pic/login/xhtml_valid.png' alt='Xhtml valid'/></a>&nbsp;&nbsp;<a href='http://jigsaw.w3.org/css-validator/check/'><img src='pic/login/css_valid.png' alt='Xhtml valid' /></a>&nbsp;&nbsp;<a href='http://tbdev.net'><img src='pic/login/tbdev_power.png' alt='TBDEV'/></a>&nbsp;&nbsp;<a href='http://kidvision.me'><img src='pic/login/kidvision_design.png' alt='Design'/></a></p>\n
+<p align='center'><a href='http://validator.w3.org'><img src='{$TBDEV['pic_base_url']}login/xhtml_valid.png' alt='Xhtml valid'/></a>&nbsp;&nbsp;<a href='http://jigsaw.w3.org/css-validator/check/'><img src='{$TBDEV['pic_base_url']}login/css_valid.png' alt='Xhtml valid' /></a>&nbsp;&nbsp;<a href='http://tbdev.net'><img src='{$TBDEV['pic_base_url']}login/tbdev_power.png' alt='TBDEV'/></a>&nbsp;&nbsp;<a href='http://kidvision.me'><img src='{$TBDEV['pic_base_url']}login/kidvision_design.png' alt='Design'/></a></p>\n
     </td></tr></table>\n
     </body></html>\n";
 }
@@ -872,7 +872,7 @@ function StatusBar() {
 	global $CURUSER, $TBDEV, $lang;
 	
 	if (!$CURUSER)
-		return "<tr><td colspan='2'>Welcome!</td></tr>";
+		return "<tr><td colspan='2'>Welcome to {$TBDEV['site_name']}!</td></tr>";
 
 
 	$upped = mksize($CURUSER['uploaded']);
@@ -886,7 +886,7 @@ function StatusBar() {
 	$IsDonor = '';
 	if ($CURUSER['donor'] == "yes")
 	
-	$IsDonor = "<img src='pic/theme/star.png' alt='donor' title='donor' />";
+	$IsDonor = "<img src='{$TBDEV['pic_base_url']}theme/star.png' alt='donor' title='donor' />";
 
 
 	$warn = '';
