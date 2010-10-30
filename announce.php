@@ -19,7 +19,7 @@
 
 // CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
 
-// xLeech .::. view NFO
+// xLeech .::. announce
 // http://www.cyberfun.ro/
 // http://xList.ro/
 // http://xDnS.ro/
@@ -30,10 +30,13 @@
 
 // http://xleech-source.co.cc/
 // https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
 
 error_reporting(0);
 // just in case - start
-/////////Strip slashes by system//////////
+
+///////// Strip slashes by system //////////
 function cleanquotes(&$in) {
 	if(is_array($in)) return array_walk($in, 'cleanquotes');
 	return $in = stripslashes($in);
@@ -44,9 +47,10 @@ if ( get_magic_quotes_gpc() ) {
 	array_walk($_COOKIE, 'cleanquotes');
 	array_walk($_REQUEST, 'cleanquotes');
 }
-/////////Strip slashes by system//////////
+///////// Strip slashes by system //////////
 
 // just in case - end
+
 ////////////////// GLOBAL VARIABLES ////////////////////////////	
 $TBDEV['baseurl'] = 'http://xleech.in/';
 $TBDEV['announce_interval'] = 60 * 30;
@@ -305,7 +309,7 @@ if($_GET['compact'] != 1)
 
 {
 
-$resp = "d" . benc_str("interval") . "i" . $TBDEV['announce_interval'] . "e" . benc_str("peers") . "l";
+$resp = "d" . benc_str("interval") . "i" . $TBDEV['announce_interval'] . "e" . benc_str("private") . 'i1e' . benc_str("peers") . "l";
 
 }
 
@@ -313,7 +317,7 @@ else
 
 {
 
-$resp = "d" . benc_str("interval") . "i" . $TBDEV['announce_interval'] ."e" . benc_str("min interval") . "i" . 300 ."e5:"."peers" ;
+$resp = "d" . benc_str("interval") . "i" . $TBDEV['announce_interval'] . "e" . benc_str("private") . 'i1e' . benc_str("min interval") . "i" . 300 ."e5:"."peers" ;
 
 }
 
@@ -352,13 +356,11 @@ $resp .= "d" .
 
        if (!$_GET['no_peer_id']) {
 
-  $resp .= benc_str("peer id") . benc_str($row["peer_id"]);
+$resp .= benc_str("peer id") . benc_str($row["peer_id"]);
 
  }
 
- $resp .= benc_str("port") . "i" . $row["port"] . "e" .
-
- "e";
+$resp .= benc_str("port") . "i" . $row["port"] . "e" . "e";
 
       }
 
