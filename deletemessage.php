@@ -16,25 +16,8 @@
 |   $URL$
 +------------------------------------------------
 */
-
-// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
-
-// xLeech .::. delete message
-// http://www.cyberfun.ro/
-// http://xList.ro/
-// http://xDnS.ro/
-// http://xLeech.in/
-// Modified By cybernet2u
-
-// xLeech v1.2
-
-// http://xleech-source.co.cc/
-// https://xleech.svn.sourceforge.net/svnroot/xleech
-// http://sourceforge.net/projects/xleech/
-// http://xleech.sourceforge.net/
-
   require "include/bittorrent.php";
-  $id = 0 + $_GET["id"];
+  $id = 0+$_GET["id"];
   if (!is_numeric($id) || $id < 1 || floor($id) != $id)
     die;
 
@@ -76,5 +59,5 @@
   }
   else
   	die("{$lang['deletemessage_unknown']}");
-  header("Location: {$TBDEV['baseurl']}/inbox.php".($type == 'out' ? "?out=1":""));
+  header("Location: {$TBDEV['baseurl']}/inbox.php".($type == 'out'?"?out=1":""));
 ?>

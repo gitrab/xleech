@@ -16,23 +16,6 @@
 |   $URL$
 +------------------------------------------------
 */
-
-// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
-
-// xLeech .::. config
-// http://www.cyberfun.ro/
-// http://xList.ro/
-// http://xDnS.ro/
-// http://xLeech.in/
-// Modified By cybernet2u
-
-// xLeech v1.2
-
-// http://xleech-source.co.cc/
-// https://xleech.svn.sourceforge.net/svnroot/xleech
-// http://sourceforge.net/projects/xleech/
-// http://xleech.sourceforge.net/
-
 error_reporting(E_ALL);
 
 define('SQL_DEBUG', 2);
@@ -57,6 +40,14 @@ $TBDEV['time_date'] = '';
 
 // DB setup
 // FYNNON FUCKWIT FRENCH RETARD
+
+/*
+$mysql_host = "mysql3.000webhost.com";
+$mysql_database = "a2547881_pizda";
+$mysql_user = "a2547881_pizda";
+$mysql_password = "832LGAf8dYcErwhf";
+*/
+
 $TBDEV['mysql_host'] = "cancer";
 $TBDEV['mysql_user'] = "you_wish";
 $TBDEV['mysql_pass'] = "you_wish";

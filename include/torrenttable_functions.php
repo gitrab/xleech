@@ -129,11 +129,11 @@ function torrenttable($res, $variant = "index") {
         if ($variant == "index")
             $htmlout .= "&amp;hit=1";
         /** free Torrent **/
-$free_tag = ($row['FREE'] != 0 ? ' <a class="info" href="#">
+$free_tag = ($row['free'] != 0 ? ' <a class="info" href="#">
             <b>[FREE]</b> 
-            <span>'. ($row['FREE'] > 1 ? '
-            Expires: '.get_date($row['FREE'], 'DATE').'<br />
-('.mkprettytime($row['FREE'] - TIME_NOW).' to go)<br />' : 'Unlimited<br />').'</span></a>' : '');
+            <span>'. ($row['free'] > 1 ? '
+            Expires: '.get_date($row['free'], 'DATE').'<br />
+('.mkprettytime($row['free'] - TIME_NOW).' to go)<br />' : 'Unlimited<br />').'</span></a>' : '');
 
 /** freeslot Slot in Use **/
 $isdlfree = ($row['tid'] == $id && $row['uid'] == $CURUSER['id'] && 
@@ -151,14 +151,22 @@ $isdouble = ($row['tid'] == $id && $row['uid'] == $CURUSER['id'] &&
             Expires: '.get_date($row['doubleup'], 'DATE').'<br />
 ('.mkprettytime($row['doubleup'] - TIME_NOW).' to go)<br />' : 'Unlimited<br />') : '').'</span></a>' : '');
 
-$htmlout .= "'><b>$dispname</b></a>".$free_tag."<br />".$isdlfree.$isdouble;
+if (!empty($row['description'])) {
+ 	$description = "(" . htmlspecialchars($row["description"]) . ")";
+ 	}
+ 	else {
+ 	$description = "";
+ 	}
+ 	$char = 50; //Max 
+
+$htmlout .= "'><b>$dispname</b></a>".$free_tag."<br />".$description.$isdlfree.$isdouble;
 
 				if ($wait && $TBDEV['user_ratios'])
 				{
 				  $elapsed = floor((time() - $row["added"]) / 3600);
 	        if ($elapsed < $wait)
 	        {
-	          $color = dechex(floor(127*($wait - $elapsed)/48 + 128)*65536);
+	          $color = dechex(floor(127 * ($wait - $elapsed) / 48 + 128) * 65536);
 	          $htmlout .= "<td align='center'><span style='white-space: nowrap;'><a href='faq.php#dl8'><font color='$color'>" . number_format($wait - $elapsed) . " ".$lang["torrenttable_wait_h"]."</font></a></span></td>\n";
 	        }
 	        else
@@ -330,7 +338,7 @@ function commenttable($rows)
 		$avatar = ($CURUSER["avatars"] == "yes" ? htmlspecialchars($row["avatar"]) : "");
 		
 		if (!$avatar)
-			$avatar = "{$TBDEV['pic_base_url']}default_avatar.gif";
+			$avatar = "{$TBDEV['pic_base_url']}forumicons/default_avatar.gif";
 		$text = format_comment($row["text"]);
 		$who_the_fuck_edit_my_comment = mysql_query("SELECT `username` AS `fucked_up_by` FROM `users` WHERE id ={$row['editedby']}") or sqlerr();
 		$my_comment = mysql_fetch_assoc($who_the_fuck_edit_my_comment);

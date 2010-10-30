@@ -16,27 +16,10 @@
 |   $URL$
 +------------------------------------------------
 */
-
-// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
-
-// xLeech .::. peerList
-// http://www.cyberfun.ro/
-// http://xList.ro/
-// http://xDnS.ro/
-// http://xLeech.in/
-// Modified By cybernet2u
-
-// xLeech v1.2
-
-// http://xleech-source.co.cc/
-// https://xleech.svn.sourceforge.net/svnroot/xleech
-// http://sourceforge.net/projects/xleech/
-// http://xleech.sourceforge.net/
-
-require_once ("include/bittorrent.php");
-require_once ("include/user_functions.php");
-require_once ("include/bt_client_functions.php");
-require_once ("include/html_functions.php");
+require_once("include/bittorrent.php");
+require_once "include/user_functions.php";
+require_once "include/bt_client_functions.php";
+require_once "include/html_functions.php";
 
 dbconn(false);
 
@@ -124,7 +107,7 @@ function dltable($name, $arr, $torrent)
     $res = mysql_query("SELECT * FROM torrents WHERE id = $id")
       or sqlerr();
 
-    if (mysql_num_rows($res) == 0)
+    if(mysql_num_rows($res) == 0)
       stderr("{$lang['peerslist_error']}", "{$lang['peerslist_nothing']}");
       
       $row = mysql_fetch_assoc($res);
@@ -133,9 +116,12 @@ function dltable($name, $arr, $torrent)
 
           $downloaders = array();
           $seeders = array();
-          $subres = mysql_query("SELECT u.username, u.privacy, p.seeder, p.finishedat, p.downloadoffset, p.uploadoffset, p.ip, p.port, p.uploaded, p.downloaded, p.to_go, p.started AS st, p.connectable, p.agent, p.last_action AS la, p.userid, p.peer_id FROM peers p LEFT JOIN users u ON p.userid = u.id WHERE p.torrent = $id") or sqlerr();
+          $subres = mysql_query("SELECT u.username, u.privacy, p.seeder, p.finishedat, p.downloadoffset, p.uploadoffset, p.ip, p.port, p.uploaded, p.downloaded, p.to_go, p.started AS st, p.connectable, p.agent, p.last_action AS la, p.userid, p.peer_id
+    FROM peers p
+    LEFT JOIN users u ON p.userid = u.id
+    WHERE p.torrent = $id") or sqlerr();
           
-          if (mysql_num_rows($subres) == 0)
+          if(mysql_num_rows($subres) == 0)
             stderr("{$lang['peerslist_warning']}", "{$lang['peerslist_no_data']}");
       
           while ($subrow = mysql_fetch_assoc($subres)) {

@@ -32,6 +32,7 @@ $lang = array(
 'index_shoutbox_send'	=> "Send",
 'index_shoutbox_close'	=> "Close",
 'index_shoutbox_open'	=> "Open",
+'index_active'	=> "Active Users",
 
 #disclaimer
 'foot_disclaimer' 			=> "Disclaimer: None of the files shown here are actually hosted on this server. The links are provided solely by this site's users.

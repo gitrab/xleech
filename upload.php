@@ -61,6 +61,10 @@ loggedinorreturn();
       <td valign='top' align='left'><input type='file' name='file' size='80' /></td>
     </tr>
     <tr>
+      <td class='heading' valign='top' align='right'>Small Description</td>
+ 	<td valign='top' align='left'><input type='text' name='description' size='80' /><b></b><br />Small Description for the uploaded file (Example: A good movie!!!)<br />This Description is shown in browse.php under the Torrentname.</td>
+	</tr>
+	<tr>
       <td class='heading' valign='top' align='right'>{$lang['upload_poster']}</td>
       <td valign='top' align='left'><input type='text' name='poster' size='80' /><br />{$lang['upload_poster1']}</td>
       </tr>

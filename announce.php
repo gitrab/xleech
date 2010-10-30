@@ -19,7 +19,7 @@
 
 // CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
 
-// xLeech .::. announce
+// xLeech .::. view NFO
 // http://www.cyberfun.ro/
 // http://xList.ro/
 // http://xDnS.ro/
@@ -30,11 +30,8 @@
 
 // http://xleech-source.co.cc/
 // https://xleech.svn.sourceforge.net/svnroot/xleech
-// http://sourceforge.net/projects/xleech/
-// http://xleech.sourceforge.net/
 
 error_reporting(0);
-
 // just in case - start
 /////////Strip slashes by system//////////
 function cleanquotes(&$in) {
@@ -50,7 +47,6 @@ if ( get_magic_quotes_gpc() ) {
 /////////Strip slashes by system//////////
 
 // just in case - end
-
 ////////////////// GLOBAL VARIABLES ////////////////////////////	
 $TBDEV['baseurl'] = 'http://xleech.in/';
 $TBDEV['announce_interval'] = 60 * 30;
@@ -298,7 +294,7 @@ $xL_time = time();
 $fields = "seeder, peer_id, ip, port, uploaded, downloaded, userid, ($xL_time - last_action) AS announcetime, last_action AS ts";
 
 $numpeers = $torrent["numpeers"];
-$limit = "500";
+$limit = "";
 if ($numpeers > $rsize)
 	$limit = "ORDER BY RAND() LIMIT $rsize";
 $res = mysql_query("SELECT $fields FROM peers WHERE torrent = $torrentid AND connectable = 'yes' $limit");
@@ -309,7 +305,7 @@ if($_GET['compact'] != 1)
 
 {
 
-$resp = "d" . benc_str("interval") . "i" . $TBDEV['announce_interval'] . "e" . benc_str("private") . 'i1e' . benc_str("peers") . "l";
+$resp = "d" . benc_str("interval") . "i" . $TBDEV['announce_interval'] . "e" . benc_str("peers") . "l";
 
 }
 
@@ -317,7 +313,7 @@ else
 
 {
 
-$resp = "d" . benc_str("interval") . "i" . $TBDEV['announce_interval'] . "e" . benc_str("private") . 'i1e' . benc_str("min interval") . "i" . 300 ."e5:"."peers" ;
+$resp = "d" . benc_str("interval") . "i" . $TBDEV['announce_interval'] ."e" . benc_str("min interval") . "i" . 300 ."e5:"."peers" ;
 
 }
 
@@ -356,11 +352,13 @@ $resp .= "d" .
 
        if (!$_GET['no_peer_id']) {
 
-$resp .= benc_str("peer id") . benc_str($row["peer_id"]);
+  $resp .= benc_str("peer id") . benc_str($row["peer_id"]);
 
  }
 
-$resp .= benc_str("port") . "i" . $row["port"] . "e" . "e";
+ $resp .= benc_str("port") . "i" . $row["port"] . "e" .
+
+ "e";
 
       }
 
@@ -399,7 +397,7 @@ $peer_num++;
 
 
 
-if ($_GET['compact'] != 1)
+if ($_GET['compact']!=1)
 
 $resp .= "ee";
 
@@ -491,13 +489,13 @@ if (!($user['free_switch'] != 0 || $isfree || $torrent['free'] != 0 || ($torrent
 ))
 $updq[0] = "downloaded = downloaded + $downthis";
 
-$updq[1] = "uploaded = uploaded + ".(($torrent['doubleslot'] != 0 || $isdouble) ? ($upthis * 2) : $upthis);
+$updq[1] = "uploaded = uploaded + ".(($torrent['doubleslot'] != 0 || $isdouble) ? ($upthis*2) : $upthis);
 
-$udq = implode(',', $updq);
+$udq=implode(',',$updq);
 mysql_query("UPDATE users SET $udq WHERE id=".$user['id']) or err('Tracker error 3');
 }
       //=== abnormal upload detection
-			if ($user['highspeed'] == 'no' && $upthis > 103872)
+			if ($user['highspeed'] == 'no' && $upthis > 103872) 
 			{
             		//=== Work out difference
             		$diff = (time() - $self['ts']);

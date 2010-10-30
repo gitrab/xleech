@@ -37,6 +37,21 @@ require_once ("include/config.php");
 require_once ("cleanup.php");
 require_once ROOT_PATH.'/cache/free_cache.php';
 
+// just in case - start
+/////////Strip slashes by system//////////
+function cleanquotes(&$in) {
+	if(is_array($in)) return array_walk($in, 'cleanquotes');
+	return $in = stripslashes($in);
+}
+if ( get_magic_quotes_gpc() ) {
+	array_walk($_GET, 'cleanquotes');
+	array_walk($_POST, 'cleanquotes');
+	array_walk($_COOKIE, 'cleanquotes');
+	array_walk($_REQUEST, 'cleanquotes');
+}
+/////////Strip slashes by system//////////
+
+// just in case - end
 
 /**** validip/getip courtesy of manolete <manolete@myway.com> ****/
 
@@ -303,21 +318,7 @@ function stdhead($title = "", $msgalert = true) {
     <meta name='MSSmartTagsPreventParsing' content='TRUE' />
     <title>{$title}</title>
     <link rel='stylesheet' href='templates/1/1.css' type='text/css' />
-    </head>
-    <body>
-<!-- Piwik -->
-<script type=\"text/javascript\">
-var pkBaseURL = ((\"https:\" == document.location.protocol) ? \"https://stats.xdns.ro/\" : \"http://stats.xdns.ro/\");
-document.write(unescape(\"%3Cscript src='\" + pkBaseURL + \"piwik.js' type='text/javascript'%3E%3C/script%3E\"));
-</script><script type=\"text/javascript\">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + \"piwik.php\", 15);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
-</script><noscript><p><img src=\"http://stats.xdns.ro/piwik.php?idsite=15\" style=\"border:0\" alt=\"\" /></p></noscript>
-<!-- End Piwik Tag -->
-<script type=\"text/javascript\">
+	<script type=\"text/javascript\">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-18179445-1']);
@@ -329,7 +330,9 @@ piwikTracker.enableLinkTracking();
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
-</script>
+    </script>
+    </head>
+    <body>
     <table width='950' cellspacing='0' cellpadding='0' style='background: transparent' align='center'>
     <tr>
     <td class='clear'>
