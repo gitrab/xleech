@@ -79,7 +79,7 @@ loggedinorreturn();
       exit();
     }
 	
-$res = mysql_query("SELECT torrents.seeders, torrents.banned, torrents.leechers, torrents.info_hash, torrents.filename, torrents.poster, LENGTH(torrents.nfo) AS nfosz, torrents.last_action AS lastseed, torrents.numratings, torrents.name, IF(torrents.numratings < {$TBDEV['minvotes']}, NULL, ROUND(torrents.ratingsum / torrents.numratings, 1)) AS rating, torrents.comments, torrents.owner, torrents.save_as, torrents.descr, torrents.visible, torrents.size, torrents.added, torrents.views, torrents.hits, torrents.times_completed, torrents.id, torrents.type, torrents.numfiles, torrents.free, categories.name AS cat_name, users.username, freeslots.free AS freeslot, freeslots.double AS doubleslot, freeslots.tid AS slotid, freeslots.uid AS slotuid FROM torrents LEFT JOIN categories ON torrents.category = categories.id LEFT JOIN users ON torrents.owner = users.id LEFT JOIN freeslots ON (torrents.id=freeslots.tid AND freeslots.uid = {$CURUSER['id']}) WHERE torrents.id = $id") or sqlerr();
+$res = mysql_query("SELECT torrents.seeders, torrents.banned, torrents.leechers, torrents.info_hash, torrents.filename, torrents.description, torrents.poster, LENGTH(torrents.nfo) AS nfosz, torrents.last_action AS lastseed, torrents.numratings, torrents.name, IF(torrents.numratings < {$TBDEV['minvotes']}, NULL, ROUND(torrents.ratingsum / torrents.numratings, 1)) AS rating, torrents.comments, torrents.owner, torrents.save_as, torrents.descr, torrents.visible, torrents.size, torrents.added, torrents.views, torrents.hits, torrents.times_completed, torrents.id, torrents.type, torrents.numfiles, torrents.free, categories.name AS cat_name, users.username, freeslots.free AS freeslot, freeslots.double AS doubleslot, freeslots.tid AS slotid, freeslots.uid AS slotuid FROM torrents LEFT JOIN categories ON torrents.category = categories.id LEFT JOIN users ON torrents.owner = users.id LEFT JOIN freeslots ON (torrents.id=freeslots.tid AND freeslots.uid = {$CURUSER['id']}) WHERE torrents.id = $id") or sqlerr();
 $row = mysql_fetch_assoc($res);
 
 $owned = $moderator = 0;
@@ -119,8 +119,9 @@ if (!$row || ($row["banned"] == "yes" && !$moderator))
 		elseif (isset($_GET["rated"]))
 			$HTMLOUT .= "<h2>{$lang['details_rating_added']}</h2>\n";
 
-    $s = htmlentities( $row["name"], ENT_QUOTES );
-		$HTMLOUT .= "<h1>$s</h1>\n";
+$s = htmlentities( $row["name"], ENT_QUOTES );
+$descrs = htmlentities( $row["description"], ENT_QUOTES );
+    $HTMLOUT .= "<h1>$s</h1>\n";
 /** free mod for TBDev 09 by pdq **/
 $clr = '#FF6600'; /// font color	
 $freeimg = '<img src="pic/freedownload.gif" border="0" alt="" />';
@@ -167,6 +168,8 @@ Once chosen this torrent will be Doubleseed '.$doubleimg.' until '.get_date($row
                else {
                $HTMLOUT .= tr("{$lang['details_download']}", "{$lang['details_dloadpos']}");
                     }
+		if (!empty($row["description"]))
+ 			$HTMLOUT .= "<tr><td class='rowhead'>Small Description</td><td width='99' align='left'>$descrs</td></tr>";
 			$HTMLOUT .= "<script type='text/javascript' src='scripts/glossy.js'></script>";
 		if (!empty($row["poster"]))
     			$HTMLOUT .= tr("{$lang['details_poster']}", "<img src='".$row["poster"]."' class='glossy' alt='' />", 1);

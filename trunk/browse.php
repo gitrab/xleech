@@ -16,29 +16,12 @@
 |   $URL$
 +------------------------------------------------
 */
-
-// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
-
-// xLeech .::. browse
-// http://www.cyberfun.ro/
-// http://xList.ro/
-// http://xDnS.ro/
-// http://xLeech.in/
-// Modified By cybernet2u
-
-// xLeech v1.2
-
-// http://xleech-source.co.cc/
-// https://xleech.svn.sourceforge.net/svnroot/xleech
-// http://sourceforge.net/projects/xleech/
-// http://xleech.sourceforge.net/
-
 ob_start("ob_gzhandler");
 
-require_once("include/bittorrent.php");
-require_once "include/user_functions.php";
-require_once "include/torrenttable_functions.php";
-require_once "include/pager_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
+require_once ("include/torrenttable_functions.php");
+require_once ("include/pager_functions.php");
 
 dbconn(false);
 
@@ -129,7 +112,7 @@ loggedinorreturn();
     }
 
     if (count($wherecatina) > 1)
-      $wherecatin = implode(",",$wherecatina);
+      $wherecatin = implode(",", $wherecatina);
     elseif (count($wherecatina) == 1)
       $wherea[] = "category = $wherecatina[0]";
 
@@ -165,7 +148,7 @@ loggedinorreturn();
       $where = "WHERE $where";
 
     $res = mysql_query("SELECT COUNT(*) FROM torrents $where") or die(mysql_error());
-    $row = mysql_fetch_array($res,MYSQL_NUM);
+    $row = mysql_fetch_array($res, MYSQL_NUM);
     $count = $row[0];
 
     if (!$count && isset($cleansearchstr)) 
@@ -193,7 +176,7 @@ loggedinorreturn();
         if ($where != "")
           $where = "WHERE $where";
         $res = mysql_query("SELECT COUNT(*) FROM torrents $where");
-        $row = mysql_fetch_array($res,MYSQL_NUM);
+        $row = mysql_fetch_array($res, MYSQL_NUM);
         $count = $row[0];
       }
     }
@@ -207,7 +190,7 @@ loggedinorreturn();
       //list($pagertop, $pagerbottom, $limit) = pager($torrentsperpage, $count, "browse.php?" . $addparam);
       $pager = pager($torrentsperpage, $count, "browse.php?" . $addparam);
 
-      $query = "SELECT torrents.id, torrents.category, torrents.leechers, torrents.seeders, torrents.name, torrents.times_completed, torrents.size, torrents.added, torrents.type, torrents.free, torrents.comments, torrents.numfiles, torrents.filename, torrents.owner, IF(torrents.nfo <> '', 1, 0) as nfoav," .
+      $query = "SELECT torrents.id, torrents.category, torrents.leechers, torrents.seeders, torrents.name, torrents.times_completed, torrents.size, torrents.added, torrents.type, torrents.free, torrents.comments, torrents.numfiles, torrents.filename, torrents.description, torrents.owner, IF(torrents.nfo <> '', 1, 0) as nfoav," .
     //	"IF(torrents.numratings < {$TBDEV['minvotes']}, NULL, ROUND(torrents.ratingsum / torrents.numratings, 1)) AS rating, categories.name AS cat_name, categories.image AS cat_pic, users.username FROM torrents LEFT JOIN categories ON category = categories.id LEFT JOIN users ON torrents.owner = users.id $where $orderby $limit";
       "categories.name AS cat_name, categories.image AS cat_pic, users.username, freeslots.tid, freeslots.uid, freeslots.free AS freeslot, freeslots.double AS doubleup FROM torrents LEFT JOIN categories ON category = categories.id LEFT JOIN users ON torrents.owner = users.id LEFT JOIN freeslots ON (torrents.id=freeslots.tid AND freeslots.uid={$CURUSER['id']}) $where $orderby {$pager['limit']}";
       $res = mysql_query($query) or die(mysql_error());
@@ -321,7 +304,7 @@ $HTMLOUT .= "<table width='750' class='main' border='0' cellspacing='0' cellpadd
     $catdropdown = "";
     foreach ($cats as $cat) {
         $catdropdown .= "<option value=\"" . $cat["id"] . "\"";
-        $getcat = (isset($_GET["cat"])?$_GET["cat"]:'');
+        $getcat = (isset($_GET["cat"]) ? $_GET["cat"]:'');
         if ($cat["id"] == $getcat)
             $catdropdown .= " selected='selected'";
         $catdropdown .= ">" . htmlspecialchars($cat["name"]) . "</option>\n";

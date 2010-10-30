@@ -66,6 +66,7 @@ loggedinorreturn();
     $fname = $row['filename'];
     preg_match('/^(.+)\.torrent$/si', $fname, $matches);
     $shortfname = $matches[1];
+    $smalldescr = $_POST['description'];
     $dname = $row['save_as'];
 
     $nfoaction = $_POST['nfoaction'];
@@ -87,6 +88,7 @@ $poster = $_POST["poster"];
 $updateset[] = "poster = " . sqlesc($poster);
 
     $updateset[] = "name = " . sqlesc($name);
+    $updateset[] = "description = " . sqlesc($smalldescr);
     $updateset[] = "search_text = " . sqlesc(searchfield("$shortfname $dname $name"));
     $updateset[] = "descr = " . sqlesc($descr);
     $updateset[] = "ori_descr = " . sqlesc($descr);

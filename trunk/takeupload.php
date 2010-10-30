@@ -99,6 +99,7 @@ if (isset($_POST['free_length']) && ($free_length = 0 + $_POST['free_length'])) 
         $free = (time() + $free_length * 604800);
 }
 /// end
+    $smalldescr = unesc($_POST["description"]);
 
     $descr = unesc($_POST["descr"]);
     if (!$descr)
@@ -219,8 +220,8 @@ if (isset($_POST['free_length']) && ($free_length = 0 + $_POST['free_length'])) 
     $torrent = str_replace("_", " ", $torrent);
 
 
-    $ret = mysql_query("INSERT INTO torrents (search_text, filename, poster, owner, visible, info_hash, name, size, numfiles, type, descr, ori_descr, category, free, save_as, added, last_action, nfo, client_created_by) VALUES (" .
-        implode(",", array_map("sqlesc", array(searchfield("$shortfname $dname $torrent"), $fname, $poster, $CURUSER["id"], "no", $infohash, $torrent, $totallen, count($filelist), $type, $descr, $descr, 0 + $_POST["type"], $free, $dname))) .
+    $ret = mysql_query("INSERT INTO torrents (search_text, filename, poster, owner, visible, info_hash, name, size, numfiles, type, description, descr, ori_descr, category, free, save_as, added, last_action, nfo, client_created_by) VALUES (" .
+        implode(",", array_map("sqlesc", array(searchfield("$shortfname $dname $torrent"), $fname, $poster, $CURUSER["id"], "no", $infohash, $torrent, $totallen, count($filelist), $type, $smalldescr, $descr, $descr, 0 + $_POST["type"], $free, $dname))) .
         ", " . time() . ", " . time() . ", $nfo, $tmaker)");
     if (!$ret) {
       if (mysql_errno() == 1062)
@@ -229,7 +230,7 @@ if (isset($_POST['free_length']) && ($free_length = 0 + $_POST['free_length'])) 
     }
     $id = mysql_insert_id();
 
-    $message = "New Torrent : [url={$TBDEV['baseurl']}/details.php?id=$id] " . htmlspecialchars($torrent) . "[/url] Uploaded by " . htmlspecialchars($CURUSER["username"]) . "";
+    $message = "[color=cyan]New Torrent : [url={$TBDEV['baseurl']}/details.php?id=$id] " . htmlspecialchars($torrent) . "[/url] Uploaded by " . htmlspecialchars($CURUSER["username"]) . "[/color]";
 
     @mysql_query("DELETE FROM files WHERE torrent = $id");
 

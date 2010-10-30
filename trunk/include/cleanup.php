@@ -16,24 +16,7 @@
 |   $URL$
 +------------------------------------------------
 */
-
-// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
-
-// xLeech .::. cleanup
-// http://www.cyberfun.ro/
-// http://xList.ro/
-// http://xDnS.ro/
-// http://xLeech.in/
-// Modified By cybernet2u
-
-// xLeech v1.2
-
-// http://xleech-source.co.cc/
-// https://xleech.svn.sourceforge.net/svnroot/xleech
-// http://sourceforge.net/projects/xleech/
-// http://xleech.sourceforge.net/
-
-require_once ("bittorrent.php");
+require_once("bittorrent.php");
 
 function deadtime() {
     global $TBDEV;
@@ -117,7 +100,8 @@ function docleanup() {
 	@mysql_query("UPDATE torrents SET visible='no' WHERE visible='yes' AND last_action < $deadtime");
 
 	$deadtime = time() - $TBDEV['signup_timeout'];
-	@mysql_query("DELETE FROM users WHERE status = 'pending' AND added < $deadtime AND last_login < $deadtime AND last_access < $deadtime");
+//	@mysql_query("DELETE FROM users WHERE status = 'pending' AND added < $deadtime AND last_login < $deadtime AND last_access < $deadtime");
+//	write_log("Torrent {$arr['id']} ({$arr['name']}) was deleted by system (older than $days days)");
 
 	$torrents = array();
 	$res = @mysql_query("SELECT torrent, seeder, COUNT(*) AS c FROM peers GROUP BY torrent, seeder");
@@ -172,14 +156,14 @@ mysql_query("UPDATE `torrents` SET `free` = 0 WHERE `free` > 1 AND `free` < ".TI
 	@mysql_query("DELETE FROM users WHERE status='confirmed' AND class <= $maxclass AND last_access < $dt");
 // delete inactive user accounts / ends
 	// lock topics where last post was made more than x days ago
-/*	$secs = 7*86400;
-	$res = mysql_query("SELECT topics.id FROM topics LEFT JOIN posts ON topics.lastpost = posts.id WHERE topics.locked = 'no' AND topics.sticky = 'no' AND " . gmtime() . " - UNIX_TIMESTAMP(posts.added) > $secs") or sqlerr(__FILE__, __LINE__);
+	$secs = 7 * 86400;
+	$res = mysql_query("SELECT topics.id FROM topics LEFT JOIN posts ON topics.lastpost = posts.id WHERE topics.locked = 'no' AND topics.sticky = 'no' AND " . time() . " - UNIX_TIMESTAMP(posts.added) > $secs") or sqlerr(__FILE__, __LINE__);
   if(mysql_num_rows($res) > 0) {
 	while ($arr = mysql_fetch_assoc($res))
     $pids[] = $arr['id'];
 		mysql_query("UPDATE topics SET locked='yes' WHERE id IN (".join(',', $pids).")") or sqlerr(__FILE__, __LINE__);
   }
-*/  
+ 
 // remove shouts older then 2 days / starts
   $secs = 2 * 86400;
   $dt = sqlesc(time() - $secs);
