@@ -16,7 +16,24 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once "include/bittorrent.php" ;
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. login
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
+require_once ("include/bittorrent.php");
 
     ini_set('session.use_trans_sid', '0');
 
@@ -56,22 +73,6 @@ require_once "include/bittorrent.php" ;
         <td align='left'><input type='password' size='40' name='password' /></td>
       </tr>
     <!--<tr><td class='rowhead'>{$lang['login_duration']}</td><td align='left'><input type='checkbox' name='logout' value='yes' checked='checked' />{$lang['login_15mins']}</td></tr>-->
-      <tr>
-        <td>&nbsp;</td>
-        <td>
-          <div id='captchaimage'>
-          <a href='login.php' onclick=\"refreshimg(); return false;\" title='{$lang['login_refresh']}'>
-          <img class='cimage' src='captcha/GD_Security_image.php?".TIME_NOW."' alt='{$lang['login_captcha']}' />
-          </a>
-          </div>
-         </td>
-      </tr>
-      <tr>
-          <td class='rowhead'>{$lang['login_pin']}</td>
-          <td>
-            <input type='text' maxlength='6' name='captcha' id='captcha' onblur='check(); return false;'/>
-          </td>
-      </tr>
       <tr>
         <td colspan='2' align='center'>
           <input type='submit' value='{$lang['login_login']}' class='btn' />
