@@ -1,9 +1,45 @@
 <?php
-require_once("include/bittorrent.php");
-require_once("include/user_functions.php");
-require_once("include/html_functions.php");
-require_once("include/bbcode_functions.php");
+/*
++------------------------------------------------
+|   TBDev.net BitTorrent Tracker PHP
+|   =============================================
+|   by CoLdFuSiOn
+|   (c) 2003 - 2009 TBDev.Net
+|   http://www.tbdev.net
+|   =============================================
+|   svn: http://sourceforge.net/projects/tbdevnet/
+|   Licence Info: GPL
++------------------------------------------------
+|   $Date$
+|   $Revision$
+|   $Author$
+|   $URL$
++------------------------------------------------
+*/
+
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. credits
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
+require_once ("include/html_functions.php");
+require_once ("include/bbcode_functions.php");
+
 dbconn();
+
 loggedinorreturn();
 
 $lang = array_merge( load_language('global'), load_language('credits') );
@@ -260,4 +296,5 @@ Begin displaying the mods
 	  </table></form>";   
     }
 print stdhead($lang['credits_headers']) . $HTMLOUT . stdfoot();
+
 ?>
