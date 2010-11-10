@@ -16,18 +16,36 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once 'include/bittorrent.php';
-require_once "include/password_functions.php";
 
-    if (!mkglobal('username:password:captcha'))
+// CyBerFuN.ro & xList.ro & xLeech.in & xDNS.ro
+
+// xLeech .::. take login
+// http://www.cyberfun.ro/
+// http://xList.ro/
+// http://xDnS.ro/
+// http://xLeech.in/
+// Modified By cybernet2u
+
+// xLeech v1.2
+
+// http://xleech-source.co.cc/
+// https://xleech.svn.sourceforge.net/svnroot/xleech
+// http://sourceforge.net/projects/xleech/
+// http://xleech.sourceforge.net/
+
+require_once ("include/bittorrent.php");
+require_once ("include/password_functions.php");
+
+    if (!mkglobal('username:password'))
       die();
       
     session_start();
+/*
       if(empty($captcha) || $_SESSION['captcha_id'] != strtoupper($captcha)){
           header('Location: login.php');
           exit();
     }
-
+*/
     dbconn();
     
     $lang = array_merge( load_language('global'), load_language('takelogin') );
