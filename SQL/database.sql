@@ -1,16 +1,16 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.5
+-- version 3.3.8
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Sep 03, 2010 at 07:08 PM
+-- Host: localhost:3306
+-- Generation Time: Nov 23, 2010 at 02:04 PM
 -- Server version: 5.1.41
--- PHP Version: 5.3.2-1ubuntu4.2
+-- PHP Version: 5.3.2-1ubuntu4.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
--- Database: `qty`
+-- Database: `xLeech`
 --
 
 -- --------------------------------------------------------
@@ -367,8 +367,8 @@ CREATE TABLE IF NOT EXISTS `invite_codes` (
   `invite_added` int(10) NOT NULL,
   `status` enum('Pending','Confirmed') NOT NULL DEFAULT 'Pending',
   PRIMARY KEY (`id`),
-  KEY `code` (`code`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `code` (`code`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `invite_codes`
