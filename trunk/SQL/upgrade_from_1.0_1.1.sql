@@ -10,3 +10,6 @@ CREATE TABLE `freeslots` (
   `free` int(10) unsigned NOT NULL default '0',
   UNIQUE KEY `tid_uid` (`tid`,`uid`)
 );
+ALTER TABLE  `invite_codes` ADD UNIQUE (
+`code`
+);
