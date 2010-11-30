@@ -153,7 +153,7 @@ mysql_query("UPDATE `torrents` SET `free` = 0 WHERE `free` > 1 AND `free` < ".TI
 	$secs = 42 * 86400;
 	$dt = (time() - $secs);
 	$maxclass = UC_POWER_USER;
-	@mysql_query("DELETE FROM users WHERE status='confirmed' AND class <= $maxclass AND last_access < $dt");
+//	@mysql_query("DELETE FROM users WHERE status='confirmed' AND class <= $maxclass AND last_access < $dt");
 // delete inactive user accounts / ends
 	// lock topics where last post was made more than x days ago
 	$secs = 7 * 86400;
@@ -263,7 +263,23 @@ mysql_query("UPDATE `torrents` SET `free` = 0 WHERE `free` > 1 AND `free` < ".TI
     @mysql_query("DELETE readposts FROM readposts ".
         "LEFT JOIN posts ON readposts.lastpostread = posts.id ".
         "WHERE posts.added < $dt") or sqlerr(__FILE__,__LINE__);
-
+// delete torrents by ridaz // LoL :))
+	$user_id = 3;
+	$days = 14;
+	$dt = (time() - ($days * 86400));
+	$res = mysql_query("SELECT id, name, owner FROM torrents WHERE last_action < $dt");
+	while ($arr = mysql_fetch_assoc($res))
+	{
+		@unlink("{$TBDEV['torrent_dir']}/{$arr['id']}.torrent");
+		@mysql_query("DELETE FROM torrents WHERE id={$arr['id']}");
+		@mysql_query("DELETE FROM peers WHERE torrent={$arr['id']}");
+		@mysql_query("DELETE FROM comments WHERE torrent={$arr['id']}");
+		@mysql_query("DELETE FROM files WHERE torrent={$arr['id']}");
+		@mysql_query("DELETE FROM snatched WHERE torrentid={$arr['id']}");
+		@mysql_query("DELETE FROM freeslots WHERE tid={$arr['id']}");
+		write_log("Torrent {$arr['id']} ({$arr['name']}) uploaded by {$arr['owner']} was deleted by system (not used for $days days)");
+	}
 }
+
 
 ?>
