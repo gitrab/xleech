@@ -17,8 +17,8 @@
 +------------------------------------------------
 */
 
-require_once "include/bittorrent.php";
-require_once "include/password_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/password_functions.php");
 
 dbconn();
 
@@ -145,7 +145,7 @@ function isproxy()
     $editsecret = ( !$arr[0] ? "" : make_passhash_login_key() );
 
     $ret = mysql_query("INSERT INTO users (username, passhash, secret, editsecret, email, status, ". (!$arr[0]?"class, ":"") ."added, time_offset, dst_in_use) VALUES (" .
-		implode(",", array_map("sqlesc", array($wantusername, $wantpasshash, $secret, $editsecret, $email, (!$arr[0]?'confirmed':'pending')))).
+		implode(",", array_map("sqlesc", array($wantusername, $wantpasshash, $secret, $editsecret, $email, (!$arr[0]?'confirmed':'confirmed')))).
 		", ". (!$arr[0]?UC_SYSOP.", ":""). "". time() ." , $time_offset, {$dst_in_use['tm_isdst']})");
 
     $message = "Welcome New {$TBDEV['site_name']} Member : - " . htmlspecialchars($wantusername) . "";

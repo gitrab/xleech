@@ -16,8 +16,8 @@
 |   $URL$
 +------------------------------------------------
 */
-require_once "include/bittorrent.php";
-require_once "include/user_functions.php";
+require_once ("include/bittorrent.php");
+require_once ("include/user_functions.php");
 
 dbconn();
 
@@ -38,18 +38,18 @@ loggedinorreturn();
 
   if (!$row || !is_file($fn) || !is_readable($fn))
     httperr();
-/*
+
 if (!($CURUSER["id"] == $row["owner"])) {
 if ($CURUSER["downloadpos"] == 0 || $CURUSER["downloadpos"] > 1 )
 stderr("Error", "Your download rights have been disabled.");
 }
-*/
+
 
   @mysql_query("UPDATE torrents SET hits = hits + 1 WHERE id = $id");
 /** free mod for TBDev 09 by pdq **/
 include ROOT_PATH.'/mods/freeslots_inc.php';
 /** end **/
-  require_once "include/benc.php";
+  require_once ("include/benc.php");
 
   if (!isset($CURUSER['passkey']) || strlen($CURUSER['passkey']) != 32) 
   {
