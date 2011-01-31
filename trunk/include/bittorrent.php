@@ -318,6 +318,18 @@ function stdhead($title = "", $msgalert = true) {
     <meta name='MSSmartTagsPreventParsing' content='TRUE' />
     <title>{$title}</title>
     <link rel='stylesheet' href='templates/1/1.css' type='text/css' />
+	<!-- Piwik -->
+<script type=\"text/javascript\">
+var pkBaseURL = ((\"https:\" == document.location.protocol) ? \"https://s.xleech.in/\" : \"http://s.xleech.in/\");
+document.write(unescape(\"%3Cscript src='\" + pkBaseURL + \"piwik.js' type='text/javascript'%3E%3C/script%3E\"));
+</script><script type=\"text/javascript\">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + \"piwik.php\", 2);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src=\"http://s.xleech.in/piwik.php?idsite=2\" style=\"border:0\" alt=\"\" /></p></noscript>
+<!-- End Piwik Tag -->
 	<script type=\"text/javascript\">
 
   var _gaq = _gaq || [];
@@ -415,8 +427,17 @@ function stdfoot() {
   global $TBDEV;
 
     return "\n
-<br /><br /><br /><br /><br />
-<p align='center'><a href='http://validator.w3.org'><img src='{$TBDEV['pic_base_url']}login/xhtml_valid.png' alt='Xhtml valid'/></a>&nbsp;&nbsp;<a href='http://jigsaw.w3.org/css-validator/check/'><img src='{$TBDEV['pic_base_url']}login/css_valid.png' alt='Xhtml valid' /></a>&nbsp;&nbsp;<a href='http://tbdev.net'><img src='{$TBDEV['pic_base_url']}login/tbdev_power.png' alt='TBDEV'/></a>&nbsp;&nbsp;<a href='http://kidvision.me'><img src='{$TBDEV['pic_base_url']}login/kidvision_design.png' alt='Design'/></a></p>\n
+<br /><br /><br /><br />
+<p align='center'><a href='http://validator.w3.org'><img src='{$TBDEV['pic_base_url']}login/xhtml_valid.png' alt='Xhtml valid'/></a>&nbsp;&nbsp;<a href='http://jigsaw.w3.org/css-validator/check/'><img src='{$TBDEV['pic_base_url']}login/css_valid.png' alt='Xhtml valid' /></a>&nbsp;&nbsp;<a href='http://tbdev.net'><img src='{$TBDEV['pic_base_url']}login/tbdev_power.png' alt='TBDEV'/></a>&nbsp;&nbsp;<a href='http://kidvision.me'><img src='{$TBDEV['pic_base_url']}login/kidvision_design.png' alt='Design'/></a>\n<br />
+<a href='http://host-tracker.com/' onMouseOver='this.href=\"http://host-tracker.com/site-uptime-statistics/6009633/lvuc/\";'><img 
+width='88' height='31' border='0' alt='broadband test' 
+src=\"http://ext.host-tracker.com/uptime-img/?s=31&amp;t=6009633&amp;m=00.09&amp;p=Total&amp;src=lvuc\" /></a><noscript><a href='http://host-tracker.com/' >broadband test</a></noscript>\n
+<script type=\"text/javascript\" language=\"javascript\">
+var site_id = 33495;
+var gtopSiteIcon = 3;
+</script>
+<script type=\"text/javascript\" language=\"javascript\" src=\"http://fx.gtop.ro/js/gTOP.js?v=2\"></script>
+<noscript><a href=\"http://www.gtop.ro/\">GTop.ro - GTop.ro, the G-SPOT of web statistics</a></noscript></p>
     </td></tr></table>\n
     </body></html>\n";
 }
@@ -875,7 +896,7 @@ function StatusBar() {
 	global $CURUSER, $TBDEV, $lang;
 	
 	if (!$CURUSER)
-		return "<tr><td colspan='2'>Welcome to {$TBDEV['site_name']}!</td></tr>";
+		return "<td colspan='2'>Welcome to {$TBDEV['site_name']}!</td>";
 
 
 	$upped = mksize($CURUSER['uploaded']);
