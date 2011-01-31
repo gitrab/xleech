@@ -143,7 +143,7 @@ function userlogin() {
     $ip = getip();
 	$nip = ip2long($ip);
 
-    require_once "cache/bans_cache.php";
+    require_once ("cache/bans_cache.php");
     if(count($bans) > 0)
     {
       foreach($bans as $k) {
@@ -160,7 +160,7 @@ function userlogin() {
     $id = 0 + get_mycookie('uid');
     if (!$id || strlen( get_mycookie('pass') ) != 32)
         return;
-    $res = mysql_query("SELECT * FROM users WHERE id = $id AND enabled='yes' AND status = 'confirmed'");// or die(mysql_error());
+    $res = mysql_query("SELECT * FROM users WHERE id = $id AND enabled='yes' AND status = 'confirmed'"); // or die(mysql_error());
     $row = mysql_fetch_assoc($res);
     if (!$row)
         return;
