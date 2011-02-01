@@ -29,8 +29,9 @@
 // xLeech v1.2
 
 // http://xleech-source.co.cc/
-// https://xleech.svn.sourceforge.net/svnroot/xleech
-// http://sourceforge.net/projects/xleech/
+// http://code.google.com/p/xleech/
+// http://code.google.com/p/xleech/source/browse/
+// http://xleech.googlecode.com/svn/
 // http://xleech.sourceforge.net/
 
 error_reporting(0);
