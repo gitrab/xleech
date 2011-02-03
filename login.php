@@ -68,7 +68,6 @@ require_once ("include/bittorrent.php");
         <td class='rowhead'>{$lang['login_password']}</td>
         <td align='left'><input type='password' size='40' name='password' /></td>
       </tr>
-    <!--<tr><td class='rowhead'>{$lang['login_duration']}</td><td align='left'><input type='checkbox' name='logout' value='yes' checked='checked' />{$lang['login_15mins']}</td></tr>-->
       <tr>
         <td colspan='2' align='center'>
           <input type='submit' value='{$lang['login_login']}' class='btn' />
