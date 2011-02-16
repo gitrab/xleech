@@ -364,7 +364,7 @@ function addGlossy() {
 				context.clearRect(0,0,canvas.width,canvas.height);
 			}
 			context.drawImage(image,inset,0,canvas.width-(inset*2),canvas.height-(inset*2));
-			addBright(context,offset+inset,offset,canvas.width-(2*(offset+inset)),(canvas.height/2)-offset,sradius,0.75);
+			/* addBright(context,offset+inset,offset,canvas.width-(2*(offset+inset)),(canvas.height/2)-offset,sradius,0.75); */
 			addDark(context,inset,(canvas.height/2)-inset,canvas.width-(2*inset),(canvas.height/2)-inset,sradius,0.5);
 			addFrame(context,inset,0,canvas.width-(inset*2),canvas.height-(inset*2),radius,0.25)
 			canvas.style.visibility = 'visible';
