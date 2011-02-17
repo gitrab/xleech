@@ -429,9 +429,9 @@ function stdfoot() {
     return "\n
 <br /><br /><br /><br />
 <p align='center'><a href='http://validator.w3.org'><img src='{$TBDEV['pic_base_url']}login/xhtml_valid.png' alt='Xhtml valid'/></a>&nbsp;&nbsp;<a href='http://jigsaw.w3.org/css-validator/check/'><img src='{$TBDEV['pic_base_url']}login/css_valid.png' alt='Xhtml valid' /></a>&nbsp;&nbsp;<a href='http://tbdev.net'><img src='{$TBDEV['pic_base_url']}login/tbdev_power.png' alt='TBDEV'/></a>&nbsp;&nbsp;<a href='http://kidvision.me'><img src='{$TBDEV['pic_base_url']}login/kidvision_design.png' alt='Design'/></a>\n<br />
-<a href='http://host-tracker.com/' onMouseOver='this.href=\"http://host-tracker.com/site-uptime-statistics/6009633/lvuc/\";'><img 
-width='88' height='31' border='0' alt='broadband test' 
-src=\"http://ext.host-tracker.com/uptime-img/?s=31&amp;t=6009633&amp;m=00.09&amp;p=Total&amp;src=lvuc\" /></a><noscript><a href='http://host-tracker.com/' >broadband test</a></noscript>\n
+<a href='http://host-tracker.com/' onMouseOver='this.href=\"http://host-tracker.com/website-uptime-statistics/6685761/ff/\";'><img 
+width='80' height='15' border='0' alt='online tests' 
+src=\"http://ext.host-tracker.com/uptime-img/?s=15&amp;t=6685761&amp;m=0.59&amp;p=Total&amp;src=ff\" /></a><noscript><a href='http://host-tracker.com/' >nslookup</a></noscript>\n
 <script type=\"text/javascript\" language=\"javascript\">
 var site_id = 33495;
 var gtopSiteIcon = 3;
