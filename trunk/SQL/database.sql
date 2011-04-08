@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.8
+-- version 3.3.10
 -- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Nov 23, 2010 at 02:04 PM
+-- Host: localhost
+-- Generation Time: Apr 08, 2011 at 04:53 PM
 -- Server version: 5.1.41
--- PHP Version: 5.3.2-1ubuntu4.5
+-- PHP Version: 5.3.2-1ubuntu4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -20,12 +20,12 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `avps` (
-  `arg` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `value_s` text COLLATE utf8_unicode_ci NOT NULL,
+  `arg` varchar(20) COLLATE utf8_general_ci NOT NULL,
+  `value_s` text COLLATE utf8_general_ci NOT NULL,
   `value_i` int(11) NOT NULL DEFAULT '0',
   `value_u` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`arg`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `avps`
@@ -47,12 +47,12 @@ CREATE TABLE IF NOT EXISTS `bans` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `added` int(11) NOT NULL,
   `addedby` int(10) unsigned NOT NULL DEFAULT '0',
-  `comment` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `comment` varchar(255) COLLATE utf8_general_ci NOT NULL,
   `first` int(11) DEFAULT NULL,
   `last` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `first_last` (`first`,`last`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `bans`
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   `blockid` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `userfriend` (`userid`,`blockid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `blocks`
@@ -86,11 +86,11 @@ CREATE TABLE IF NOT EXISTS `blocks` (
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `cat_desc` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No Description',
+  `name` varchar(30) COLLATE utf8_general_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `cat_desc` varchar(255) COLLATE utf8_general_ci NOT NULL DEFAULT 'No Description',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `categories`
@@ -120,14 +120,14 @@ CREATE TABLE IF NOT EXISTS `cheaters` (
   `added` int(11) NOT NULL,
   `userid` int(10) NOT NULL DEFAULT '0',
   `torrentid` int(10) NOT NULL DEFAULT '0',
-  `client` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `rate` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `beforeup` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `upthis` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `timediff` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `userip` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `client` varchar(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `rate` varchar(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `beforeup` varchar(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `upthis` varchar(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `timediff` varchar(255) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `userip` varchar(15) COLLATE utf8_general_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `cheaters`
@@ -145,14 +145,14 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `user` int(10) unsigned NOT NULL DEFAULT '0',
   `torrent` int(10) unsigned NOT NULL DEFAULT '0',
   `added` int(11) NOT NULL,
-  `text` text COLLATE utf8_unicode_ci NOT NULL,
-  `ori_text` text COLLATE utf8_unicode_ci NOT NULL,
+  `text` text COLLATE utf8_general_ci NOT NULL,
+  `ori_text` text COLLATE utf8_general_ci NOT NULL,
   `editedby` int(10) unsigned NOT NULL DEFAULT '0',
   `editedat` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user` (`user`),
   KEY `torrent` (`torrent`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `comments`
@@ -167,10 +167,10 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 CREATE TABLE IF NOT EXISTS `countries` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `flagpic` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(50) COLLATE utf8_general_ci DEFAULT NULL,
+  `flagpic` varchar(50) COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=101 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=101 ;
 
 --
 -- Dumping data for table `countries`
@@ -287,12 +287,12 @@ INSERT INTO `countries` (`id`, `name`, `flagpic`) VALUES
 CREATE TABLE IF NOT EXISTS `files` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `torrent` int(10) unsigned NOT NULL DEFAULT '0',
-  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `filename` varchar(255) COLLATE utf8_general_ci NOT NULL,
   `size` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `torrent` (`torrent`),
   FULLTEXT KEY `filename` (`filename`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `files`
@@ -308,15 +308,15 @@ CREATE TABLE IF NOT EXISTS `files` (
 CREATE TABLE IF NOT EXISTS `forums` (
   `sort` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(60) COLLATE utf8_general_ci NOT NULL,
+  `description` varchar(200) COLLATE utf8_general_ci DEFAULT NULL,
   `minclassread` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `minclasswrite` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `postcount` int(10) unsigned NOT NULL DEFAULT '0',
   `topiccount` int(10) unsigned NOT NULL DEFAULT '0',
   `minclasscreate` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------
@@ -346,7 +346,7 @@ CREATE TABLE IF NOT EXISTS `friends` (
   `friendid` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `userfriend` (`userid`,`friendid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `friends`
@@ -386,15 +386,15 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `sender` int(10) unsigned NOT NULL DEFAULT '0',
   `receiver` int(10) unsigned NOT NULL DEFAULT '0',
   `added` int(11) NOT NULL,
-  `subject` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No Subject',
-  `msg` text COLLATE utf8_unicode_ci,
-  `unread` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `subject` varchar(30) COLLATE utf8_general_ci NOT NULL DEFAULT 'No Subject',
+  `msg` text COLLATE utf8_general_ci,
+  `unread` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'yes',
   `poster` bigint(20) unsigned NOT NULL DEFAULT '0',
   `location` smallint(6) NOT NULL DEFAULT '1',
-  `saved` enum('no','yes') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `saved` enum('no','yes') COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
   PRIMARY KEY (`id`),
   KEY `receiver` (`receiver`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `messages`
@@ -409,14 +409,14 @@ CREATE TABLE IF NOT EXISTS `messages` (
 
 CREATE TABLE IF NOT EXISTS `modscredits` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `category` enum('Addon','Forum','Message/Email','Display/Style','Staff/Tools','Browse/Torrent/Details','Misc') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Misc',
-  `status` enum('Complete','In-Progress') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Complete',
-  `tbdevlnk` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `credit` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(120) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `category` enum('Addon','Forum','Message/Email','Display/Style','Staff/Tools','Browse/Torrent/Details','Misc') COLLATE utf8_general_ci NOT NULL DEFAULT 'Misc',
+  `status` enum('Complete','In-Progress') COLLATE utf8_general_ci NOT NULL DEFAULT 'Complete',
+  `tbdevlnk` varchar(255) COLLATE utf8_general_ci DEFAULT NULL,
+  `credit` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `description` varchar(120) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `modscredits`
@@ -433,11 +433,11 @@ CREATE TABLE IF NOT EXISTS `news` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL DEFAULT '0',
   `added` int(11) NOT NULL,
-  `body` text COLLATE utf8_unicode_ci NOT NULL,
-  `headline` varchar(150) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'TBDEV.NET News',
+  `body` text COLLATE utf8_general_ci NOT NULL,
+  `headline` varchar(150) COLLATE utf8_general_ci NOT NULL DEFAULT 'TBDEV.NET News',
   PRIMARY KEY (`id`),
   KEY `added` (`added`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `news`
@@ -453,19 +453,19 @@ CREATE TABLE IF NOT EXISTS `news` (
 CREATE TABLE IF NOT EXISTS `peers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `torrent` int(10) unsigned NOT NULL DEFAULT '0',
-  `passkey` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `passkey` varchar(32) COLLATE utf8_general_ci NOT NULL,
   `peer_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `ip` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `ip` varchar(64) COLLATE utf8_general_ci NOT NULL,
   `port` smallint(5) unsigned NOT NULL DEFAULT '0',
   `uploaded` bigint(20) unsigned NOT NULL DEFAULT '0',
   `downloaded` bigint(20) unsigned NOT NULL DEFAULT '0',
   `to_go` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `seeder` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `seeder` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
   `started` int(11) NOT NULL,
   `last_action` int(11) NOT NULL,
-  `connectable` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `connectable` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'yes',
   `userid` int(10) unsigned NOT NULL DEFAULT '0',
-  `agent` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `agent` varchar(60) COLLATE utf8_general_ci NOT NULL,
   `finishedat` int(10) unsigned NOT NULL DEFAULT '0',
   `downloadoffset` bigint(20) unsigned NOT NULL DEFAULT '0',
   `uploadoffset` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -478,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `peers` (
   KEY `userid` (`userid`),
   KEY `passkey` (`passkey`),
   KEY `torrent_connect` (`torrent`,`connectable`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `peers`
@@ -495,9 +495,9 @@ CREATE TABLE IF NOT EXISTS `pmboxes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `boxnumber` tinyint(4) NOT NULL DEFAULT '2',
-  `name` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(15) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `pmboxes`
@@ -515,14 +515,14 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `topicid` int(10) unsigned NOT NULL DEFAULT '0',
   `userid` int(10) unsigned NOT NULL DEFAULT '0',
   `added` int(11) NOT NULL,
-  `body` text COLLATE utf8_unicode_ci,
+  `body` text COLLATE utf8_general_ci,
   `editedby` int(10) unsigned NOT NULL DEFAULT '0',
   `editedat` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `topicid` (`topicid`),
   KEY `userid` (`userid`),
   FULLTEXT KEY `body` (`body`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `posts`
@@ -542,7 +542,7 @@ CREATE TABLE IF NOT EXISTS `readposts` (
   `lastpostread` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `topicid` (`topicid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `readposts`
@@ -559,7 +559,7 @@ CREATE TABLE IF NOT EXISTS `reputation` (
   `reputationid` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `reputation` int(10) NOT NULL DEFAULT '0',
   `whoadded` int(10) NOT NULL DEFAULT '0',
-  `reason` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reason` varchar(250) COLLATE utf8_general_ci DEFAULT NULL,
   `dateadd` int(10) NOT NULL DEFAULT '0',
   `postid` int(10) NOT NULL DEFAULT '0',
   `userid` mediumint(8) NOT NULL DEFAULT '0',
@@ -568,7 +568,7 @@ CREATE TABLE IF NOT EXISTS `reputation` (
   KEY `whoadded` (`whoadded`),
   KEY `multi` (`postid`,`userid`),
   KEY `dateadd` (`dateadd`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `reputation`
@@ -584,10 +584,10 @@ CREATE TABLE IF NOT EXISTS `reputation` (
 CREATE TABLE IF NOT EXISTS `reputationlevel` (
   `reputationlevelid` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `minimumreputation` int(10) NOT NULL DEFAULT '0',
-  `level` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `level` varchar(250) COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`reputationlevelid`),
   KEY `reputationlevel` (`minimumreputation`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `reputationlevel`
@@ -618,11 +618,11 @@ INSERT INTO `reputationlevel` (`reputationlevelid`, `minimumreputation`, `level`
 
 CREATE TABLE IF NOT EXISTS `searchcloud` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `searchedfor` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `searchedfor` varchar(50) COLLATE utf8_general_ci NOT NULL,
   `howmuch` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `searchedfor` (`searchedfor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `searchcloud`
@@ -661,10 +661,10 @@ CREATE TABLE IF NOT EXISTS `shoutbox` (
 CREATE TABLE IF NOT EXISTS `sitelog` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `added` int(11) NOT NULL,
-  `txt` text COLLATE utf8_unicode_ci,
+  `txt` text COLLATE utf8_general_ci,
   PRIMARY KEY (`id`),
   KEY `added` (`added`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `sitelog`
@@ -681,17 +681,17 @@ CREATE TABLE IF NOT EXISTS `snatched` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL DEFAULT '0',
   `torrentid` int(10) unsigned NOT NULL DEFAULT '0',
-  `ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `ip` varchar(15) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `port` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `connectable` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
-  `agent` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `peer_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `connectable` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
+  `agent` varchar(60) COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `peer_id` varchar(20) COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `uploaded` bigint(20) unsigned NOT NULL DEFAULT '0',
   `upspeed` bigint(20) NOT NULL DEFAULT '0',
   `downloaded` bigint(20) unsigned NOT NULL DEFAULT '0',
   `downspeed` bigint(20) NOT NULL DEFAULT '0',
   `to_go` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `seeder` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `seeder` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
   `seedtime` int(11) unsigned NOT NULL DEFAULT '0',
   `leechtime` int(11) unsigned NOT NULL DEFAULT '0',
   `start_date` int(11) NOT NULL,
@@ -700,7 +700,7 @@ CREATE TABLE IF NOT EXISTS `snatched` (
   `timesann` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `tr_usr` (`torrentid`,`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `snatched`
@@ -715,10 +715,10 @@ CREATE TABLE IF NOT EXISTS `snatched` (
 
 CREATE TABLE IF NOT EXISTS `stylesheets` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `uri` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `uri` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(64) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `stylesheets`
@@ -737,11 +737,11 @@ INSERT INTO `stylesheets` (`id`, `uri`, `name`) VALUES
 CREATE TABLE IF NOT EXISTS `topics` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userid` int(10) unsigned NOT NULL DEFAULT '0',
-  `subject` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `locked` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `subject` varchar(40) COLLATE utf8_general_ci DEFAULT NULL,
+  `locked` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
   `forumid` int(10) unsigned NOT NULL DEFAULT '0',
   `lastpost` int(10) unsigned NOT NULL DEFAULT '0',
-  `sticky` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `sticky` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
   `views` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
@@ -749,7 +749,7 @@ CREATE TABLE IF NOT EXISTS `topics` (
   KEY `lastpost` (`lastpost`),
   KEY `locked_sticky` (`locked`,`sticky`),
   KEY `forumid` (`forumid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `topics`
@@ -764,17 +764,17 @@ CREATE TABLE IF NOT EXISTS `topics` (
 
 CREATE TABLE IF NOT EXISTS `torrents` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `info_hash` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `save_as` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `search_text` text COLLATE utf8_unicode_ci NOT NULL,
-  `descr` text COLLATE utf8_unicode_ci NOT NULL,
-  `ori_descr` text COLLATE utf8_unicode_ci NOT NULL,
+  `info_hash` varchar(40) COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `filename` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `save_as` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `search_text` text COLLATE utf8_general_ci NOT NULL,
+  `descr` text COLLATE utf8_general_ci NOT NULL,
+  `ori_descr` text COLLATE utf8_general_ci NOT NULL,
   `category` int(10) unsigned NOT NULL DEFAULT '0',
   `size` bigint(20) unsigned NOT NULL DEFAULT '0',
   `added` int(11) NOT NULL,
-  `type` enum('single','multi') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'single',
+  `type` enum('single','multi') COLLATE utf8_general_ci NOT NULL DEFAULT 'single',
   `numfiles` int(10) unsigned NOT NULL DEFAULT '0',
   `comments` int(10) unsigned NOT NULL DEFAULT '0',
   `views` int(10) unsigned NOT NULL DEFAULT '0',
@@ -783,13 +783,13 @@ CREATE TABLE IF NOT EXISTS `torrents` (
   `leechers` int(10) unsigned NOT NULL DEFAULT '0',
   `seeders` int(10) unsigned NOT NULL DEFAULT '0',
   `last_action` int(11) NOT NULL,
-  `visible` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
-  `banned` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `visible` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'yes',
+  `banned` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
   `owner` int(10) unsigned NOT NULL DEFAULT '0',
   `numratings` int(10) unsigned NOT NULL DEFAULT '0',
   `ratingsum` int(10) unsigned NOT NULL DEFAULT '0',
   `nfo` blob NOT NULL,
-  `client_created_by` char(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'unknown',
+  `client_created_by` char(50) COLLATE utf8_general_ci NOT NULL DEFAULT 'unknown',
   `poster` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'pic/noposter.jpg',
   `free` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -798,7 +798,7 @@ CREATE TABLE IF NOT EXISTS `torrents` (
   KEY `visible` (`visible`),
   KEY `category_visible` (`category`,`visible`),
   FULLTEXT KEY `ft_search` (`search_text`,`ori_descr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `torrents`
@@ -813,49 +813,49 @@ CREATE TABLE IF NOT EXISTS `torrents` (
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `passhash` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `secret` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `passkey` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `email` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `status` enum('pending','confirmed') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending',
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `passhash` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `secret` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `passkey` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `email` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `status` enum('pending','confirmed') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'pending',
   `added` int(11) NOT NULL,
   `last_login` int(11) NOT NULL,
   `last_access` int(11) NOT NULL,
-  `editsecret` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `privacy` enum('strong','normal','low') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'normal',
+  `editsecret` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `privacy` enum('strong','normal','low') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'normal',
   `stylesheet` int(10) DEFAULT '1',
-  `info` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-  `acceptpms` enum('yes','friends','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
-  `ip` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `info` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `acceptpms` enum('yes','friends','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'yes',
+  `ip` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `class` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `language` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'en',
-  `avatar` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `language` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'en',
+  `avatar` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `av_w` smallint(3) unsigned NOT NULL DEFAULT '0',
   `av_h` smallint(3) unsigned NOT NULL DEFAULT '0',
   `uploaded` bigint(20) unsigned NOT NULL DEFAULT '0',
   `downloaded` bigint(20) unsigned NOT NULL DEFAULT '0',
   `title` varchar(30) NOT NULL,
   `country` int(10) unsigned NOT NULL DEFAULT '0',
-  `notifs` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `notifs` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `modcomment` text NOT NULL,
-  `enabled` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
-  `avatars` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
-  `donor` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
-  `warned` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `enabled` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'yes',
+  `avatars` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'yes',
+  `donor` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
+  `warned` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
   `warneduntil` int(11) NOT NULL DEFAULT '0',
   `torrentsperpage` int(3) unsigned NOT NULL DEFAULT '0',
   `topicsperpage` int(3) unsigned NOT NULL DEFAULT '0',
   `postsperpage` int(3) unsigned NOT NULL DEFAULT '0',
-  `deletepms` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
-  `savepms` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `deletepms` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'yes',
+  `savepms` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
   `reputation` int(10) NOT NULL DEFAULT '10',
-  `time_offset` varchar(5) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `time_offset` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0',
   `dst_in_use` tinyint(1) NOT NULL DEFAULT '0',
   `auto_correct_dst` tinyint(1) NOT NULL DEFAULT '1',
   `invites` int(10) unsigned NOT NULL DEFAULT '3',
   `invitedby` int(10) unsigned NOT NULL DEFAULT '0',
-  `invite_rights` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `invite_rights` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'yes',
   `uploadpos` int(11) NOT NULL DEFAULT '1',
   `forumpost` int(11) NOT NULL DEFAULT '1',
   `downloadpos` int(11) NOT NULL DEFAULT '1',
@@ -863,7 +863,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `immunity` int(11) NOT NULL DEFAULT '0',
   `leechwarn` int(11) NOT NULL DEFAULT '0',
   `sendpmpos` int(11) NOT NULL DEFAULT '1',
-  `highspeed` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
+  `highspeed` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
   `show_shout` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'yes',
   `shoutboxbg` enum('1','2','3','4') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '4',
   `smile_until` int(10) NOT NULL DEFAULT '0',
@@ -885,5 +885,3 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Dumping data for table `users`
 --
-
-
