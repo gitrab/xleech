@@ -764,17 +764,17 @@ CREATE TABLE IF NOT EXISTS `topics` (
 
 CREATE TABLE IF NOT EXISTS `torrents` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `info_hash` varchar(40) COLLATE utf8_general_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8_general_ci NOT NULL,
-  `filename` varchar(255) COLLATE utf8_general_ci NOT NULL,
-  `save_as` varchar(255) COLLATE utf8_general_ci NOT NULL,
-  `search_text` text COLLATE utf8_general_ci NOT NULL,
-  `descr` text COLLATE utf8_general_ci NOT NULL,
-  `ori_descr` text COLLATE utf8_general_ci NOT NULL,
+  `info_hash` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `save_as` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `search_text` text COLLATE utf8_unicode_ci NOT NULL,
+  `descr` text COLLATE utf8_unicode_ci NOT NULL,
+  `ori_descr` text COLLATE utf8_unicode_ci NOT NULL,
   `category` int(10) unsigned NOT NULL DEFAULT '0',
   `size` bigint(20) unsigned NOT NULL DEFAULT '0',
   `added` int(11) NOT NULL,
-  `type` enum('single','multi') COLLATE utf8_general_ci NOT NULL DEFAULT 'single',
+  `type` enum('single','multi') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'single',
   `numfiles` int(10) unsigned NOT NULL DEFAULT '0',
   `comments` int(10) unsigned NOT NULL DEFAULT '0',
   `views` int(10) unsigned NOT NULL DEFAULT '0',
@@ -783,22 +783,23 @@ CREATE TABLE IF NOT EXISTS `torrents` (
   `leechers` int(10) unsigned NOT NULL DEFAULT '0',
   `seeders` int(10) unsigned NOT NULL DEFAULT '0',
   `last_action` int(11) NOT NULL,
-  `visible` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'yes',
-  `banned` enum('yes','no') COLLATE utf8_general_ci NOT NULL DEFAULT 'no',
+  `visible` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
+  `banned` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
   `owner` int(10) unsigned NOT NULL DEFAULT '0',
   `numratings` int(10) unsigned NOT NULL DEFAULT '0',
   `ratingsum` int(10) unsigned NOT NULL DEFAULT '0',
   `nfo` blob NOT NULL,
-  `client_created_by` char(50) COLLATE utf8_general_ci NOT NULL DEFAULT 'unknown',
+  `client_created_by` char(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'unknown',
   `poster` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'pic/noposter.jpg',
   `free` int(11) unsigned NOT NULL DEFAULT '0',
+  `description` varchar(120) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `info_hash` (`info_hash`),
   KEY `owner` (`owner`),
   KEY `visible` (`visible`),
   KEY `category_visible` (`category`,`visible`),
   FULLTEXT KEY `ft_search` (`search_text`,`ori_descr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `torrents`
